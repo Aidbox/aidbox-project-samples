@@ -134,7 +134,7 @@ PUT /
   extensionUrl: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
 ```
 
-# Test our example smart application against `Inferno` tests
+# Test our example smart application against `Inferno`
 
 ## Get inferno `validation service`
 
@@ -142,7 +142,6 @@ Clone Inferno into separate directory.
 
 ```
 git clone git@github.com:onc-healthit/inferno-program.git
-
 ```
 
 ## Update `/etc/hosts` file
