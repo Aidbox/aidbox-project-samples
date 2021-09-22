@@ -24,7 +24,6 @@ Add domain `host.docker.internal`.
 
 ```
 127.0.0.1 host.docker.internal
-
 ```
 
 ## Get developer license for you `Aidbox`
@@ -86,7 +85,6 @@ Location: 12
 Organization: 12
 Device: 3
 AllergyIntolerance: 1
-
 ```
 
 
@@ -263,7 +261,6 @@ PUT /
       _id: .role.links.patient.id
   roleName: patient
   id: smart-patient-search-self
-
 ```
 
 
@@ -287,23 +284,3 @@ Running Inferno service is reachable at `http://localhost:4567`.
 
 
 To run tests use `inferno-client` and `inferno-secret` credentials we created for `Inferno` abowe.
-
-
-``` sh
-make build
-```
-
-AIDBOX_ZEN_PROJECT=https://google-storage.com/samurai-files/project.tar.gz
-AIDBOX_ZEN_ENTRY=core
-
-
-## Start your Aidbox
-
-By running the command under your `inferno-compliant-aidbox` folder.
-```
-docker-compose up
-```
-
-Started Aidbox can is reachable at http://localhost:8888
-
-
