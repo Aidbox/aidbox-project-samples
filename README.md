@@ -240,7 +240,7 @@ Run the command under `inferno-program` folder.
 docker-compose up
 ```
 
-Running Inferno service is reachable at `http://localhost:4567`.
+Running Inferno service is reachable at http://localhost:4567.
 
 ### Make Inferno test out example application
 
