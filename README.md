@@ -6,26 +6,6 @@
 git clone git@github.com:Aidbox/inferno-compliant-aidbox.git
 ```
 
-## Get inferno `validation service` locally
-
-```
-git clone git@github.com:onc-healthit/inferno-program.git
-```
-
-Having it done you should have 2 folders:
-
-1. `inferno-compliant-aidbox`
-2. `inferno-program`
-
-
-## Update `/etc/hosts` file
-
-Add domain `host.docker.internal`.
-
-```
-127.0.0.1 host.docker.internal
-```
-
 ## Get developer license for you `Aidbox`
 
 According to the  [instruction](https://docs.aidbox.app/getting-started/installation/setup-aidbox.dev#get-your-license). You should receive `licencer-id` and `licencer-key`.
@@ -86,7 +66,6 @@ Organization: 12
 Device: 3
 AllergyIntolerance: 1
 ```
-
 
 ### Add needed additional resources and policies
 
@@ -153,6 +132,33 @@ PUT /
   type: {id: code, resourceType: Entity}
   isCollection: false
   extensionUrl: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
+```
+
+# Test our example smart application against `Inferno` tests
+
+## Get inferno `validation service`
+
+Clone Inferno into separate directory. 
+
+```
+git clone git@github.com:onc-healthit/inferno-program.git
+
+```
+
+## Update `/etc/hosts` file
+
+Add domain `host.docker.internal`.
+
+```
+127.0.0.1 host.docker.internal
+```
+
+## Create user, client for Inferno
+
+Open REST console http://localhost:8888/ui/console#/rest and fire the request below.
+
+```
+PUT /
 
 # Create App Client
 - resourceType: Client
@@ -167,43 +173,6 @@ PUT /
   grant_types:
     - authorization_code
     - basic
-
-# Create Patient
-- id: pt-1
-  resourceType: Patient
-  gender: male
-  identifier:
-    - value: pt-1
-      system: urn:oms
-  name:
-    - given:
-        - John
-      family: Smith
-  birthDate: "1987-08-26"
-  address:
-    - city: Moscow
-      line:
-        - Presnenskaya naberezhnaya
-      period:
-        start: "2000-06-06"
-      postalCode: "816381"
-      state: Moscow
-  communication:
-    - language:
-        coding:
-          - code: russian
-  telecom:
-    - use: mobile
-      value: "+7 999 999-99-99"
-      system: phone
-  race:
-    text: caucasian
-  birthsex: male
-  ethnicity:
-    text: russian
-  meta:
-    profile:
-      - http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient
 
 # Create User for Patient
 - resourceType: User
@@ -261,26 +230,23 @@ PUT /
       _id: .role.links.patient.id
   roleName: patient
   id: smart-patient-search-self
+
 ```
 
-
 ## Start Inferno validation service
-
 Run the command under `inferno-program` folder.
 
 ```
 docker-compose up
 ```
 
-
 Running Inferno service is reachable at `http://localhost:4567`.
 
+## Make Inferno test out example application
 
-## Try out our example `smart` application
-
-1. Open Inferno application at `http://localhost:4567`
+1. Open Inferno application at http://localhost:4567
 
 2. Put Aidbox SMART FHIR API URL `http://host.docker.internal:8888/smart` to the input and press `Start testing` button
 
 
-To run tests use `inferno-client` and `inferno-secret` credentials we created for `Inferno` abowe.
+To run tests use `inferno-client` and `inferno-secret` credentials we created for `Inferno`.
