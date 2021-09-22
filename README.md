@@ -1,12 +1,12 @@
 # Inferno compliant Aidbox
 
-### Get inferno compliant `aibox` (this repositry)
+### Get inferno compliant Aibox
 
 ```
 git clone git@github.com:Aidbox/inferno-compliant-aidbox.git
 ```
 
-### Get developer license for you `Aidbox`
+### Get developer license for you Aidbox
 
 According to the  [instruction](https://docs.aidbox.app/getting-started/installation/setup-aidbox.dev#get-your-license). You should receive `licencer-id` and `licencer-key`.
 
