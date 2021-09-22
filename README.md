@@ -1,23 +1,23 @@
-# inferno-compliant-aidbox
+# Inferno compliant Aidbox
 
-## Get inferno compliant `aibox` (this repositry)
+### Get inferno compliant `aibox` (this repositry)
 
 ```
 git clone git@github.com:Aidbox/inferno-compliant-aidbox.git
 ```
 
-## Get developer license for you `Aidbox`
+### Get developer license for you `Aidbox`
 
 According to the  [instruction](https://docs.aidbox.app/getting-started/installation/setup-aidbox.dev#get-your-license). You should receive `licencer-id` and `licencer-key`.
 
-Write them to the `inferno-compliant-aidbox/.env` file.
+Write them to the `inferno-compliant-aidbox/.env` file. You can use `.env.tpl` as an example.
 
 ```
 AIDBOX_LICENSE_ID=%licence-id%
 AIDBOX_LICENSE_KEY=$licence-key$
 ```
 
-## Start your Aidbox
+### Start your Aidbox
 
 By running the command under the `inferno-compliant-aidbox` folder.
 
@@ -25,13 +25,13 @@ By running the command under the `inferno-compliant-aidbox` folder.
 docker-compose up
 ```
 
-Started Aidbox is reachable at `http://localhost:8888`.
+Started Aidbox is reachable at http://localhost:8888.
 
-## Fill Aidbox with data
+### Fill Aidbox with data
 
 Open Aidbox REST console http://localhost:8888/ui/console#/rest
 
-### Add community sample data
+#### Add community sample data
 
 Load community sample data by running.
 
@@ -67,7 +67,7 @@ Device: 3
 AllergyIntolerance: 1
 ```
 
-### Add needed additional resources and policies
+#### Add needed additional resources
 
 ```
 PUT /
@@ -134,9 +134,10 @@ PUT /
   extensionUrl: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
 ```
 
-# Test our example smart application against `Inferno`
 
-## Get inferno `validation service`
+## Test our example smart application against `Inferno`
+
+### Get Inferno validation service
 
 Clone Inferno into separate directory. 
 
@@ -144,15 +145,15 @@ Clone Inferno into separate directory.
 git clone git@github.com:onc-healthit/inferno-program.git
 ```
 
-## Update `/etc/hosts` file
+### Update /etc/hosts file
 
-Add domain `host.docker.internal`.
+Add domain `host.docker.internal` to the `/etc/hosts` file.
 
 ```
 127.0.0.1 host.docker.internal
 ```
 
-## Create user, client for Inferno
+### Create user, client and policies for Inferno
 
 Open REST console http://localhost:8888/ui/console#/rest and fire the request below.
 
@@ -229,10 +230,10 @@ PUT /
       _id: .role.links.patient.id
   roleName: patient
   id: smart-patient-search-self
-
 ```
 
-## Start Inferno validation service
+### Start Inferno validation service
+
 Run the command under `inferno-program` folder.
 
 ```
@@ -241,7 +242,7 @@ docker-compose up
 
 Running Inferno service is reachable at `http://localhost:4567`.
 
-## Make Inferno test out example application
+### Make Inferno test out example application
 
 1. Open Inferno application at http://localhost:4567
 
