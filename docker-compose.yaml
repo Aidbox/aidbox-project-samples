@@ -3,6 +3,7 @@ services:
   aidboxdb:
     image: "healthsamurai/aidboxdb:13.2"
     pull_policy: always
+    restart: on-failure:5
     volumes:
     - "./pgdata:/data"
     environment:
@@ -14,6 +15,7 @@ services:
     image: "healthsamurai/devbox:edge"
     pull_policy: always
     depends_on: ["aidboxdb"]
+    restart: on-failure
     ports:
       - "8888:8888"
     env_file:

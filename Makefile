@@ -1,25 +1,20 @@
-CURRENT_PROJECT=$(shell cat )
-
-smart-on-fhir-setup:
-	./scripts/smart-on-fhir-setup.sh
-
-inferno-setup: up
-	./scripts/smart-on-fhir-setup.sh
-
-plannet-setup: up
-	./scripts/plannet-setup.sh
-
 up:
-	docker-compose pull
 	docker-compose up -d
 
 down:
 	docker-compose down -t 0
+
 logs:
 	docker logs -f inferno-compliant-aidbox_devbox_1
 
+pg-logs:
+	docker logs -f inferno-compliant-aidbox_aidboxdb_1
+
 exec:
 	docker exec -ti inferno-compliant-aidbox_devbox_1 bash
+
+pg-exec:
+	docker exec -ti inferno-compliant-aidbox_aidboxdb_1 bash
 
 hosts:
 	scripts/modify-hosts.sh
@@ -27,19 +22,23 @@ hosts:
 build:
 	scripts/build.sh
 
-cleanup: down
+cleanup:
 	rm -rf aidbox-project
 	mkdir aidbox-project
-	sudo rm -rf pgdata
+	rm -rf pgdata
 
-plannet:
+plannet-setup:
 	make down
 	make cleanup
-	make up
-	make plannet-setup
+	./scripts/install-aidbox-project.sh plannet
+	docker-compose pull
+	docker-compose up -d
+	./scripts/plannet-setup.sh
 
-inferno:
+inferno-setup:
 	make down
 	make cleanup
-	make up
-	make inferno-setup
+	./scripts/install-aidbox-project.sh smart-on-fhir
+	docker-compose pull
+	docker-compose up -d
+	./scripts/smart-on-fhir-setup.sh

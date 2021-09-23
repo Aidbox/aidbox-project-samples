@@ -6,8 +6,8 @@ healthcheck_status() { curl 'http://localhost:8888/__healthcheck' -s -o /dev/nul
 
 while [ "$(healthcheck_status)" != 200 ]
 do
-    echo localhost:8888 unhealthy
-    sleep 1
+    echo Waiting for Aidbox start
+    sleep 3
 done
 
 echo localhost:8888 healthy

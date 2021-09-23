@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/Aidbox/inferno-compliant-aidbox#readme",
   "dependencies": {
-    "@zen-lang/hl7-fhir-r4-core": "^0.2.8",
-    "@zen-lang/hl7-fhir-us-core": "^0.2.8"
+    "@zen-lang/hl7-fhir-r4-core": "^0.2.8-3",
+    "@zen-lang/hl7-fhir-us-core": "^0.2.8-3"
   }
 }

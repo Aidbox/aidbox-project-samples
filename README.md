@@ -36,5 +36,4 @@ make plannet-setup
 
 todo:
 - load touchstone's fixtures
-- cleanup current db (should we drop whole db instance?). docker-compose down && rm -rf pgdata && docker-compose up && make ...-setup
 - update logic
