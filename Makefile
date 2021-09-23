@@ -3,6 +3,9 @@
 smart-on-fhir-setup:
 	./scripts/smart-on-fhir-setup.sh
 
+plannet-setup:
+	./scripts/plannet-setup.sh
+
 up:
 	docker-compose up -d
 

@@ -27,5 +27,6 @@ services:
       AIDBOX_ZEN_ENTRY: "core"
       AIDBOX_ZEN_DEV_MODE: "ok"
       AIDBOX_BASE_URL: "http://host.docker.internal:8888"
+      AIDBOX_COMPLIANCE: "enabled" # NOTE: remove it when constructor api generates compliant capabilitystatement
     volumes:
       - "./aidbox-project:/aidbox-project"

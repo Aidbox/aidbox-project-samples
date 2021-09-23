@@ -8,7 +8,6 @@
 # Smart on FHIR Aidbox Installation
 
 ``` sh
-make up
 make smart-on-fhir-setup
 ```
 
@@ -32,7 +31,10 @@ Once you started Limited App test, inferno will redirect you to a consent form, 
 # PDEX PlanNet Aidbox Installation
 
 ``` sh
-make up
 make plannet-setup
 ```
 
+todo:
+- load touchstone's fixtures
+- cleanup current db (should we drop whole db instance?). docker-compose down && rm -rf pgdata && docker-compose up && make ...-setup
+- update logic
