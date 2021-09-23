@@ -1,9 +1,8 @@
 version: '3.7'
 services:
-  aidbox-db:
-    image: "${PGIMAGE}"
-    ports:
-      - "${PGHOSTPORT}:${PGPORT}"
+  aidboxdb:
+    image: "healthsamurai/aidboxdb:13.2"
+    pull_policy: always
     volumes:
     - "./pgdata:/data"
     environment:
@@ -11,20 +10,22 @@ services:
       POSTGRES_PASSWORD: "${PGPASSWORD}"
       POSTGRES_DB:       "${PGDATABASE}"
 
-  aidbox:
-    image: "${AIDBOX_IMAGE}"
-    depends_on: ["aidbox-db"]
-    links:
-      - "aidbox-db:database"
+  devbox:
+    image: "healthsamurai/devbox:edge"
+    pull_policy: always
+    depends_on: ["aidboxdb"]
     ports:
-      - "${AIDBOX_PORT}:${AIDBOX_PORT}"
+      - "8888:8888"
     env_file:
       - .env
     environment:
-      PGHOST: database
+      PGHOST: "aidboxdb"
+      PGPORT: "5432"
+      AIDBOX_PORT: "8888"
+      AIDBOX_FHIR_VERSION: "4.0.1"
       AIDBOX_ZEN_PROJECT: "/aidbox-project"
       AIDBOX_ZEN_ENTRY: "core"
-      AIDBOX_ZEN_DEV_MODE: "enabled"
+      AIDBOX_ZEN_DEV_MODE: "ok"
       AIDBOX_BASE_URL: "http://host.docker.internal:8888"
     volumes:
       - "./aidbox-project:/aidbox-project"

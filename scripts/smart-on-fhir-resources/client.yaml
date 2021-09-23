@@ -1,0 +1,13 @@
+# Create App Client
+- resourceType: Client
+  id: inferno-client
+  secret: inferno-secret
+  auth:
+    authorization_code:
+      redirect_uri: http://localhost:4567/inferno/oauth2/static/redirect
+      refresh_token: true
+      secret_required: true
+      access_token_expiration: 36000
+  grant_types:
+    - authorization_code
+    - basic

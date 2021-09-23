@@ -1,0 +1,21 @@
+- resourceType: Patient
+  id: pt-1
+  name:
+  - given: [Smith]
+    family: Tacker
+
+# User for Patient
+- resourceType: User
+  id: inferno-patient-user
+  password: pass
+
+# Bind patient user and patient
+- resourceType: Role
+  user:
+    id: inferno-patient-user
+    resourceType: User
+  name: patient
+  links:
+    patient:
+      id: pt-1
+      resourceType: Patient

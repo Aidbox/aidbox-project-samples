@@ -1,252 +1,38 @@
 # Inferno compliant Aidbox
 
-### Get inferno compliant Aibox
+# Prerequisites
 
-```
-git clone git@github.com:Aidbox/inferno-compliant-aidbox.git
-```
+1. Docker & Docker Compose
+2. npm
 
-### Get developer license for you Aidbox
+# Smart on FHIR Aidbox Installation
 
-According to the  [instruction](https://docs.aidbox.app/getting-started/installation/setup-aidbox.dev#get-your-license). You should receive `licencer-id` and `licencer-key`.
-
-Write them to the `inferno-compliant-aidbox/.env` file. You can use `.env.tpl` as an example.
-
-```
-AIDBOX_LICENSE_ID=%licence-id%
-AIDBOX_LICENSE_KEY=$licence-key$
+``` sh
+make up
+make smart-on-fhir-setup
 ```
 
-### Start your Aidbox
+## Run Inferno Tests
 
-By running the command under the `inferno-compliant-aidbox` folder.
+1. Clone [onc-healthit/inferno-program](https://github.com/onc-healthit/inferno-program) repo and start it with `docker-compose up -d`. Check that it has started on `http://localhost:4567`
+2. Add domain `127.0.0.1 host.docker.internal` to the `/etc/hosts` file. And check that Aidbox works on this host `http://host.docker.internal:8888`
+6. Open Inferno application at http://localhost:4567
 
-```
-docker-compose up
-```
-
-Started Aidbox is reachable at http://localhost:8888.
-
-### Fill Aidbox with data
-
-Open Aidbox REST console http://localhost:8888/ui/console#/rest
-
-#### Add community sample data
-
-Load community sample data by running.
-
-```
-POST /fhir/$load
-
-source: https://storage.googleapis.com/aidbox-public/inferno/inferno-community-fixtures.ndjson.gz
-```
-
-You should receive 200 status and the list of imported resources.
-
-```
-CarePlan: 15
-Observation: 133
-Group: 1
-Goal: 1
-DocumentReference: 99
-PractitionerRole: 12
-Patient: 5
-DiagnosticReport: 102
-Provenance: 5
-Practitioner: 12
-Immunization: 75
-MedicationRequest: 75
-Encounter: 178
-Medication: 1
-Condition: 36
-CareTeam: 15
-Procedure: 78
-Location: 12
-Organization: 12
-Device: 3
-AllergyIntolerance: 1
-```
-
-#### Add needed additional resources
-
-```
-PUT /
-
-# Create FHIR extensions
-## US-Core race extension
-- resourceType: Attribute
-  id: Patient.race
-  path: ['race']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  extensionUrl: 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race'
-- resourceType: Attribute
-  id: Patient.race.text
-  path: ['race', 'text']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'string', resourceType: 'Entity'}
-  extensionUrl: text
-- resourceType: Attribute
-  id: Patient.race.category
-  path: ['race', 'category']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'Coding', resourceType: 'Entity'}
-  extensionUrl: ombCategory
-- resourceType: Attribute
-  id: Patient.race.detailed
-  path: ['race', 'detailed']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'Coding', resourceType: 'Entity'}
-  extensionUrl: detailed
-
-## US-Core ethnicity extension
-- resourceType: Attribute
-  id: Patient.ethnicity
-  path: ['ethnicity']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  extensionUrl: 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity'
-- resourceType: Attribute
-  id: Patient.ethnicity.ombCategory
-  path: ['ethnicity', 'ombCategory']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'Coding', resourceType: 'Entity'}
-  extensionUrl: ombCategory
-- resourceType: Attribute
-  id: Patient.ethnicity.detailed
-  path: ['ethnicity', 'detailed']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'Coding', resourceType: 'Entity'}
-  extensionUrl: detailed
-- resourceType: Attribute
-  id: Patient.ethnicity.text
-  path: ['ethnicity', 'text']
-  resource: {id: 'Patient', resourceType: 'Entity'}
-  type: {id: 'string', resourceType: 'Entity'}
-  extensionUrl: text
-
-## US Core birthsex extension
-- resourceType: Attribute
-  description: "A code classifying the person's sex assigned at birth as specified by the Office of the National Coordinator for Health IT (ONC)"
-  resource: {id: Patient, resourceType: Entity}
-  path: [birthsex]
-  id: Patient.birthsex
-  type: {id: code, resourceType: Entity}
-  isCollection: false
-  extensionUrl: "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
-```
-
-
-## Test our example smart application against `Inferno`
-
-### Get Inferno validation service
-
-Clone Inferno into separate directory. 
-
-```
-git clone git@github.com:onc-healthit/inferno-program.git
-```
-
-### Update /etc/hosts file
-
-Add domain `host.docker.internal` to the `/etc/hosts` file.
-
-```
-127.0.0.1 host.docker.internal
-```
-
-### Create user, client and policies for Inferno
-
-Open REST console http://localhost:8888/ui/console#/rest and fire the request below.
-
-```
-PUT /
-
-# Create App Client
-- resourceType: Client
-  id: inferno-client
-  secret: inferno-secret
-  auth:
-    authorization_code:
-      redirect_uri: http://localhost:4567/inferno/oauth2/static/redirect
-      refresh_token: true
-      secret_required: true
-      access_token_expiration: 36000
-  grant_types:
-    - authorization_code
-    - basic
-
-# Create User for Patient
-- resourceType: User
-  id: inferno-patient-user
-  password: pass
-
-# Bind admin user and Patient
-- resourceType: Role
-  user:
-    id: admin
-    resourceType: User
-  name: patient
-  links:
-    patient:
-      id: pt-1
-      resourceType: Patient
-
-# Bind patient user and patient
-- resourceType: Role
-  user:
-    id: inferno-patient-user
-    resourceType: User
-  name: patient
-  links:
-    patient:
-      id: pt-1
-      resourceType: Patient
-
-# Allow patients to search resources linked with them
-- resourceType: AccessPolicy
-  engine: matcho
-  matcho:
-    uri: '#/smart/.*'
-    params:
-      patient: .role.links.patient.id
-  roleName: patient
-  id: patient-smart
-
-# Allow patients to read their info
-- resourceType: AccessPolicy
-  engine: matcho
-  matcho:
-    uri: '#/smart/Patient/.*'
-    params:
-      id: .role.links.patient.id
-  roleName: patient
-  id: smart-patient-read
-
-# Allow patients to read their info
-- resourceType: AccessPolicy
-  engine: matcho
-  matcho:
-    uri: '#/smart/Patient'
-    params:
-      _id: .role.links.patient.id
-  roleName: patient
-  id: smart-patient-search-self
-```
-
-### Start Inferno validation service
-
-Run the command under `inferno-program` folder.
-
-```
-docker-compose up
-```
-
-Running Inferno service is reachable at http://localhost:4567.
-
-### Make Inferno test out example application
-
-1. Open Inferno application at http://localhost:4567
-
-2. Put Aidbox SMART FHIR API URL `http://host.docker.internal:8888/smart` to the input and press `Start testing` button
-
+### STANDALONE PATIENT APP
 
 To run tests use `inferno-client` and `inferno-secret` credentials we created for `Inferno`.
+
+### LIMITED APP
+
+Before running limited app test you have to revoke grant, provided on previous test run. Go to `http://localhost:8888/auth/grants` and revoke the only grant.
+
+Once you started Limited App test, inferno will redirect you to a consent form, you have to provide there next scope `launch/patient openid fhirUser offline_access patient/Condition.read patient/Patient.read patient/Observation.read`
+
+
+# PDEX PlanNet Aidbox Installation
+
+``` sh
+make up
+make plannet-setup
+```
+
