@@ -1,0 +1,13 @@
+# Based on https://github.com/microsoft/fhir-server which is licensed under the MIT license
+
+{
+  "type": "transaction",
+  "entry": [
+    {
+      "request": {
+        "method": "DELETE",
+        "url": "/HealthcareService/CancerClinicService"
+      }
+    }
+  ]
+}
