@@ -1,112 +1,148 @@
-- resourceType: Attribute
-  id: HealthcareService.DeliveryMethod
-  path: ['deliverymethod']
-  isCollection: true
-  resource: {id: 'HealthcareService', resourceType: 'Entity'}
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/delivery-method
-- resourceType: Attribute
-  id: HealthcareService.DeliveryMethod.type
-  path: ['deliverymethod', 'type']
-  resource: {id: 'HealthcareService', resourceType: 'Entity'}
-  type: {id: 'CodeableConcept', resourceType: 'Entity'}
-  extensionUrl: type
+# - resourceType: Attribute
+#   id: HealthcareService.DeliveryMethod
+#   path: ['deliverymethod']
+#   isCollection: true
+#   resource: {id: 'HealthcareService', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/delivery-method
+# - resourceType: Attribute
+#   id: HealthcareService.DeliveryMethod.type
+#   path: ['deliverymethod', 'type']
+#   resource: {id: 'HealthcareService', resourceType: 'Entity'}
+#   type: {id: 'CodeableConcept', resourceType: 'Entity'}
+#   extensionUrl: type
 
-- resourceType: Attribute
-  id: Location.telecom.contactpoint-availabletime
-  path: ['telecom', 'contactpoint-availabletime']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  isCollection: true
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/contactpoint-availabletime
-- resourceType: Attribute
-  id: Location.telecom.contactpoint-availabletime.daysOfWeek
-  path: ['telecom', 'contactpoint-availabletime', 'daysOfWeek']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  type: {id: 'code', resourceType: 'Entity'}
-  isCollection: true
-  extensionUrl: daysOfWeek
-- resourceType: Attribute
-  id: Location.telecom.contactpoint-availabletime.availableStartTime
-  path: ['telecom', 'contactpoint-availabletime', 'availableStartTime']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  type: {id: 'time', resourceType: 'Entity'}
-  extensionUrl: availableStartTime
-- resourceType: Attribute
-  id: Location.telecom.contactpoint-availabletime.availableEndTime
-  path: ['telecom', 'contactpoint-availabletime', 'availableEndTime']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  type: {id: 'time', resourceType: 'Entity'}
-  extensionUrl: availableEndTime
-- resourceType: Attribute
-  id: Location.telecom.contactpoint-availabletime.allDay
-  path: ['telecom', 'contactpoint-availabletime', 'allDay']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  type: {id: 'boolean', resourceType: 'Entity'}
-  extensionUrl: allDay
+# - resourceType: Attribute
+#   id: Location.telecom.contactpoint-availabletime
+#   path: ['telecom', 'contactpoint-availabletime']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   isCollection: true
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/contactpoint-availabletime
+# - resourceType: Attribute
+#   id: Location.telecom.contactpoint-availabletime.daysOfWeek
+#   path: ['telecom', 'contactpoint-availabletime', 'daysOfWeek']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   type: {id: 'code', resourceType: 'Entity'}
+#   isCollection: true
+#   extensionUrl: daysOfWeek
+# - resourceType: Attribute
+#   id: Location.telecom.contactpoint-availabletime.availableStartTime
+#   path: ['telecom', 'contactpoint-availabletime', 'availableStartTime']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   type: {id: 'time', resourceType: 'Entity'}
+#   extensionUrl: availableStartTime
+# - resourceType: Attribute
+#   id: Location.telecom.contactpoint-availabletime.availableEndTime
+#   path: ['telecom', 'contactpoint-availabletime', 'availableEndTime']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   type: {id: 'time', resourceType: 'Entity'}
+#   extensionUrl: availableEndTime
+# - resourceType: Attribute
+#   id: Location.telecom.contactpoint-availabletime.allDay
+#   path: ['telecom', 'contactpoint-availabletime', 'allDay']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   type: {id: 'boolean', resourceType: 'Entity'}
+#   extensionUrl: allDay
 
-- resourceType: Attribute
-  id: Organization.telecom.contactpoint-availabletime
-  path: ['telecom', 'contactpoint-availabletime']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  isCollection: true
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/contactpoint-availabletime
-- resourceType: Attribute
-  id: Organization.telecom.contactpoint-availabletime.daysOfWeek
-  path: ['telecom', 'contactpoint-availabletime', 'daysOfWeek']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  type: {id: 'code', resourceType: 'Entity'}
-  isCollection: true
-  extensionUrl: daysOfWeek
-- resourceType: Attribute
-  id: Organization.telecom.contactpoint-availabletime.availableStartTime
-  path: ['telecom', 'contactpoint-availabletime', 'availableStartTime']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  type: {id: 'time', resourceType: 'Entity'}
-  extensionUrl: availableStartTime
-- resourceType: Attribute
-  id: Organization.telecom.contactpoint-availabletime.availableEndTime
-  path: ['telecom', 'contactpoint-availabletime', 'availableEndTime']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  type: {id: 'time', resourceType: 'Entity'}
-  extensionUrl: availableEndTime
-- resourceType: Attribute
-  id: Organization.telecom.contactpoint-availabletime.allDay
-  path: ['telecom', 'contactpoint-availabletime', 'allDay']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  type: {id: 'boolean', resourceType: 'Entity'}
-  extensionUrl: allDay
+# - resourceType: Attribute
+#   id: Organization.telecom.contactpoint-availabletime
+#   path: ['telecom', 'contactpoint-availabletime']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   isCollection: true
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/contactpoint-availabletime
+# - resourceType: Attribute
+#   id: Organization.telecom.contactpoint-availabletime.daysOfWeek
+#   path: ['telecom', 'contactpoint-availabletime', 'daysOfWeek']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   type: {id: 'code', resourceType: 'Entity'}
+#   isCollection: true
+#   extensionUrl: daysOfWeek
+# - resourceType: Attribute
+#   id: Organization.telecom.contactpoint-availabletime.availableStartTime
+#   path: ['telecom', 'contactpoint-availabletime', 'availableStartTime']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   type: {id: 'time', resourceType: 'Entity'}
+#   extensionUrl: availableStartTime
+# - resourceType: Attribute
+#   id: Organization.telecom.contactpoint-availabletime.availableEndTime
+#   path: ['telecom', 'contactpoint-availabletime', 'availableEndTime']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   type: {id: 'time', resourceType: 'Entity'}
+#   extensionUrl: availableEndTime
+# - resourceType: Attribute
+#   id: Organization.telecom.contactpoint-availabletime.allDay
+#   path: ['telecom', 'contactpoint-availabletime', 'allDay']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   type: {id: 'boolean', resourceType: 'Entity'}
+#   extensionUrl: allDay
 
-- resourceType: Attribute
-  id: Organization.org-description
-  path: ['org-description']
-  resource: {id: 'Organization', resourceType: 'Entity'}
-  type: {id: 'string', resourceType: 'Entity'}
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/org-description
+# - resourceType: Attribute
+#   id: Organization.org-description
+#   path: ['org-description']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   type: {id: 'string', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/org-description
 
-- resourceType: Attribute
-  id: Endpoint.endpoint-usecase
-  path: ['endpoint-usecase']
-  resource: {id: 'Endpoint', resourceType: 'Entity'}
-  isCollection: true
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/endpoint-usecase
-- resourceType: Attribute
-  id: Endpoint.endpoint-usecase.type
-  path: ['endpoint-usecase', 'type']
-  resource: {id: 'Endpoint', resourceType: 'Entity'}
-  type: {id: 'CodeableConcept', resourceType: 'Entity'}
-  extensionUrl: type
+# - resourceType: Attribute
+#   id: Endpoint.endpoint-usecase
+#   path: ['endpoint-usecase']
+#   resource: {id: 'Endpoint', resourceType: 'Entity'}
+#   isCollection: true
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/endpoint-usecase
+# - resourceType: Attribute
+#   id: Endpoint.endpoint-usecase.type
+#   path: ['endpoint-usecase', 'type']
+#   resource: {id: 'Endpoint', resourceType: 'Entity'}
+#   type: {id: 'CodeableConcept', resourceType: 'Entity'}
+#   extensionUrl: type
 
-- resourceType: Attribute
-  id: Location.accessibility
-  path: ['accessibility']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  isCollection: true
-  type: {id: 'CodeableConcept', resourceType: 'Entity'}
-  extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/accessibility
+# - resourceType: Attribute
+#   id: Location.accessibility
+#   path: ['accessibility']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   isCollection: true
+#   type: {id: 'CodeableConcept', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/accessibility
 
-- resourceType: Attribute
-  id: Location.region
-  path: ['region']
-  resource: {id: 'Location', resourceType: 'Entity'}
-  isCollection: true
-  type: {id: 'Attachment', resourceType: 'Entity'}
-  extensionUrl: http://hl7.org/fhir/StructureDefinition/location-boundary-geojson
+# - resourceType: Attribute
+#   id: Location.region
+#   path: ['region']
+#   resource: {id: 'Location', resourceType: 'Entity'}
+#   isCollection: true
+#   type: {id: 'Attachment', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/StructureDefinition/location-boundary-geojson
+
+# - resourceType: Attribute
+#   id: Organization.contact.telecom.via-intermediary
+#   path: ['contact', 'telecom', 'via-intermediary']
+#   resource: {id: 'Organization', resourceType: 'Entity'}
+#   isCollection: true
+#   type: {id: 'Reference', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/via-intermediary
+
+# - resourceType: Attribute
+#   id: Practitioner.qualification.practitioner-qualification
+#   path: ['qualification', 'practitioner-qualification']
+#   resource: {id: 'Practitioner', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/practitioner-qualification
+# - resourceType: Attribute
+#   id: Practitioner.qualification.practitioner-qualification.status
+#   path: ['qualification', 'practitioner-qualification', 'status']
+#   resource: {id: 'Practitioner', resourceType: 'Entity'}
+#   type: {id: 'code', resourceType: 'Entity'}
+#   extensionUrl: status
+# - resourceType: Attribute
+#   id: Practitioner.qualification.practitioner-qualification.whereValid
+#   path: ['qualification', 'practitioner-qualification', 'whereValid']
+#   resource: {id: 'Practitioner', resourceType: 'Entity'}
+#   isCollection: true
+#   union: [{id: 'CodeableConcept', resourceType: 'Entity'}]
+#   extensionUrl: whereValid
+
+
+# - resourceType: Attribute
+#   id: PractitionerRole.network-reference
+#   path: ['network-reference']
+#   resource: {id: 'PractitionerRole', resourceType: 'Entity'}
+#   isCollection: true
+#   type: {id: 'Reference', resourceType: 'Entity'}
+#   extensionUrl: http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/network-reference
