@@ -29,7 +29,7 @@ curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
 mkdir -p aidbox-project
 
 cp -R aidbox-project-samples/plannet/. aidbox-project
-cd aidbox-project && pwd && ls && npm install
+cd aidbox-project && npm install
 
 echo 'plannet' > './.type'
 # check that there are no errors in zen config
