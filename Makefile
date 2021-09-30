@@ -42,3 +42,6 @@ inferno-setup:
 	docker-compose pull
 	docker-compose up -d
 	./scripts/smart-on-fhir-setup.sh
+
+cloud-load-plannet:
+	./scripts/plannet-data-load.sh

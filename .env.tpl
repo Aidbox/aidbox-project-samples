@@ -1,6 +1,8 @@
 AIDBOX_LICENSE_ID=
 AIDBOX_LICENSE_KEY=
 
+AIDBOX_BASE_URL=http://host.docker.internal:8888
+
 # Client to create on start up
 AIDBOX_CLIENT_ID=root
 AIDBOX_CLIENT_SECRET=secret
