@@ -1,5 +1,6 @@
 {ns core
  import #{zenbox
+          aidbox.auth
           hl7-fhir-r4-core
           hl7-fhir-us-core}
 
@@ -7,10 +8,14 @@
  {:zen/tags #{zenbox/api}
   "smart" {:apis #{smart-api}}}
 
+ grant-lookup-method
+ {:zen/tags #{aidbox.auth/grant-lookup}
+  :method aidbox.auth/single-patient-grant-lookup}
+
  smart-api
  {:zen/tags #{zenbox/api}
 
-  :middlewares [:smart.fhir/authorization-middleware]
+  :middlewares [:smart.fhir/single-patient-auth-middleware]
 
   ".well-known" {"smart-configuration" {:GET {:action :smart.fhir/smart-configuration
                                               :public true}}}
