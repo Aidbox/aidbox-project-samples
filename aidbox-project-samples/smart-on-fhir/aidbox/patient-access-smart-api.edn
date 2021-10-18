@@ -1,12 +1,6 @@
 {ns aidbox.patient-access-smart-api
  import #{zenbox
-          aidbox.auth
-          hl7-fhir-r4-core
-          hl7-fhir-us-core}
-
- root-api
- {:zen/tags #{zenbox/api}
-  "smart" {:apis #{smart-api}}}
+          aidbox.auth}
 
  grant-lookup-method
  {:zen/tags #{aidbox.auth/grant-lookup}
@@ -344,7 +338,4 @@
                                            :_limit {}}}}
                 [:id] {:GET {:action :smart.fhir/read
                              :resource/type "Provenance"}}}}
-
-
-
  }
