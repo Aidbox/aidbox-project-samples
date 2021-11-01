@@ -8,6 +8,9 @@
 - resourceType: User
   id: inferno-patient-user
   password: pass
+  fhirUser:
+    id: pt-1
+    resourceType: Patient
 
 # Bind patient user and patient
 - resourceType: Role

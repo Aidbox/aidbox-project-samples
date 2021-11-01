@@ -35,7 +35,7 @@ plannet-setup:
 	docker-compose up -d
 	./scripts/plannet-setup.sh
 
-inferno-setup:
+smart-on-fhir-setup:
 	make down
 	make cleanup
 	./scripts/install-aidbox-project.sh smart-on-fhir

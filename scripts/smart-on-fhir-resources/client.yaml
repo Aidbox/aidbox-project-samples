@@ -1,13 +1,33 @@
 # Create App Client
-- resourceType: Client
+
+# Inferno ONC Program
+- resourcetype: Client
   id: inferno-client
   secret: inferno-secret
   auth:
     authorization_code:
-      redirect_uri: http://localhost:4567/inferno/oauth2/static/redirect
+      redirect_uri: https://inferno.healthit.gov/inferno/oauth2/static/redirect
       refresh_token: true
       secret_required: true
       access_token_expiration: 36000
+  smart:
+    launch_uri: https://inferno.healthit.gov/inferno/oauth2/static/launch
+  grant_types:
+    - authorization_code
+    - basic
+
+# Inferno Community
+- resourcetype: Client
+  id: inferno-community-client
+  secret: inferno-secret
+  auth:
+    authorization_code:
+      redirect_uri: https://inferno.healthit.gov/community/oauth2/static/redirect
+      refresh_token: true
+      secret_required: true
+      access_token_expiration: 36000
+  smart:
+    launch_uri: https://inferno.healthit.gov/community/oauth2/static/launch
   grant_types:
     - authorization_code
     - basic

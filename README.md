@@ -1,31 +1,63 @@
-# Inferno compliant Aidbox
+# Conformant Aidbox samples
 
-# Prerequisites
+## Prerequisites
 
 1. Docker & Docker Compose
 2. npm
 
-# Smart on FHIR Aidbox Installation
+## Smart on FHIR Aidbox Installation
+This section describes how to prepare Aidbox for running [Inferno tests](https://inferno.healthit.gov/)
 
+Copy `.env.tpl` file to `.env` and fill in your `AIDBOX_LICENSE_ID` and `AIDBOX_LICENSE_KEY`.
+
+Run
 ``` sh
 make smart-on-fhir-setup
 ```
+to initialize Aidbox, load the data neccessary for tests, and start it.
 
-## Run Inferno Tests
+Forward your Aidbox instance to the internet. You can use services like [ngrok](https://ngrok.com/) or [localhost.run](https://localhost.run/).
 
-1. Clone [onc-healthit/inferno-program](https://github.com/onc-healthit/inferno-program) repo and start it with `docker-compose up -d`. Check that it has started on `http://localhost:4567`
-2. Add domain `127.0.0.1 host.docker.internal` to the `/etc/hosts` file. And check that Aidbox works on this host `http://host.docker.internal:8888`
-6. Open Inferno application at http://localhost:4567
+## Inferno ONC Program setup
+Open the Aidbox console and do a request in the REST Console to get a launch URI:
+```yaml
+POST /rpc
+content-type: test/yaml
+accept: text/yaml
 
-### STANDALONE PATIENT APP
+method: aidbox.smart/get-launch-uri
+params:
+  user:
+    id: inferno-patient-user
+    resourceType: User
+  iss: https://your-aidbox-domain/smart
+  client:
+    id: inferno-client
+    resourceType: Client
+```
+You'll get a response like
+```yaml
+result:
+ uri: https://inferno.healthit.gov/community/oauth2/static/launch?iss=https://your-aidbox-domain/smart&launch=some-jwt-token
+ launch: some-jwt-token
+ iss: https://your-aidbox-domain/smart
+ launch-uri: https://inferno.healthit.gov/inferno/oauth2/static/launch
+```
+the `.result.uri` field is the launch URI you'll need to follow when Inferno asks to launch app.
 
-To run tests use `inferno-client` and `inferno-secret` credentials we created for `Inferno`.
+### Standalone Patient App
+Use client: `inferno-client` and secret: `inferno-secret`.
 
-### LIMITED APP
+### Limited App
+Before running limited app test you have to revoke grant provided on previous test run. Go to `http://your-aidbox-domain/auth/grants` and revoke all grants.
 
-Before running limited app test you have to revoke grant, provided on previous test run. Go to `http://localhost:8888/auth/grants` and revoke the only grant.
+Once you started Limited App test, inferno will redirect you to a consent form, you have to provide there next scope `launch/patient openid fhirUser offline_access patient/Condition.read patient/Patient.read patient/Observation.read`.
 
-Once you started Limited App test, inferno will redirect you to a consent form, you have to provide there next scope `launch/patient openid fhirUser offline_access patient/Condition.read patient/Patient.read patient/Observation.read`
+### EHR Practitioner App
+Use the launch URI when inferno asks to launch the application.
+
+## Inferno Community setup
+Follow the Inferno ONC Program setup section but replace `inferno-client` with `inferno-community-client`.
 
 # PDEX PlanNet Aidbox Installation
 
