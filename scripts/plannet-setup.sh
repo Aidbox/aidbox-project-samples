@@ -11,10 +11,10 @@ curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
      -H 'Content-Type: text/yaml' \
      --data-binary "@./scripts/plannet/search-parameters.yaml"
 
-curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
-     'http://localhost:8888/fhir' \
+curl -u /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
+     'http://localhost:8888/fhir/$load' \
      -H 'content-type: text/yaml' \
-     --data-binary '@./scripts/plannet/01-load-resources.yaml'
+     -d 'source: /aidbox-project/01-load-resources.ndjson.gz'
 
 curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
      'http://localhost:8888/fhir' \
