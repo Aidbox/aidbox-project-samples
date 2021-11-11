@@ -93,7 +93,7 @@ Add 2 variables to your Aidbox environment and retart your instance.
 
 ``` bash
 AIDBOX_ZEN_ENTRYPOINT="hl7-fhir-us-davinci-pdex-plan-net"
-AIDBOX_ZEN_PATHS="url:zip:https://github.com/zen-lang/fhir/releases/download/0.2.9/hl7-fhir-us-davinci-pdex-plan-net.zip"
+AIDBOX_ZEN_PATHS="url:zip:https://github.com/zen-lang/fhir/releases/latest/download/hl7-fhir-us-davinci-pdex-plan-net.zip"
 ```
 
 Create `.env` file and define variables.
