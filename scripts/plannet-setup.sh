@@ -11,7 +11,7 @@ curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
      -H 'Content-Type: text/yaml' \
      --data-binary "@./scripts/plannet/search-parameters.yaml"
 
-curl -u /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
+curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
      'http://localhost:8888/fhir/$load' \
      -H 'content-type: text/yaml' \
      -d 'source: /aidbox-project/01-load-resources.ndjson.gz'
