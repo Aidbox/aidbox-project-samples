@@ -86,7 +86,7 @@ When Aidbox starts one should forward all the traffic from the 8888 port of the 
 ## Run Touchstone tests
 
 Now one should create test system, set it up and launch the testing procedure.
-
+<!--
 # Load Plannet Data Sets to Separate Aidbox Instance
 
 Add 2 variables to your Aidbox environment and retart your instance.
@@ -109,3 +109,4 @@ Populate sample Plannet data at Aidbox.
 ```bash
 make plannet-data-load
 ```
+-->
