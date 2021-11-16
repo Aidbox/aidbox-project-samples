@@ -11,6 +11,10 @@ AIDBOX_CLIENT_SECRET=secret
 AIDBOX_ADMIN_ID=admin
 AIDBOX_ADMIN_PASSWORD=secret
 
+# enable FHIR compliance mode
+AIDBOX_COMPLIANCE=enabled
+AIDBOX_CREATED_AT_URL=http://example.com/createdat
+
 # db connection params
 PGPORT=5432
 PGUSER=postgres
