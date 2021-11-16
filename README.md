@@ -106,8 +106,8 @@ grant_types:
 id: touchstone-client
 resourceType: Client
 ```
+Go to Touchstone, run tests and get you green badges :)
 
-Now one should create test system, set it up and launch the testing procedure.
 <!--
 # Load Plannet Data Sets to Separate Aidbox Instance
 
