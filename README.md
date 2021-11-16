@@ -85,6 +85,28 @@ When Aidbox starts one should forward all the traffic from the 8888 port of the 
 
 ## Run Touchstone tests
 
+### Create Touchstone `Client` before start testing
+
+So Touchstone gets access to the tested Aidbox.
+
+Example, Touchstone client configuration
+
+```yaml
+auth:
+  authorization_code:
+    audience:
+      - https://example.com
+    redirect_uri: https://touchstone.aegis.net/touchstone/oauth2/authcode/redirect
+    refresh_token: true
+    access_token_expiration: 300
+secret: touchstone-secret
+grant_types:
+  - code
+  - basic
+id: touchstone-client
+resourceType: Client
+```
+
 Now one should create test system, set it up and launch the testing procedure.
 <!--
 # Load Plannet Data Sets to Separate Aidbox Instance
