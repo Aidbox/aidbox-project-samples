@@ -1,4 +1,18 @@
 # Create App Client
+# touchstone client
+- auth:
+    authorization_code:
+      audience:
+        - https://example.com
+      redirect_uri: https://touchstone.aegis.net/touchstone/oauth2/authcode/redirect
+      refresh_token: true
+      access_token_expiration: 300
+  secret: touchstone-secret
+  grant_types:
+    - code
+    - basic
+  id: touchstone-client
+  resourceType: Client
 
 # Inferno ONC Program
 - resourcetype: Client
