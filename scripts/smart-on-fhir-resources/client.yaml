@@ -15,7 +15,7 @@
   resourceType: Client
 
 # Inferno ONC Program
-- resourcetype: Client
+- resourceType: Client
   id: inferno-client
   secret: inferno-secret
   auth:
@@ -31,7 +31,7 @@
     - basic
 
 # Inferno Community
-- resourcetype: Client
+- resourceType: Client
   id: inferno-community-client
   secret: inferno-secret
   auth:
