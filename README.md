@@ -95,7 +95,8 @@ Example, Touchstone client configuration
 auth:
   authorization_code:
     audience:
-      - https://example.com
+      - https://touchstone.example.com:8888/smart # `audience` must be equal to the `AIDBOX_BASE_URL` with `/smart` suffix
+
     redirect_uri: https://touchstone.aegis.net/touchstone/oauth2/authcode/redirect
     refresh_token: true
     access_token_expiration: 300
