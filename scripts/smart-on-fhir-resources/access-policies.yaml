@@ -2,7 +2,7 @@
 - resourceType: AccessPolicy
   engine: matcho
   matcho:
-    uri: '#/smart/.*'
+    uri: '#/smart/.*' # '#^/smart/[A-Z][a-zA-Z]+$'
     params:
       patient:
         $reference:
@@ -14,7 +14,7 @@
 - resourceType: AccessPolicy
   engine: matcho
   matcho:
-    uri: '#/smart/Patient/.*'
+    uri: '#/smart/Patient/.*' # '#^/smart/Patient/[^/]+$'
     params:
       id: .role.links.patient.id
   roleName: patient
@@ -24,7 +24,7 @@
 - resourceType: AccessPolicy
   engine: matcho
   matcho:
-    uri: '#/smart/Patient'
+    uri: '#/smart/Patient' # '#^/smart/Patient$'
     params:
       _id: .role.links.patient.id
   roleName: patient
