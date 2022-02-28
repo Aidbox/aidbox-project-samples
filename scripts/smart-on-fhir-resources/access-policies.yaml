@@ -20,7 +20,7 @@
   roleName: patient
   id: smart-patient-read
 
-# Allow patients to read their info
+# Allow patients to search their info
 - resourceType: AccessPolicy
   engine: matcho
   matcho:
