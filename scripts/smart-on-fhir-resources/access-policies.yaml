@@ -29,3 +29,22 @@
       _id: .role.links.patient.id
   roleName: patient
   id: smart-patient-search-self
+
+# Allow patients to read resource types by id (if they indeed have access to this resource should be checked by Aidbox SOF automatically)
+- id: smart-read-id
+  resourceType: AccessPolicy
+  roleName: patient
+  engine: matcho
+  matcho:
+    uri: '#^/smart/[A-Z][a-zA-Z]+/[^/]+$'
+    params:
+      id: present?
+
+
+# Allow patients to read resource types history by id (if they indeed have access to this resource should be checked by Aidbox SOF automatically)
+- id: smart-read-id-history
+  resourceType: AccessPolicy
+  roleName: patient
+  engine: matcho
+  matcho:
+    uri: '#^/smart/[A-Z][a-zA-Z]+/[^/]+/_history$'
