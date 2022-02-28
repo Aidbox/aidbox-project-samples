@@ -4,7 +4,9 @@
   matcho:
     uri: '#/smart/.*'
     params:
-      patient: .role.links.patient.id
+      patient:
+        $reference:
+          id: .role.links.patient.id
   roleName: patient
   id: patient-smart
 
