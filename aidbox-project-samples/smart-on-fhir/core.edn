@@ -24,6 +24,8 @@
   "style-v1.json" {:GET {:action :smart.fhir/style
                          :public true}}
 
+  [:resource/type] {[:id] {"_history" {:GET {:action :smart.fhir/history}}}}
+
   "Patient" {:GET {:action :smart.fhir/search
                    :resource/type "Patient"
                    :params {:name {}
