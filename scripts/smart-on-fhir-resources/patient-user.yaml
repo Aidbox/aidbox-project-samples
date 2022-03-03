@@ -12,13 +12,34 @@
     id: pt-1
     resourceType: Patient
 
+- resourceType: User
+  id: touchstone-patient-user
+  password: pass
+  fhirUser:
+    id: pt-1
+    resourceType: Patient
+
 # Bind patient user and patient
 - resourceType: Role
   user:
     id: inferno-patient-user
     resourceType: User
   name: patient
+  id: inferno-patient-user-role
   links:
     patient:
       id: pt-1
       resourceType: Patient
+
+- resourceType: Role
+  user:
+    id: touchstone-patient-user
+    resourceType: User
+  name: patient
+  id: touchstone-patient-user-role
+  links:
+    patient:
+      id: pt-1
+      resourceType: Patient
+
+
