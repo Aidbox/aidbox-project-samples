@@ -1,3 +1,4 @@
+# Observation
 - category:
   - coding:
     - {system: 'http://terminology.hl7.org/CodeSystem/observation-category', code: vital-signs, display: Vital Signs}
@@ -24,3 +25,13 @@
     - code: not-applicable
       system: http://terminology.hl7.org/CodeSystem/data-absent-reason
   subject: {id: pt-1, resourceType: Patient}
+
+# Provenance
+- resourceType: Provenance
+  id: pt-1-provenance
+  target:
+  - {resourceType: Patient, id: pt-1}
+  - {resourceType: Observation, id: obs-1}
+  recorded: '2015-06-27T08:39:24+10:00'
+  agent:
+  - who: {reference: Patient/pt-1}

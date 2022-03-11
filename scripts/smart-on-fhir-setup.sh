@@ -34,12 +34,7 @@ curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
 curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
      -X PUT 'http://localhost:'${AIDBOX_PORT}'/' \
      -H 'Content-Type: text/yaml' \
-     --data-binary "@./scripts/smart-on-fhir-resources/observation.yaml"
-
-curl -o /dev/null -u ${AIDBOX_CLIENT_ID}:${AIDBOX_CLIENT_SECRET} \
-     -X PUT 'http://localhost:'${AIDBOX_PORT}'/' \
-     -H 'Content-Type: text/yaml' \
-     --data-binary "@./scripts/smart-on-fhir-resources/provenance.yaml"
+     --data-binary "@./scripts/smart-on-fhir-resources/resources.yaml"
 
 mkdir -p aidbox-project
 rm -rf aidbox-project/*

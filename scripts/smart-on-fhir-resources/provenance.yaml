@@ -1,8 +1,0 @@
-- resourceType: Provenance
-  id: pt-1-provenance
-  target:
-  - {resourceType: Patient, id: pt-1}
-  - {resourceType: Observation, id: obs-1}
-  recorded: '2015-06-27T08:39:24+10:00'
-  agent:
-  - who: {reference: Patient/pt-1}
