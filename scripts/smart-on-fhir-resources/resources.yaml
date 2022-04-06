@@ -67,6 +67,38 @@
     - {system: 'http://loinc.org', code: 59408-5, display: Oxygen saturation in Arterial blood by Pulse oximetry}
     text: oxygen_saturation
 
+# DocumentReference
+- resourceType: DocumentReference
+  id: pt-1-documentreference
+  content: [{attachment: { 
+        "contentType": "application/hl7-v3+xml",
+        "language": "en-US",
+        "url": "http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510",
+        "size": 3654,
+        "hash": "2jmj7l5rSw0yVb/vlWAYkK/YBwk=",
+        "title": "Physical",
+        "creation": "2005-12-24T09:35:00+11:00"
+  }}]
+  context:
+    period:
+      start: '2004-12-23T08:00:00+11:00'
+      end: '2004-12-23T08:01:00+11:00'
+  category:
+  - coding:
+    - system: http://ihe.net/xds/connectathon/classCodes
+      code: hap
+      display: History and Physical
+  date: '2005-12-24T09:43:41+11:00' 
+  type:
+    coding:
+    - {system: 'http://loinc.org', code: 11488-4}
+    - {system: 'http://loinc.org', code: 18842-5}
+    - {system: 'http://loinc.org', code: 34117-2}
+    - {system: 'http://loinc.org', code: 28570-0}
+    - {system: 'http://loinc.org', code: 11506-3}
+  status: current
+  subject: {id: pt-1, resourceType: Patient}
+
 # DiagnosticReport
 - resourceType: DiagnosticReport
   id: pt-1-diagnosticreport

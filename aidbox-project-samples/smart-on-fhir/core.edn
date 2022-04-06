@@ -209,18 +209,18 @@
                   [:id] {:GET {:action :smart.fhir/read
                                :resource/type "Immunization"}}}
 
-  "Location" {:GET {:action :smart.fhir/search
+  "Location" {:GET {:action :smart.fhir/search-public
                     :resource/type "Location"
                     :params {:name {}
                              :_id {}
                              :patient {}
                              :_limit {:max 1000}}}
-              "_search" {:POST {:action :smart.fhir/search
+              "_search" {:POST {:action :smart.fhir/search-public
                                 :resource/type "Location"
                                 :params {:name {}
                                          :_id {}
                                          :_limit {}}}}
-              [:id] {:GET {:action :smart.fhir/read
+              [:id] {:GET {:action :smart.fhir/read-public
                            :resource/type "Location"}}}
 
   "Medication" {:GET {:action :smart.fhir/search
@@ -274,32 +274,32 @@
                  [:id] {:GET {:action :smart.fhir/read
                               :resource/type "Observation"}}}
 
-  "Organization" {:GET {:action :smart.fhir/search
+  "Organization" {:GET {:action :smart.fhir/search-public
                         :resource/type "Organization"
                         :params {:name {}
                                  :_id {}
                                  :patient {}
                                  :_limit {:max 1000}}}
-                  "_search" {:POST {:action :smart.fhir/search
+                  "_search" {:POST {:action :smart.fhir/search-public
                                     :resource/type "Organization"
                                     :params {:name {}
                                              :_id {}
                                              :_limit {}}}}
-                  [:id] {:GET {:action :smart.fhir/read
+                  [:id] {:GET {:action :smart.fhir/read-public
                                :resource/type "Organization"}}}
 
-  "Practitioner" {:GET {:action :smart.fhir/search
+  "Practitioner" {:GET {:action :smart.fhir/search-public
                         :resource/type "Practitioner"
                         :params {:name {}
                                  :_id {}
                                  :patient {}
                                  :_limit {:max 1000}}}
-                  "_search" {:POST {:action :smart.fhir/search
+                  "_search" {:POST {:action :smart.fhir/search-public
                                     :resource/type "Practitioner"
                                     :params {:name {}
                                              :_id {}
                                              :_limit {}}}}
-                  [:id] {:GET {:action :smart.fhir/read
+                  [:id] {:GET {:action :smart.fhir/read-public
                                :resource/type "Practitioner"}}}
 
   "PractitionerRole" {:GET {:action :smart.fhir/search
