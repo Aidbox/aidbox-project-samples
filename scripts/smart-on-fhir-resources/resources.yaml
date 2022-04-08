@@ -9,6 +9,13 @@
   resourceType: Observation
   status: final
   effective: {dateTime: '1999-07-02'}
+  issued: '2013-04-03T15:30:10+01:00'
+  value:
+    CodeableConcept:
+      coding:
+        - code: '3092008'
+          system: http://snomed.info/sct
+          display: Staphylococcus aureus
   id: obs-1
   code:
     coding:
