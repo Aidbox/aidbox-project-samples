@@ -16,6 +16,17 @@
         - code: '3092008'
           system: http://snomed.info/sct
           display: Staphylococcus aureus
+  component:
+    - code:
+      c:wqoding:
+          - code: '3092008'
+            system: http://snomed.info/sct
+            display: Staphylococcus aureus
+      dataAbsentReason:
+        coding:
+          - code: '3092008'
+            system: http://snomed.info/sct
+            display: Staphylococcus aureus
   id: obs-1
   code:
     coding:
