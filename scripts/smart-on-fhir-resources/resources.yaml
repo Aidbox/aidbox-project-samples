@@ -109,6 +109,7 @@
   category:
   - coding:
     - {system: 'http://loinc.org', code: LP7839-6}
+    - {system: 'http://loinc.org', code: LP29708-2}
   subject: {id: pt-1, resourceType: Patient}
 
 - resourceType: DiagnosticReport
@@ -139,7 +140,7 @@
     coding:
     - {system: 'http://snomed.info/sct', code: '763875007'}
   presentedForm:
-  - {contentType: application/pdf, url: 'http://example.org/pdfdownloads/cardiopanel-report-123.pdf', hash: RVFILy4uQWdNRQo=}
+  - {contentType: 'application/hl7-v3+xml', url: 'http://example.org/xds/mhd/Binary/07a6483f-732b-461e-86b6-edb665c45510', hash: 2jmj7l5rSw0yVb/vlWAYkK/YBwk=}
   subject: {id: pt-1, resourceType: Patient}
 
 # AllergyIntolerance
