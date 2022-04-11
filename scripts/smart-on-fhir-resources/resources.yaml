@@ -18,7 +18,7 @@
           display: Staphylococcus aureus
   component:
     - code:
-      c:wqoding:
+        coding:
           - code: '3092008'
             system: http://snomed.info/sct
             display: Staphylococcus aureus
