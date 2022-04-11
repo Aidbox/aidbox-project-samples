@@ -58,6 +58,11 @@
   - {system: email, value: amy.shaw@example.com}
   gender: female
   birthsex: F
+  communication:
+    - language:
+        coding:
+          - code: En
+            system: http://hl7.org/fhir/R4/valueset-all-languages.html
 
 # User for Patient
 - resourceType: User
