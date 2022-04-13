@@ -25,8 +25,6 @@
   engine: matcho
   matcho:
     uri: '#/smart/Patient' # '#^/smart/Patient$'
-    params:
-      _id: .role.links.patient.id
   roleName: patient
   id: smart-patient-search-self
 
