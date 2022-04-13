@@ -62,7 +62,7 @@
     - language:
         coding:
           - code: en
-            system: http://hl7.org/fhir/ValueSet/languages
+            system: urn:ietf:bcp:47
 
 # User for Patient
 - resourceType: User
