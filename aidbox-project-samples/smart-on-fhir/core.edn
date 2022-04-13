@@ -26,9 +26,12 @@
 
   [:resource/type] {[:id] {"_history" {:GET {:action :smart.fhir/history}}}}
 
-  "Patient" {:GET {:action :smart.fhir/search
+  "Patient" {:GET {:action :smart.fhir/search-patient
                    :resource/type "Patient"
                    :params {:name {}
+                            :family {}
+                            :gender {}
+                            :birthdate {}
                             :_revinclude {:type :fhir/include
                                           :values #{"Provenance:target"}}
                             :_id {}
