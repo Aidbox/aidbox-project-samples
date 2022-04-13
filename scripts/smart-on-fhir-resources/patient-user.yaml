@@ -61,8 +61,8 @@
   communication:
     - language:
         coding:
-          - code: En
-            system:  http://hl7.org/fhir/ValueSet/all-languages
+          - code: en
+            system: http://hl7.org/fhir/ValueSet/languages
 
 # User for Patient
 - resourceType: User
