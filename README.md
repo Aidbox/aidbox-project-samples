@@ -134,3 +134,23 @@ Populate sample Plannet data at Aidbox.
 make plannet-data-load
 ```
 -->
+
+# SMART on FHIR & US Core IG
+
+This section describes how to prepare SHART on FHIR and US Core IG Aidbox conformancy.
+
+## Define ENVs in `.env` file
+Copy `.env.tpl` file to `.env` then populate variables:
+
+- `AIDBOX_LICENSE_ID` and `AIDBOX_LICENSE_KEY`
+- `AIDBOX_CREATED_AT_URL` with `http://example.com/createdat` value
+- `AIDBOX_COMPLIANCE` with `enabled` value
+- `AIDBOX_BASE_URL` with value like this `https://aidbox.example.com`. No suffix like `/smart`should be provided
+
+## Launch Aidbox
+
+```
+make smart-on-fhir-setup
+```
+
+to initialize Aidbox, load the data neccessary for tests. Aidbox is started and ready for use.
