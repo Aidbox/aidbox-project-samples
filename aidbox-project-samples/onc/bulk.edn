@@ -1,0 +1,56 @@
+{ns onc.bulk
+ import #{aidbox.rest
+          aidbox.rest.smart}
+
+ api
+ {:middlewares     [bulk-export-base-url-middleware]
+  "metadata"       {:GET bulk-metadata}
+  "$redirect"      {:GET redirect-op}
+  "Patient"        {"$export" {:GET patient-lvl-export-op}}
+  "Group"          {[:group-id] {"$export" {:GET group-lvl-export-op}}}
+  "$export"        {:GET system-lvl-export-op}
+  "$export-status" {[:bulk-export-id] {:GET    export-status-op
+                                       :DELETE cancel-export-op}}}
+
+ bulk-metadata
+ {:zen/tags #{aidbox.rest/op #_aidbox.rest.smart/public}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.fhir.bulk.export.core/metadata}
+
+ patient-lvl-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest.smart/aidbox-action
+  ;; FIXME: use fhir export
+  :action :box.fhir.bulk.export.core/start-fhir-patient-level-export}
+
+ group-lvl-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest.smart/aidbox-action
+  :action :box.fhir.bulk.export.core/start-fhir-group-level-export}
+
+ system-lvl-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest.smart/aidbox-action
+  :action :box.fhir.bulk.export.core/start-fhir-system-level-export}
+
+ export-status-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest.smart/aidbox-action
+  :action :box.fhir.bulk.export.core/export-status}
+
+ cancel-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest.smart/aidbox-action
+  :action :box.fhir.bulk.export.core/cancel-export}
+
+ bulk-export-base-url-middleware
+ {:zen/tags #{aidbox.rest/middleware}
+  :engine aidbox.rest.smart/fhir-base-url
+  :prefix "/bulk"}
+
+ redirect-op
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :engine aidbox.rest.smart/aidbox-action
+  :action :onc.certification/redirect}
+
+ }
