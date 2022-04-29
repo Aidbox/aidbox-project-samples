@@ -1,4 +1,4 @@
-{ns     onc.core
+{ns     core
  import #{aidbox
           aidbox.rest
           aidbox.rest.smart
