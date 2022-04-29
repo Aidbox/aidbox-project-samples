@@ -1,4 +1,4 @@
-{ns onc.bulk
+{ns bulk
  import #{aidbox.rest
           aidbox.rest.smart}
 

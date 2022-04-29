@@ -1,4 +1,4 @@
-{ns     onc.smart
+{ns     onc.core
  import #{aidbox
           aidbox.rest
           aidbox.rest.smart
@@ -6,9 +6,9 @@
           aidbox.rest.v1
           hl7-fhir-r4-core
           hl7-fhir-us-core
-          onc.smart-practitioner
-          onc.smart-patient
-          onc.bulk}
+          smart-practitioner
+          smart-patient
+          bulk}
 
  grant-lookup-method
  {:zen/tags #{aidbox.auth/grant-lookup}
@@ -57,6 +57,6 @@
  api
  {:zen/tags #{aidbox.rest/api}
   "smart"   {:middlewares   [oauth-middleware]
-             "practitioner" {:apis #{onc.smart-practitioner/api}}
-             "patient"      {:apis #{onc.smart-patient/api}}}
-  "bulk"    {:apis #{onc.bulk/api}}}}
+             "practitioner" {:apis #{smart-practitioner/api}}
+             "patient"      {:apis #{smart-patient/api}}}
+  "bulk"    {:apis #{bulk/api}}}}

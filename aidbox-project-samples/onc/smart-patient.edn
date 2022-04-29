@@ -1,4 +1,4 @@
-{ns     onc.smart-patient
+{ns     smart-patient
  import #{aidbox
           aidbox.rest
           aidbox.rest.smart

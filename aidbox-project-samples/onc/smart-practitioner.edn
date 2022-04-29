@@ -1,4 +1,4 @@
-{ns onc.smart-practitioner
+{ns smart-practitioner
  import #{aidbox
           aidbox.rest
           aidbox.rest.smart
