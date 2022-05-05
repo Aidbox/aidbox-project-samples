@@ -11,11 +11,16 @@
  {:zen/tags #{aidbox.auth/grant-lookup}
   :method   aidbox.auth/single-patient-grant-lookup}
 
- box
+ test-box
  {:zen/tags #{aidbox/system}
   :services {:http server
              :seed access-policies
              :seed-fixtures fixtures}}
+
+ box
+ {:zen/tags #{aidbox/system}
+  :services {:http server
+             :seed access-policies}}
 
  server
  {:zen/tags #{aidbox/service}
@@ -25,23 +30,29 @@
  access-policies
  {:zen/tags  #{aidbox/service}
   :engine    aidbox/seed
-  :resources [{:engine "matcho",
+  :resources [{:engine "matcho"
                :matcho {:uri "#/smart/.*"
-                        #_#_:session {:audience "#.+smart$"}},
-               :id "inferno-smart",
-               :resourceType "AccessPolicy",}
-              {:id "bulk-api-metadata",
-               :resourceType "AccessPolicy",
-               :engine "matcho",
+                        :session {:audience "#.+smart$"}}
+               :id "smart-api"
+               :resourceType "AccessPolicy"}
+              {:engine "matcho"
+               :matcho {:uri {:$one-of ["/smart/metadata"
+                                        "/smart/.well-known/smart-configuration"
+                                        "/smart/style-v1.json"]}}
+               :id "smart-api-public-endpoints"
+               :resourceType "AccessPolicy"}
+              {:id "bulk-api-metadata"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
                :matcho {:uri "/bulk/metadata"}}
-              {:id "bulk-api-redirect",
-               :resourceType "AccessPolicy",
-               :engine "matcho",
+              {:id "bulk-api-redirect"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
                :matcho {:uri "/bulk/$redirect"}}
-              {:id "bulk-api-client-system-all-read",
-               :resourceType "AccessPolicy",
-               :engine "matcho",
-               :matcho {:uri "#(/bulk/[A-Z].+/.+/\\$export)|(/bulk/\\$export-status/.+)",
+              {:id "bulk-api-client-system-all-read"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "#(/bulk/Group/.+/\\$export)|(/bulk/\\$export-status/.+)"
                         :client {:scope ["system/*.read"]}}}]}
 
  fixtures
