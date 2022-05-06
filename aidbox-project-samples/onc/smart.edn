@@ -1426,7 +1426,7 @@
                :resourceType "DiagnosticReport",
                :status "final",
                :result [{:id "obs-1", :resourceType "Observation"}],
-               :effective {:dateTime "2011-01-01T21:39:30.000Z"},
+               :effective {:dateTime "2011-01-01"},
                :id "pt-1cardiology-report-note",
                :code
                {:coding [{:code "763875007", :system "http://snomed.info/sct"}]},
