@@ -1675,7 +1675,7 @@
  param-patient-id
  {:zen/tags      #{aidbox.rest.acl/request-param}
   :source-schema {:type zen/string}
-  :path          [:oauth/on-behalf :fhirUser :id]}
+  :path          [:on-behalf :fhirUser :id]}
 
  patient-api
  {:zen/tags #{aidbox.rest/api}
