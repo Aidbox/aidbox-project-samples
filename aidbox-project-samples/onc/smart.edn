@@ -1702,6 +1702,7 @@
 
  patient-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Patient"
   :format   "fhir"
@@ -1710,6 +1711,7 @@
 
  patient-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Patient"
   :format   "fhir"
@@ -1725,6 +1727,7 @@
 
  allergy-intolerance-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "AllergyIntolerance"
   :format   "fhir"
@@ -1733,6 +1736,7 @@
 
  allergy-intolerance-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "AllergyIntolerance"
   :format   "fhir"
@@ -1748,6 +1752,7 @@
 
  care-plan-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "CarePlan"
   :format   "fhir"
@@ -1756,6 +1761,7 @@
 
  care-plan-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "CarePlan"
   :format   "fhir"
@@ -1771,6 +1777,7 @@
 
  care-team-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "CareTeam"
   :format   "fhir"
@@ -1779,6 +1786,7 @@
 
  care-team-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "CareTeam"
   :format   "fhir"
@@ -1794,6 +1802,7 @@
 
  condition-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Condition"
   :format   "fhir"
@@ -1802,6 +1811,7 @@
 
  condition-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Condition"
   :format   "fhir"
@@ -1817,6 +1827,7 @@
 
  device-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Device"
   :format   "fhir"
@@ -1825,6 +1836,7 @@
 
  device-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Device"
   :format   "fhir"
@@ -1840,6 +1852,7 @@
 
  diagnostic-report-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "DiagnosticReport"
   :format   "fhir"
@@ -1848,6 +1861,7 @@
 
  diagnostic-report-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "DiagnosticReport"
   :format   "fhir"
@@ -1863,6 +1877,7 @@
 
  document-reference-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "DocumentReference"
   :format   "fhir"
@@ -1871,6 +1886,7 @@
 
  document-reference-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "DocumentReference"
   :format   "fhir"
@@ -1886,6 +1902,7 @@
 
  goal-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Goal"
   :format   "fhir"
@@ -1894,6 +1911,7 @@
 
  goal-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Goal"
   :format   "fhir"
@@ -1909,6 +1927,7 @@
 
  encounter-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Encounter"
   :format   "fhir"
@@ -1917,6 +1936,7 @@
 
  encounter-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Encounter"
   :format   "fhir"
@@ -1932,6 +1952,7 @@
 
  immunization-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Immunization"
   :format   "fhir"
@@ -1940,6 +1961,7 @@
 
  immunization-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Immunization"
   :format   "fhir"
@@ -1955,6 +1977,7 @@
 
  medication-request-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "MedicationRequest"
   :format   "fhir"
@@ -1963,6 +1986,7 @@
 
  medication-request-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "MedicationRequest"
   :format   "fhir"
@@ -1978,6 +2002,7 @@
 
  observation-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Observation"
   :format   "fhir"
@@ -1986,6 +2011,7 @@
 
  observation-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Observation"
   :format   "fhir"
@@ -2001,6 +2027,7 @@
 
  organization-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.v1/search
   :resource "Organization"
   :format   "fhir"
@@ -2008,6 +2035,7 @@
 
  organization-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.v1/read
   :resource "Organization"
   :format   "fhir"
@@ -2022,6 +2050,7 @@
 
  practitioner-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.v1/search
   :resource "Practitioner"
   :format   "fhir"
@@ -2029,6 +2058,7 @@
 
  practitioner-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.v1/read
   :resource "Practitioner"
   :format   "fhir"
@@ -2043,6 +2073,7 @@
 
  procedure-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.acl/search
   :resource "Procedure"
   :format   "fhir"
@@ -2051,6 +2082,7 @@
 
  procedure-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.acl/read
   :resource "Procedure"
   :format   "fhir"
@@ -2066,6 +2098,7 @@
 
  provenance-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.v1/search
   :resource "Provenance"
   :format   "fhir"
@@ -2073,6 +2106,7 @@
 
  provenance-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.v1/read
   :resource "Provenance"
   :format   "fhir"
@@ -2087,6 +2121,7 @@
 
  location-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
   :engine   aidbox.rest.v1/search
   :resource "Location"
   :format   "fhir"
@@ -2094,6 +2129,7 @@
 
  location-read
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
   :engine   aidbox.rest.v1/read
   :resource "Location"
   :format   "fhir"
@@ -2102,16 +2138,19 @@
  ;; public endpoints
  smart-configuration-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "SMART configuration metadata, including OAuth authorization_endpoint and token_endpoint URLs"
   :engine   aidbox.rest.smart/aidbox-action
   :action   :smart.fhir/smart-configuration}
 
  capability-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Get Authorization Server Metadata"
   :engine   aidbox.rest.smart/aidbox-action
   :action   :smart.fhir/capability}
 
  style-smart-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "EHR’s style parameters can be retrieved"
   :engine   aidbox.rest.smart/aidbox-action
   :action   :smart.fhir/style}
 
