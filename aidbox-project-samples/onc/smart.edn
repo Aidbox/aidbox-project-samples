@@ -262,6 +262,10 @@
                 {:system "email", :value "amy.shaw@example.com"}],
                :gender "female",
                :birthsex "F"}
+              {:fhirUser     {:resourceType "Patient" :id "pt-1"}
+               :password     "pass"
+               :id           "inferno-patient-user"
+               :resourceType "User"}
               {:address
                [{:line ["49 Meadow St"],
                  :city "Mounds",
