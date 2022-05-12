@@ -30,17 +30,17 @@
  access-policies
  {:zen/tags  #{aidbox/service}
   :engine    aidbox/seed
-  :resources [{:engine "matcho"
+  :resources [{:id "smart-api"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
                :matcho {:uri "#/smart/.*"
-                        :session {:audience "#.+smart$"}}
-               :id "smart-api"
-               :resourceType "AccessPolicy"}
-              {:engine "matcho"
+                        :session {:audience "#.+smart$"}}}
+              {:id "smart-api-public-endpoints"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
                :matcho {:uri {:$one-of ["/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
-                                        "/smart/style-v1.json"]}}
-               :id "smart-api-public-endpoints"
-               :resourceType "AccessPolicy"}
+                                        "/smart/style-v1.json"]}}}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -52,7 +52,8 @@
               {:id "bulk-api-client-system-all-read"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri "#(/bulk/Group/.+/\\$export)|(/bulk/\\$export-status/.+)"
+               :matcho {:uri {:$one-of ["#/bulk/Group/.+/\\$export"
+                                        "#/bulk/\\$export-status/.+"]}
                         :client {:scope ["system/*.read"]}}}]}
 
  fixtures
@@ -2110,9 +2111,31 @@
                                        :DELETE cancel-export-op}}}
 
  bulk-metadata
- {:zen/tags #{aidbox.rest/op #_aidbox.rest.smart/public}
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.fhir.bulk.export.core/metadata}
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/static-response
+  :response {:status 200
+             :body {:id "bulk-data"
+                    :resourceType "CapabilityStatement"
+                    :status "active"
+                    :date "2022-01-01"
+                    :kind "requirements"
+                    :fhirVersion "4.0.1"
+                    :format ["json"]
+
+                    :instantiates ["http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data"] ;; required by bulk-export guide
+
+                    :implementationGuide ["http://hl7.org/fhir/uv/bulkdata/ImplementationGuide/hl7.fhir.uv.bulkdata"]
+
+                    :rest
+                    [{:mode "server"
+                      :resource
+                      [{:type "Group"
+                        :operation
+                        [{:name "export"
+                          :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export"}]}]
+                      :operation
+                      [{:name "export"
+                        :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"}]}]}}}
 
  patient-lvl-export-op
  {:zen/tags #{aidbox.rest/op}
