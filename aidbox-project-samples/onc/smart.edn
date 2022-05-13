@@ -41,7 +41,8 @@
                :engine "matcho"
                :matcho {:uri {:$one-of ["/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
-                                        "/smart/style-v1.json"]}}}
+                                        "/smart/style-v1.json"
+                                        "/smart-auth/grant"]}}}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -1627,14 +1628,49 @@
                :id "pt-1-goal",
                :resourceType "Goal"}]}
 
+ http-response
+ {:zen/tags #{zen/tag zen/schema}
+  :zen/desc "Server http response"
+  :type     zen/map
+  :require  #{:status}
+  :keys     {:status {:type zen/integer}
+             :body   {:type zen/any}}}
+
+ response-unauthorized
+ {:zen/tags #{http-response}
+  :zen/desc "Unauthorized access"
+  :status   403
+  :body     {:message "Unauthorized"}}
+
+ operation-response
+ {:zen/tags #{zen/tag zen/schema}
+  :zen/desc "Server http response"
+  :type     zen/map
+  :keys     {:response {:type  zen/vector
+                        :every {:confirms #{http-response}}}}}
+
+ response-access-denied
+ {:zen/tags #{zen/schema http-response}
+  :zen/desc "Access denied"
+  :type     zen/map
+  :status   401
+  :body     {:message "Access denied"}}
+
  oauth-middleware
- {:zen/tags #{aidbox.rest/middleware}
-  :engine   aidbox.rest.smart/oauth-middleware}
+ {:zen/tags #{zen/schema aidbox.rest/middleware-engine operation-response}
+  :response [response-unauthorized
+             response-access-denied]}
 
  api
  {:zen/tags #{aidbox.rest/api}
-  "smart"   {:apis #{smart-api}}
+  "smart-auth" {"grant" {:GET grant-view}}
+  "smart"   {:apis #{smart-api public-api}}
   "bulk"    {:apis #{bulk-api}}}
+
+ grant-view
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :auth/grant-view-v2}
 
  smart-api
  {:middlewares         [oauth-middleware]
@@ -1655,10 +1691,12 @@
   "Practitioner"       {:apis #{practitioner-api}}
   "Procedure"          {:apis #{procedure-api}}
   "Provenance"         {:apis #{provenance-api}}
-  "Location"           {:apis #{location-api}}
-  ".well-known"        {"smart-configuration" {:GET smart-configuration-op}}
-  "metadata"           {:GET capability-op}
-  "style-v1.json"      {:GET style-smart-op}}
+  "Location"           {:apis #{location-api}}}
+
+ public-api
+ {".well-known"   {"smart-configuration" {:GET smart-configuration-op}}
+  "metadata"      {:GET capability-op}
+  "style-v1.json" {:GET style-smart-op}}
 
  ;; Conditions & Filters
  patient-conditon
