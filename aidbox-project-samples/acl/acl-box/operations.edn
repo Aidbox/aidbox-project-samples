@@ -1,0 +1,72 @@
+{ns     acl-box.operations
+ import #{aidbox.rest.acl
+          acl-box.acl}
+
+ patient-filter
+ {:zen/tags     #{aidbox.rest.acl/filter}
+  :filter-table acl-box.acl/acl-table
+  :expression   [:and acl-box.acl/user-condition
+                 acl-box.acl/id-conditon]}
+
+ read-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/read
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ search-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/search
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ update-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/update
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+
+ observation-filter
+ {:zen/tags     #{aidbox.rest.acl/filter}
+  :filter-table acl-box.acl/acl-table
+  :expression   [:and acl-box.acl/user-condition
+                 acl-box.acl/subject-conditon]}
+
+ read-observation
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/read
+  :resource "Observation"
+  :format   "fhir"
+  :filter   observation-filter}
+
+ search-observation
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/search
+  :resource "Observation"
+  :format   "fhir"
+  :filter   observation-filter}
+
+ create-observation
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/create
+  :resource "Observation"
+  :format   "fhir"
+  :filter   observation-filter}
+
+ update-observation
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/update
+  :resource "Observation"
+  :format   "fhir"
+  :filter   observation-filter}
+
+ delete-observation
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/delete
+  :resource "Observation"
+  :format   "fhir"
+  :filter   observation-filter}}

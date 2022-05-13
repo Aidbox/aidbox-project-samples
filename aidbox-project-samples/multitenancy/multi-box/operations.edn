@@ -1,0 +1,42 @@
+{ns     multi-box.operations
+ import #{aidbox.rest.acl
+          multi-box.acl}
+
+ patient-filter
+ {:zen/tags   #{aidbox.rest.acl/filter}
+  :expression multi-box.acl/tenant-condition}
+
+ read-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/read
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ search-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/search
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ create-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/create
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ update-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/update
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}
+
+ delete-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/delete
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter}}

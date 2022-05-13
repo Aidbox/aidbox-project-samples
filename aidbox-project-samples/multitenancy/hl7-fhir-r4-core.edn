@@ -1,0 +1,3 @@
+{ns hl7-fhir-r4-core
+ import #{hl7-fhir-r4-core.Consent
+          hl7-fhir-r4-core.string}}
