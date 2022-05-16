@@ -62,13 +62,37 @@
  inferno-clients
  {:zen/tags #{aidbox/service}
   :engine aidbox/seed
-  :resources [{:id "inferno-bulk-client"
+  :resources [{:id "inferno-g10-bulk-client"
                :resourceType "Client"
                :auth {:client_credentials {:client_assertion_types ["urn:ietf:params:oauth:client-assertion-type:jwt-bearer"]
                                            :access_token_expiration 300}}
                :scope ["system/*.read"]
                :jwks_uri  ["https://inferno.healthit.gov/suites/custom/g10_certification/.well-known/jwks.json"]
-               :grant_types ["client_credentials"]}]}
+               :grant_types ["client_credentials"]}
+              {:id "inferno-g10-client"
+               :resourceType "Client"
+               :grant_types ["authorization_code" "basic"]
+               :auth {:authorization_code
+                      {:pkce true
+                       :refresh_token true
+                       :secret_required true
+                       :audience ["https://cmpl.aidbox.app/smart"]
+                       :redirect_uri "https://inferno.healthit.gov/suites/custom/smart/redirect"
+                       :access_token_expiration 300}}
+               :smart {:launch_uri "https://inferno.healthit.gov/suites/custom/smart/launch"}
+               :secret "inferno-secret"}
+              {:id "inferno-g10-public-client"
+               :resourceType "Client"
+               :auth {:authorization_code
+                      {:pkce true
+                       :refresh_token true
+                       :secret_required false
+                       :audience ["https://cmpl.aidbox.app/smart"]
+                       :redirect_uri "https://inferno.healthit.gov/suites/custom/smart/redirect"
+                       :access_token_expiration 300}}
+               :smart {:launch_uri "https://inferno.healthit.gov/suites/custom/smart/launch"}
+               :grant_types ["authorization_code"
+                             "basic"]}]}
 
  fixtures
  {:zen/tags  #{aidbox/service}
@@ -1659,6 +1683,7 @@
 
  oauth-middleware
  {:zen/tags #{zen/schema aidbox.rest/middleware-engine operation-response}
+  :engine aidbox.rest.smart/oauth-middleware
   :response [response-unauthorized
              response-access-denied]}
 
