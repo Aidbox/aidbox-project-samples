@@ -40,6 +40,9 @@
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri {:$one-of ["/smart/api"
+                                        "/smart/demo/auth"
+                                        "/smart/demo/profile"
+                                        "/smart/demo/login"
                                         "/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
@@ -1721,6 +1724,9 @@
 
  public-api
  {"api"           {:GET api-doc}
+  "demo"          {"login"   {:GET create-demo-user-page}
+                   "auth"    {:POST demo-user-auth}
+                   "profile" {:GET demo-user-page}}
   ".well-known"   {"smart-configuration" {:GET smart-configuration-op}}
   "metadata"      {:GET capability-op}
   "style-v1.json" {:GET style-smart-op}}
@@ -2201,6 +2207,24 @@
   :scope    #{"user/*.read" "user/Location.read" "patient/*.read" "patient/Location.read"}}
 
  ;; public endpoints
+ demo-user-auth
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Demo user auth"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/demo-user-auth}
+
+ demo-user-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Demo user page"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/demo-user-page}
+
+ create-demo-user-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Creating a demo user"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/create-demo-user-page}
+
  api-doc
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Smart API documentation"
