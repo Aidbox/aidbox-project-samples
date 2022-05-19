@@ -43,6 +43,7 @@
                                         "/smart/demo/auth"
                                         "/smart/demo/profile"
                                         "/smart/demo/login"
+                                        "/smart/demo/logout"
                                         "/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
@@ -1725,6 +1726,7 @@
  public-api
  {"api"           {:GET api-doc}
   "demo"          {"login"   {:GET create-demo-user-page}
+                   "logout"  {:GET logout-demo-user}
                    "auth"    {:POST demo-user-auth}
                    "profile" {:GET demo-user-page}}
   ".well-known"   {"smart-configuration" {:GET smart-configuration-op}}
@@ -2218,6 +2220,12 @@
   :zen/desc "Demo user page"
   :engine   aidbox.rest.smart/aidbox-action
   :action   :box.rest.smart/demo-user-page}
+
+ logout-demo-user
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Log out a demo user"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/logout-demo-user}
 
  create-demo-user-page
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
