@@ -7,5 +7,5 @@
   :zen.fhir/type "string",
   :zen.fhir/profileUri
   "http://hl7.org/fhir/StructureDefinition/string",
-  :zen.fhir/version "0.5.9-2",
+  :zen.fhir/version "0.5.10",
   :type zen/string}}

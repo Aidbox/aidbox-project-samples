@@ -5,6 +5,6 @@
  {:zen/tags #{zen/schema zen.fhir/base-schema},
   :zen/desc "Test stripped FHIR Patient schema",
   :zen.fhir/type "Patient",
-  :zen.fhir/version "0.5.9-2",
+  :zen.fhir/version "0.5.10",
   :type zen/map
   :validation-type :open}}
