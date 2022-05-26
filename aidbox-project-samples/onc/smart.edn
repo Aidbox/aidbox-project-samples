@@ -60,8 +60,10 @@
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri {:$one-of ["#/bulk/Group/.+/\\$export"
+                                        "#/bulk/Group/[^/]+$"
+                                        "#/bulk/Group"
                                         "#/bulk/\\$export-status/.+"]}
-                        :client {:scope ["system/*.read"]}}}]}
+                        :client {:type "bulk"}}}]}
 
  inferno-clients
  {:zen/tags #{aidbox/service}
@@ -1724,14 +1726,14 @@
   "Location"           {:apis #{location-api}}}
 
  public-api
- {"api"           {:GET api-doc}
-  "demo"          {"login"   {:GET create-demo-user-page}
-                   "logout"  {:GET logout-demo-user}
-                   "auth"    {:POST demo-user-auth}
-                   "profile" {:GET demo-user-page}}
-  ".well-known"   {"smart-configuration" {:GET smart-configuration-op}}
-  "metadata"      {:GET capability-op}
-  "style-v1.json" {:GET style-smart-op}}
+ {"api"                   {:GET api-doc}
+  "demo"                  {"login"   {:GET create-demo-user-page}
+                           "logout"  {:GET logout-demo-user}
+                           "auth"    {:POST demo-user-auth}
+                           "profile" {:GET demo-user-page}}
+  ".well-known"           {"smart-configuration" {:GET smart-configuration-op}}
+  "metadata"              {:GET capability-op}
+  "style-v1.json"         {:GET style-smart-op}}
 
  ;; Conditions & Filters
  patient-conditon
@@ -1944,9 +1946,21 @@
  ;; DocumentReference
  document-reference-api
  {:zen/tags #{aidbox.rest/api}
+  "$docref" {:GET  document-reference-docref
+             :POST document-reference-docref}
   :GET      document-reference-search
   "_search" {:POST document-reference-search}
   [:id]     {:GET document-reference-read}}
+
+ document-reference-docref
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/aidbox-action}
+  :zen/desc "This operation is used to return all the references to documents related to a patient"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/document-reference-docref
+  :scope    #{"user/*.read"
+              "user/DocumentReference.read"
+              "patient/*.read"
+              "patient/DocumentReference.read"}}
 
  document-reference-search
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
@@ -2263,10 +2277,26 @@
   "metadata"       {:GET bulk-metadata}
   "$redirect"      {:GET redirect-op}
   "Patient"        {"$export" {:GET patient-lvl-export-op}}
-  "Group"          {[:group-id] {"$export" {:GET group-lvl-export-op}}}
+  "Group"          {:GET  bulk-group-search
+                    [:id] {:GET      bulk-group-read-op
+                           "$export" {:GET group-lvl-export-op}}}
   "$export"        {:GET system-lvl-export-op}
   "$export-status" {[:bulk-export-id] {:GET    export-status-op
                                        :DELETE cancel-export-op}}}
+
+ bulk-group-search
+ {:zen/tags #{aidbox.rest/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
+  :engine   aidbox.rest.v1/search
+  :resource "Group"
+  :format   "fhir"}
+
+ bulk-group-read-op
+ {:zen/tags #{aidbox.rest/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
+  :engine   aidbox.rest.v1/read
+  :resource "Group"
+  :format   "fhir"}
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}
@@ -2302,9 +2332,10 @@
   :action   :box.fhir.bulk.export.core/start-fhir-patient-level-export}
 
  group-lvl-export-op
- {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.fhir.bulk.export.core/start-fhir-group-level-export}
+ {:zen/tags           #{aidbox.rest/op aidbox.rest.smart/bulk-op}
+  :engine             aidbox.rest.smart/aidbox-action
+  :action             :box.fhir.bulk.export.core/start-fhir-group-level-export
+  :restrict-by-scope? true}
 
  system-lvl-export-op
  {:zen/tags #{aidbox.rest/op}
