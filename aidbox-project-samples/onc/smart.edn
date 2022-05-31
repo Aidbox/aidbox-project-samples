@@ -1670,7 +1670,7 @@
  response-unauthorized
  {:zen/tags #{http-response}
   :zen/desc "Unauthorized access"
-  :status   403
+  :status   401
   :body     {:message "Unauthorized"}}
 
  operation-response
@@ -1684,7 +1684,7 @@
  {:zen/tags #{zen/schema http-response}
   :zen/desc "Access denied"
   :type     zen/map
-  :status   401
+  :status   403
   :body     {:message "Access denied"}}
 
  oauth-middleware
