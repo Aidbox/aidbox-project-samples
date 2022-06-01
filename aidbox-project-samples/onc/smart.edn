@@ -1,4 +1,4 @@
-{ns     smart
+{ns     onc.smart
  import #{aidbox
           aidbox.rest
           aidbox.rest.smart
@@ -1671,7 +1671,11 @@
  {:zen/tags #{http-response}
   :zen/desc "Unauthorized access"
   :status   401
-  :body     {:message "Unauthorized"}}
+  :body     {:resourceType "OperationOutcome"
+             :id "login"
+             :text {:status "generated" :div "Unauthorized"}
+             :issue
+             [{:severity "fatal", :code "login", :diagnostics "Unauthorized"}]}}
 
  operation-response
  {:zen/tags #{zen/tag zen/schema}
@@ -1685,7 +1689,10 @@
   :zen/desc "Access denied"
   :type     zen/map
   :status   403
-  :body     {:message "Access denied"}}
+  :body     {:resourceType "OperationOutcome"
+             :id           "forbidden"
+             :text         {:status "generated" :div "Forbidden"}
+             :issue        [{:severity "fatal" :code "forbidden" :diagnostics "Forbidden"}]}}
 
  oauth-middleware
  {:zen/tags #{zen/schema aidbox.rest/middleware-engine operation-response}
