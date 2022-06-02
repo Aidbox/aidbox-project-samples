@@ -40,6 +40,7 @@
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri {:$one-of ["/smart/api"
+                                        "/smart/ui"
                                         "/smart/demo/auth"
                                         "/smart/demo/profile"
                                         "/smart/demo/login"
@@ -1734,6 +1735,7 @@
 
  public-api
  {"api"                   {:GET api-doc}
+  "ui"                    {:GET smartbox-ui}
   "demo"                  {"login"   {:GET create-demo-user-page}
                            "logout"  {:GET logout-demo-user}
                            "auth"    {:POST demo-user-auth}
@@ -2367,4 +2369,11 @@
  redirect-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :engine   aidbox.rest.smart/aidbox-action
-  :action   :onc.certification/redirect}}
+  :action   :onc.certification/redirect}
+
+
+ smartbox-ui
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/smartbox-ui}
+ }
