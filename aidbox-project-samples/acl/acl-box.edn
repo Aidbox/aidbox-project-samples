@@ -18,6 +18,7 @@
  api
  {:zen/tags     #{aidbox.rest/api}
   "acl-example" {"Patient" {:GET  acl-box.operations/search-patient
+                            :POST acl-box.operations/create-patient
                             [:id] {:GET acl-box.operations/read-patient
                                    :PUT acl-box.operations/update-patient}}
 

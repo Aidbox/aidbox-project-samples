@@ -8,6 +8,12 @@
   :expression   [:and acl-box.acl/user-condition
                  acl-box.acl/id-conditon]}
 
+ patient-create-filter
+ {:zen/tags     #{aidbox.rest.acl/filter}
+  :filter-table acl-box.acl/acl-table
+  :expression   [:and acl-box.acl/user-condition
+                 acl-box.acl/id-conditon]}
+
  read-patient
  {:zen/tags #{aidbox.rest/op}
   :engine   aidbox.rest.acl/read
@@ -29,6 +35,25 @@
   :format   "fhir"
   :filter   patient-filter}
 
+ insert-into-filter-table
+ {:zen/tags     #{aidbox.rest.acl/filter-table-insert}
+  :engine       aidbox.rest.acl/filter-table-insert-row-sql
+  :filter-table acl-box.acl/acl-table
+  :params       {:user-id acl-box.acl/user-id-param}
+  :values       {:id       "gen_random_uuid()"
+                 :txid     "nextval('transaction_id_seq'::text)"
+                 :status "'created'"
+                 :resource "jsonb_build_object('patient', jsonb_build_object('resourceType', 'Patient',
+                                                                             'id', {{target-id}}::text),
+                                               'user', jsonb_build_object('resourceType', 'User',
+                                                                             'id', {{params.user-id}}::text))"}}
+ create-patient
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/create-with-filter-table-insert
+  :resource "Patient"
+  :format   "fhir"
+  :filter   patient-filter
+  :filter-table-insert insert-into-filter-table}
 
  observation-filter
  {:zen/tags     #{aidbox.rest.acl/filter}
