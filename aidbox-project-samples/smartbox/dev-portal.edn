@@ -1,0 +1,6 @@
+{ns smartbox.dev-portal
+ import #{hl7-fhir-r4-core
+          hl7-fhir-us-core}
+
+
+ }
