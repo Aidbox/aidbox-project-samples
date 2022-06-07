@@ -131,7 +131,7 @@
   title: Bulk Data Client ID
   description: Client ID provided at registration to the Inferno application.
   type: text
-  value: inferno-bulk-client
+  value: inferno-g10-bulk-client
 - name: bulk_scope
   title: Bulk Data Scopes
   description: Bulk Data Scopes provided at registration to the Inferno application.
