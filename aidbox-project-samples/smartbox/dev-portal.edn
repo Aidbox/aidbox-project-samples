@@ -91,7 +91,7 @@
                       {:pkce true
                        :refresh_token true
                        :secret_required true
-                       :audience ["https://cmpl.aidbox.app/smart"]
+                       :audience ["https://cmpl-sandbox.aidbox.app/smart"]
                        :redirect_uri "https://inferno.healthit.gov/suites/custom/smart/redirect"
                        :access_token_expiration 300}}
                :smart {:launch_uri "https://inferno.healthit.gov/suites/custom/smart/launch"}
@@ -102,7 +102,7 @@
                       {:pkce true
                        :refresh_token true
                        :secret_required false
-                       :audience ["https://cmpl.aidbox.app/smart"]
+                       :audience ["https://cmpl-sandbox.aidbox.app/smart"]
                        :redirect_uri "https://inferno.healthit.gov/suites/custom/smart/redirect"
                        :access_token_expiration 300}}
                :smart {:launch_uri "https://inferno.healthit.gov/suites/custom/smart/launch"}
