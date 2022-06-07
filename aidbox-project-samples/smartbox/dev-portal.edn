@@ -6,7 +6,8 @@
           smartbox.bulk-api
           smartbox.documentation
           hl7-fhir-r4-core
-          hl7-fhir-us-core}
+          hl7-fhir-us-core
+          zenbox}
 
  test-box
  {:zen/tags #{aidbox/system}
@@ -17,8 +18,9 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:http server
-             :seed access-policies}}
+  :services {:http  server
+             :seed  access-policies
+             :notification-templates notification-templates}}
 
  server
  {:zen/tags #{aidbox/service}
@@ -122,4 +124,32 @@
   "smart" {:apis #{smartbox.smart-api/smart-api
                    smartbox.smart-api/public-api}}
   "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}}
+
+
+ notification-templates
+ {:zen/tags  #{aidbox/service}
+  :engine    aidbox/seed
+  :resources {:NotificationTemplate
+              {:developer-confirm-email
+               {:template
+                "<p>Follow the link to verify your email and get started:</p>
+                 <a href={{confirm-address}}>Confirm</a>"}}}}
+
+ registration-developer
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:first-name {:type zen/string}
+                    :last-name  {:type zen/string}
+                    :email      {:type zen/string}
+                    :phone      {:type zen/string}
+                    :role       {:type zen/string}
+                    :org-name   {:type zen/string}
+                    :accept-tos {:type zen/string}}}}
+
+ registration-developer-confirm
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:registration-id {:type zen/string}
+                    :password-1      {:type zen/string}
+                    :password-2      {:type zen/string}}}}
  }
