@@ -5,6 +5,7 @@
           aidbox.rest.acl
           aidbox.rest.v1
           smartbox.documentation
+          smartbox.inferno-demo
 
 
           }
@@ -48,16 +49,36 @@
   "Provenance"         {:apis #{provenance-api}}
   "Location"           {:apis #{location-api}}}
 
+
+ legacy-public-api
+ {:zen/desc "Don't remove since we shared those links"
+  "api"                   {:GET redirect-to-api-doc}
+  "demo"                  {"login"   {:GET redirect-to-index}
+                           "profile" {:GET redirect-to-inferno-instruction}}}
+
  public-api
- {"api"                   {:GET api-doc}
-  "ui"                    {:GET smartbox-ui}
-  "demo"                  {"login"   {:GET create-demo-user-page}
-                           "logout"  {:GET logout-demo-user}
-                           "auth"    {:POST demo-user-auth}
-                           "profile" {:GET demo-user-page}}
+ {"ui"                    {:GET smartbox-ui} ;; FIXME: remove it
   ".well-known"           {"smart-configuration" {:GET smart-configuration-op}}
   "metadata"              {:GET capability-op}
   "style-v1.json"         {:GET style-smart-op}}
+
+ redirect-to-index
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest/static-response
+  :response {:status 301
+             :headers {"location" "/"}}}
+
+ redirect-to-inferno-instruction
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest/static-response
+  :response {:status 301
+             :headers {"location" "/inferno"}}}
+
+ redirect-to-api-doc
+ {:zen/tags #{aidbox.rest/op}
+  :engine aidbox.rest/static-response
+  :response {:status 301
+             :headers {"location" "/documentation"}}}
 
  ;; Conditions & Filters
  patient-conditon
@@ -546,37 +567,6 @@
   :format   "fhir"
   :scope    #{"user/*.read" "user/Location.read" "patient/*.read" "patient/Location.read"}}
 
- ;; public endpoints
- demo-user-auth
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :zen/desc "Demo user auth"
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.rest.smart/demo-user-auth}
-
- demo-user-page
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :zen/desc "Demo user page"
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.rest.smart/demo-user-page}
-
- logout-demo-user
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :zen/desc "Log out a demo user"
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.rest.smart/logout-demo-user}
-
- create-demo-user-page
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :zen/desc "Creating a demo user"
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.rest.smart/create-demo-user-page}
-
- api-doc
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :zen/desc "Smart API documentation"
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.rest.smart/api-doc}
-
  smart-configuration-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "SMART configuration metadata, including OAuth authorization_endpoint and token_endpoint URLs"
@@ -595,6 +585,7 @@
   :engine   aidbox.rest.smart/aidbox-action
   :action   :smart.fhir/style}
 
+ ;; FIXME: remove it
  smartbox-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :engine   aidbox.rest.smart/aidbox-action

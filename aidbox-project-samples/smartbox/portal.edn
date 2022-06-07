@@ -34,16 +34,25 @@
                :engine "matcho"
                :matcho {:uri "#/smart/.*"
                         :session {:audience "#.+smart$"}}}
+              {:id "inferno-public-endpoints"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri {:$one-of ["/"
+                                        "/documentation"
+                                        "/inferno"
+                                        "/inferno/create-demo-user"
+                                        "/inferno/logout"
+                                        "/admin-portal"
+
+                                        "/smart/api"
+                                        "/smart/ui" ;; FIXME: remove
+                                        "/smart/demo/profile"
+                                        "/smart/demo/login"
+                                        "/smart-auth/grant"]}}}
               {:id "smart-api-public-endpoints"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri {:$one-of ["/smart/api"
-                                        "/smart/ui"
-                                        "/smart/demo/auth"
-                                        "/smart/demo/profile"
-                                        "/smart/demo/login"
-                                        "/smart/demo/logout"
-                                        "/smart/metadata"
+               :matcho {:uri {:$one-of ["/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
                                         "/smart-auth/grant"]}}}
@@ -99,11 +108,32 @@
                :grant_types ["authorization_code"
                              "basic"]}]}
 
+ admin-portal-ui
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/smartbox-ui}
 
-  api
+ documentation-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Smart API documentation"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/api-doc}
+
+ api
  {:zen/tags #{aidbox.rest/api}
+
   "smart-auth" {"grant" {:GET smartbox.smart-api/grant-view}}
+
+  :GET smartbox.inferno-demo/create-demo-user-page
+  "inferno" {:GET smartbox.inferno-demo/demo-user-page
+             "create-demo-user" {:POST smartbox.inferno-demo/demo-user-auth}
+             "logout" {:GET smartbox.inferno-demo/logout-demo-user}}
+  "documentation" {:GET documentation-page}
+
+  "admin-portal" {:GET admin-portal-ui}
+
   "smart"   {:apis #{smartbox.smart-api/smart-api
+                     smartbox.smart-api/legacy-public-api
                      smartbox.smart-api/public-api}}
   "bulk"    {:apis #{smartbox.bulk-api/bulk-api}}}
 
