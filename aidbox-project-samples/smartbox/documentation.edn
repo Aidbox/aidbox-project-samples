@@ -1,7 +1,4 @@
 {ns smartbox.documentation
-
-
-
  import #{aidbox.rest
           aidbox.rest.smart}
 
