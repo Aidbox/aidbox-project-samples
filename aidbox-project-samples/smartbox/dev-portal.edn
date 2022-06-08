@@ -152,7 +152,8 @@
                     :phone      {:type zen/string}
                     :role       {:type zen/string}
                     :org-name   {:type zen/string}
-                    :accept-tos {:type zen/string}}}}
+                    :org-url    {:type zen/string}
+                    :accept-tos {:type zen/boolean}}}}
 
  registration-developer-confirm
  {:zen/tags #{zenbox/rpc}
