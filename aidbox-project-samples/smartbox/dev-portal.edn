@@ -160,4 +160,21 @@
   :params   {:type zen/map
              :keys {:registration-id {:type zen/string}
                     :password-1      {:type zen/string}
-                    :password-2      {:type zen/string}}}}}
+                    :password-2      {:type zen/string}}}}
+
+ save-developer-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:application-id   {:type zen/string}    
+                    :application-name {:type zen/string}
+                    :confidentiality  {:type zen/string :enum [{:value "confidential"}
+                                                               {:value "public"}]}
+                    :pkce             {:type zen/boolean}
+                    :redirect-url     {:type zen/string}
+                    :lauch-url        {:type zen/string}
+                    :logo-url         {:type zen/string}
+                    :org-name         {:type zen/string}
+                    :org-url          {:type zen/string}
+                    :policy-url       {:type zen/string}
+                    :tos-url          {:type zen/string}
+                    :description      {:type zen/string}}}}}
