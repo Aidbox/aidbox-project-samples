@@ -14,13 +14,14 @@
   :services {:http server
              :seed access-policies
              :seed-fixtures smartbox.demo-fixtures/fixtures
-             :seed-inferno-clients inferno-clients}}
+             :seed-inferno-clients inferno-clients
+             :seed-notification-templates notification-templates}}
 
  box
  {:zen/tags #{aidbox/system}
   :services {:http  server
              :seed  access-policies
-             :notification-templates notification-templates}}
+             :seed-notification-templates notification-templates}}
 
  server
  {:zen/tags #{aidbox/service}
@@ -57,6 +58,12 @@
                                         "/smart/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
                                         "/smart-auth/grant"]}}}
+              {:id "dev-portal-public-rpc"
+               :resourceType "AccessPolicy"
+               :engine "allow-rpc"
+               :type "rpc"
+               :rpc {:smartbox.dev-portal/registration-developer         true
+                     :smartbox.dev-portal/registration-developer-confirm true}}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -130,11 +137,11 @@
  notification-templates
  {:zen/tags  #{aidbox/service}
   :engine    aidbox/seed
-  :resources {:NotificationTemplate
-              {:developer-confirm-email
-               {:template
-                "<p>Follow the link to verify your email and get started:</p>
-                 <a href={{confirm-address}}>Confirm</a>"}}}}
+  :resources [{:resourceType "NotificationTemplate"
+               :id "developer-confirm-email"
+               :template
+               "<p>Follow the link to verify your email and get started:</p>
+                 <a href={{confirm-address}}>Confirm</a>"}]}
 
  registration-developer
  {:zen/tags #{zenbox/rpc}
@@ -152,5 +159,4 @@
   :params   {:type zen/map
              :keys {:registration-id {:type zen/string}
                     :password-1      {:type zen/string}
-                    :password-2      {:type zen/string}}}}
- }
+                    :password-2      {:type zen/string}}}}}
