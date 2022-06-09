@@ -180,4 +180,10 @@
                     :description      {:type zen/string}}}}
 
  get-developer-applications
- {:zen/tags #{zenbox/rpc}}}
+ {:zen/tags #{zenbox/rpc}}
+
+ delete-developer-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:id {:type zen/string}}}}
+ }
