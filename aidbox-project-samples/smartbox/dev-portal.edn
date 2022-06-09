@@ -177,4 +177,7 @@
                     :org-url          {:type zen/string}
                     :policy-url       {:type zen/string}
                     :tos-url          {:type zen/string}
-                    :description      {:type zen/string}}}}}
+                    :description      {:type zen/string}}}}
+
+ get-developer-applications
+ {:zen/tags #{zenbox/rpc}}}
