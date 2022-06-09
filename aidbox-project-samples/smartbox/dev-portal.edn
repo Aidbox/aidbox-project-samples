@@ -182,6 +182,11 @@
  get-developer-applications
  {:zen/tags #{zenbox/rpc}}
 
+ get-developer-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:id {:type zen/string}}}}
+
  delete-developer-application
  {:zen/tags #{zenbox/rpc}
   :params   {:type zen/map
