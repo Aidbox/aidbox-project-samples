@@ -29,7 +29,8 @@
 
  ;; FIXME: why it doesn't raise an error because of zen/tag absence
  smart-api
- {:middlewares         [oauth-middleware]
+ {:zen/tags #{aidbox.rest/api}
+  :middlewares         [oauth-middleware]
   "Patient"            {:apis #{patient-api}}
   "AllergyIntolerance" {:apis #{allergy-intolerance-api}}
   "CarePlan"           {:apis #{care-plan-api}}
@@ -51,13 +52,15 @@
 
 
  legacy-public-api
- {:zen/desc "Don't remove since we shared those links"
+ {:zen/tags #{aidbox.rest/api}
+  :zen/desc "Don't remove since we shared those links"
   "api"                   {:GET redirect-to-api-doc}
   "demo"                  {"login"   {:GET redirect-to-index}
                            "profile" {:GET redirect-to-inferno-instruction}}}
 
  public-api
- {"ui"                    {:GET smartbox-ui} ;; FIXME: remove it
+ {:zen/tags #{aidbox.rest/api}
+  "ui"                    {:GET smartbox-ui} ;; FIXME: remove it
   ".well-known"           {"smart-configuration" {:GET smart-configuration-op}}
   "metadata"              {:GET capability-op}
   "style-v1.json"         {:GET style-smart-op}}

@@ -5,7 +5,8 @@
 
  ;; Bulk API
  bulk-api
- {:middlewares     [bulk-export-base-url-middleware]
+ {:zen/tags #{aidbox.rest/api}
+  :middlewares     [bulk-export-base-url-middleware]
   "metadata"       {:GET bulk-metadata}
   "$redirect"      {:GET redirect-op}
   "Patient"        {"$export" {:GET patient-lvl-export-op}}
