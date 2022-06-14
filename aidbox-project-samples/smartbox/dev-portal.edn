@@ -191,4 +191,9 @@
  {:zen/tags #{zenbox/rpc}
   :params   {:type zen/map
              :keys {:id {:type zen/string}}}}
+
+ get-developer-application-secret
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type zen/map
+             :keys {:id {:type zen/string}}}}
  }
