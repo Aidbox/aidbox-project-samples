@@ -1,0 +1,9 @@
+{
+  "name": "@aidbox/project-sample",
+  "version": "0.0.1",
+  "author": "Health-Samurai",
+  "license": "MIT",
+  "dependencies": {
+    "@zen-lang/hl7-fhir-r4-core": "^0.5.11"
+  }
+}
