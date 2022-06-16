@@ -1,0 +1,96 @@
+{ns smartbox.bulk-api
+ import #{aidbox.rest
+          aidbox.rest.smart
+          aidbox.rest.v1}
+
+ ;; Bulk API
+ bulk-api
+ {:zen/tags #{aidbox.rest/api}
+  :middlewares     [bulk-export-base-url-middleware]
+  "metadata"       {:GET bulk-metadata}
+  "$redirect"      {:GET redirect-op}
+  "Patient"        {"$export" {:GET patient-lvl-export-op}}
+  "Group"          {:GET  bulk-group-search
+                    [:id] {:GET      bulk-group-read-op
+                           "$export" {:GET group-lvl-export-op}}}
+  "$export"        {:GET system-lvl-export-op}
+  "$export-status" {[:bulk-export-id] {:GET    export-status-op
+                                       :DELETE cancel-export-op}}}
+
+ bulk-group-search
+ {:zen/tags #{aidbox.rest/op}
+  :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
+  :engine   aidbox.rest.v1/search
+  :resource "Group"
+  :format   "fhir"}
+
+ bulk-group-read-op
+ {:zen/tags #{aidbox.rest/op}
+  :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
+  :engine   aidbox.rest.v1/read
+  :resource "Group"
+  :format   "fhir"}
+
+ redirect-op
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :onc.certification/redirect}
+
+ bulk-export-base-url-middleware
+ {:zen/tags #{aidbox.rest/middleware}
+  :engine   aidbox.rest.smart/fhir-base-url
+  :prefix   "/bulk"}
+
+ bulk-metadata
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/static-response
+  :response {:status 200
+             :body {:id "bulk-data"
+                    :resourceType "CapabilityStatement"
+                    :status "active"
+                    :date "2022-01-01"
+                    :kind "requirements"
+                    :fhirVersion "4.0.1"
+                    :format ["json"]
+                    :instantiates ["http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data"] ;; required by bulk-export guide
+                    :implementationGuide ["http://hl7.org/fhir/uv/bulkdata/ImplementationGuide/hl7.fhir.uv.bulkdata"]
+                    :rest [{:mode "server"
+                            :resource
+                            [{:type "Group"
+                              :operation
+                              [{:name "export"
+                                :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export"}]}]
+                            :operation
+                            [{:name "export"
+                              :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"}]}]}}}
+
+ patient-lvl-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/aidbox-action
+  ;; FIXME: use fhir export
+  :action   :box.fhir.bulk.export.core/start-fhir-patient-level-export}
+
+ group-lvl-export-op
+ {:zen/tags           #{aidbox.rest/op aidbox.rest.smart/bulk-op}
+  :engine             aidbox.rest.smart/aidbox-action
+  :action             :box.fhir.bulk.export.core/start-fhir-group-level-export
+  :restrict-by-scope? true}
+
+ system-lvl-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.fhir.bulk.export.core/start-fhir-system-level-export}
+
+ export-status-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.fhir.bulk.export.core/export-status}
+
+ cancel-export-op
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.fhir.bulk.export.core/cancel-export}
+
+
+
+ }
