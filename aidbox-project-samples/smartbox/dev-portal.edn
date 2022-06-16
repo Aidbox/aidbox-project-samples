@@ -62,8 +62,17 @@
                :resourceType "AccessPolicy"
                :engine "allow-rpc"
                :type "rpc"
-               :rpc {:smartbox.dev-portal/registration-developer         true
-                     :smartbox.dev-portal/registration-developer-confirm true}}
+               :rpc {:smartbox.dev-portal/registration-developer                true
+                     :smartbox.dev-portal/registration-developer-confirm        true
+                     :smartbox.dev-portal/save-developer-application            true
+                     :smartbox.dev-portal/get-developer-applications            true
+                     :smartbox.dev-portal/get-developer-application             true
+                     :smartbox.dev-portal/delete-developer-application          true
+                     :smartbox.dev-portal/get-developer-application-secret      true
+                     :smartbox.dev-portal/send-developer-application-to-review  true
+                     :smartbox.dev-portal/get-developer-application-review-info true
+                     :aidbox.smart/get-launch-uri true
+                     }}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
