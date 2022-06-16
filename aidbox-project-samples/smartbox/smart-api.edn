@@ -54,9 +54,15 @@
  legacy-public-api
  {:zen/tags #{aidbox.rest/api}
   :zen/desc "Don't remove since we shared those links"
-  "api"                   {:GET redirect-to-api-doc}
-  "demo"                  {"login"   {:GET redirect-to-index}
-                           "profile" {:GET redirect-to-inferno-instruction}}}
+  "api"                   {:GET {:engine aidbox.rest.v1/static-response
+                                 :status 301
+                                 :headers {"location" "/documentation"}}}
+  "demo"                  {"login"   {:GET {:engine aidbox.rest.v1/static-response
+                                            :status 301
+                                            :headers {"location" "/"}}}
+                           "profile" {:GET {:engine aidbox.rest.v1/static-response
+                                            :status 301
+                                            :headers {"location" "/inferno"}}}}}
 
  public-api
  {:zen/tags #{aidbox.rest/api}
@@ -64,24 +70,6 @@
   ".well-known"           {"smart-configuration" {:GET smart-configuration-op}}
   "metadata"              {:GET capability-op}
   "style-v1.json"         {:GET style-smart-op}}
-
- redirect-to-index
- {:zen/tags #{aidbox.rest/op}
-  :engine aidbox.rest/static-response
-  :response {:status 301
-             :headers {"location" "/"}}}
-
- redirect-to-inferno-instruction
- {:zen/tags #{aidbox.rest/op}
-  :engine aidbox.rest/static-response
-  :response {:status 301
-             :headers {"location" "/inferno"}}}
-
- redirect-to-api-doc
- {:zen/tags #{aidbox.rest/op}
-  :engine aidbox.rest/static-response
-  :response {:status 301
-             :headers {"location" "/documentation"}}}
 
  ;; Conditions & Filters
  patient-conditon
@@ -585,20 +573,18 @@
  style-smart-op
  {:zen/tags #{aidbox.rest/op}
   :zen/desc "EHR’s style parameters can be retrieved"
-  :engine   aidbox.rest/static-response
-  :response
-  {:status 200
-   :body   {:color_background     "#edeae3"
-            :color_error          "#9e2d2d"
-            :color_highlight      "#69b5ce"
-            :color_modal_backdrop ""
-            :color_success        "#498e49"
-            :color_text           "#303030"
-            :dim_border_radius    "6px"
-            :dim_font_size        "13px"
-            :dim_spacing_size     "20px"
-            :font_family_body     "Georgia Times 'Times New Roman' serif"
-            :font_family_heading  "'HelveticaNeue-Light' Helvetica Arial 'Lucida Grande' sans-serif;"}}}
+  :engine   aidbox.rest.v1/static-response
+  :body   {:color_background     "#edeae3"
+           :color_error          "#9e2d2d"
+           :color_highlight      "#69b5ce"
+           :color_modal_backdrop ""
+           :color_success        "#498e49"
+           :color_text           "#303030"
+           :dim_border_radius    "6px"
+           :dim_font_size        "13px"
+           :dim_spacing_size     "20px"
+           :font_family_body     "Georgia Times 'Times New Roman' serif"
+           :font_family_heading  "'HelveticaNeue-Light' Helvetica Arial 'Lucida Grande' sans-serif;"}}
 
  ;; FIXME: remove it
  smartbox-ui
