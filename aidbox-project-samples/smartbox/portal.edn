@@ -109,46 +109,29 @@
                :grant_types ["authorization_code"
                              "basic"]}]}
 
- inferno-demo-api
- {:zen/tags #{aidbox.rest/api}
+ admin-portal-ui
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/smartbox-ui}
 
-  :GET {:engine aidbox.rest.v1/hiccup
-        :body [smartbox.inferno-demo/index-page]}
-
-  "inferno" {:GET {:engine aidbox.rest.v1/dispatch-by-user-role
-                   :logged {:engine aidbox.rest.v1/hiccup
-                            :body [smartbox.inferno-demo/instruction-page
-                                   {:email [:clj/get-in-request [:oauth/user :email]]}]}
-                   :guest {:engine  aidbox.rest.v1/static-response
-                           :status 302
-                           :headers {"location" "/"}}}
-
-             #_"create-user-and-login"
-             "create-demo-user"
-             {:POST {:engine smartbox.inferno-demo/create-user-and-login
-                     :then {:engine aidbox.rest.v1/static-response
-                            :status 302
-                            :headers {"location" "/inferno"}}}}
-
-             "logout" {:GET {:engine aidbox.rest.v1/logout
-                             :then {:engine aidbox.rest.v1/static-response
-                                    :status 302
-                                    :headers {"location" "/"}}}}}}
+ documentation-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Smart API documentation"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/api-doc}
 
  api
  {:zen/tags #{aidbox.rest/api}
 
-  :apis #{inferno-demo-api}
-
   "smart-auth" {"grant" {:GET smartbox.smart-api/grant-view}}
 
-  "documentation" {:GET {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-                         :zen/desc "Smart API documentation"
-                         :engine   aidbox.rest.smart/aidbox-action
-                         :action   :box.rest.smart/api-doc}}
-  "admin-portal" {:GET {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-                        :engine   aidbox.rest.smart/aidbox-action
-                        :action   :box.rest.smart/smartbox-ui}}
+  :GET smartbox.inferno-demo/create-demo-user-page
+  "inferno" {:GET smartbox.inferno-demo/demo-user-page
+             "create-demo-user" {:POST smartbox.inferno-demo/demo-user-auth}
+             "logout" {:GET smartbox.inferno-demo/logout-demo-user}}
+  "documentation" {:GET documentation-page}
+
+  "admin-portal" {:GET admin-portal-ui}
 
   "smart"   {:apis #{smartbox.smart-api/smart-api
                      smartbox.smart-api/legacy-public-api
