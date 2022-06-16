@@ -200,12 +200,12 @@
  send-developer-application-to-review
  {:zen/tags #{zenbox/rpc}
   :params   {:type      zen/map
-             :required #{:application}
+             :require #{:application}
              :keys      {:application {:type zen/string}}}}
 
  get-developer-application-review-info
  {:zen/tags #{zenbox/rpc}
   :params   {:type      zen/map
-             :required #{:application}
+             :require #{:application}
              :keys      {:application {:type zen/string}}}}
  }

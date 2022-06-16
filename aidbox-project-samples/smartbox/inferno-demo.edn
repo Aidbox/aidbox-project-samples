@@ -1,5 +1,6 @@
 {ns smartbox.inferno-demo
  import #{aidbox.rest
+          aidbox.dsl
           aidbox.rest.smart}
 
  ;; public endpoints
@@ -18,9 +19,11 @@
  create-user-and-login
  {:zen/tags #{aidbox.rest/op-engine zen/schema}
   :type zen/map
-  :keys {:then {:type {:type zen/case
-                       :case [{:when {:type zen/symbol} :then {:type zen/symbol :tag #{aidbox.rest/op}}}
-                              {:when {:type zen/map} :then {:type zen/map :confirms #{aidbox.rest/op}}}]}}}}
+  :keys {:then {:type zen/case
+                :case [{:when {:type zen/symbol}
+                        :then {:type zen/symbol :tags #{aidbox.rest/op}}}
+                       {:when {:type zen/map}
+                        :then {:type zen/map :confirms #{aidbox.rest/op}}}]}}}
 
  index-page
  {:zen/tags #{aidbox.dsl/hiccup}

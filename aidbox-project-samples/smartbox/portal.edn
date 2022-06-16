@@ -5,6 +5,7 @@
           smartbox.smart-api
           smartbox.bulk-api
           smartbox.documentation
+          smartbox.inferno-demo
           hl7-fhir-r4-core
           hl7-fhir-us-core}
 
