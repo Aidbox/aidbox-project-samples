@@ -10,6 +10,12 @@
   :engine   aidbox.rest.smart/aidbox-action
   :action   :box.rest.smart/demo-user-auth}
 
+ demo-user-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Demo user page"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/demo-user-page}
+
  logout-demo-user
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Log out a demo user"
@@ -311,5 +317,11 @@ input::placeholder {
 }
 
 "]}
+
+ create-demo-user-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Creating a demo user"
+  :engine   aidbox.rest.smart/aidbox-action
+  :action   :box.rest.smart/create-demo-user-page}
 
  }
