@@ -177,7 +177,8 @@
              :keys {:application-id   {:type zen/string}    
                     :application-name {:type zen/string}
                     :confidentiality  {:type zen/string :enum [{:value "confidential"}
-                                                               {:value "public"}]}
+                                                               {:value "public"}
+                                                               {:value "bulk"}]}
                     :pkce             {:type zen/boolean}
                     :redirect-url     {:type zen/string}
                     :lauch-url        {:type zen/string}
@@ -186,7 +187,10 @@
                     :org-url          {:type zen/string}
                     :policy-url       {:type zen/string}
                     :tos-url          {:type zen/string}
-                    :description      {:type zen/string}}}}
+                    :description      {:type zen/string}
+                    :bulk-jwks-uri    {:type zen/string}
+                    :bulk-scope       {:type zen/vector :every {:type zen/string}}
+                    }}}
 
  get-developer-applications
  {:zen/tags #{zenbox/rpc}}
