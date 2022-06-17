@@ -6,7 +6,8 @@
           smartbox.bulk-api
           smartbox.documentation
           hl7-fhir-r4-core
-          hl7-fhir-us-core}
+          hl7-fhir-us-core
+          zen.fhir}
 
  test-box
  {:zen/tags #{aidbox/system}
@@ -140,6 +141,6 @@
 
 
  test-schema
- {:zen/tags #{zen/schema}
+ {:zen/tags #{zen/schema zen.fhir/base-schema}
   :type zen/map
   :keys {}}}
