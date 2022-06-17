@@ -139,4 +139,7 @@
   "bulk"    {:apis #{smartbox.bulk-api/bulk-api}}}
 
 
- }
+ test-schema
+ {:zen/tags #{zen/schema}
+  :type zen/map
+  :keys {}}}
