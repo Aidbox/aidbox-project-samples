@@ -142,7 +142,7 @@
 
  test-schema
  {:zen/tags #{zen/schema zen.fhir/base-schema}
-  :zen.fhir/type "Test"
+  :zen.fhir/type []
   :zen.fhir/version "0.10"
   :type zen/map
   :keys {}}}
