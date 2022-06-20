@@ -56,6 +56,7 @@
                :engine "matcho"
                :matcho {:uri {:$one-of ["/smart/metadata"
                                         "/smart/.well-known/smart-configuration"
+                                        "/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
                                         "/smart-auth/grant"]}}}
               {:id "dev-portal-public-rpc"
