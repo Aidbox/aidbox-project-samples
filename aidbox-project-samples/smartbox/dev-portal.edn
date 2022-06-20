@@ -140,7 +140,11 @@
 
   "smart" {:apis #{smartbox.smart-api/smart-api
                    smartbox.smart-api/public-api}}
-  "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}}
+  "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}
+
+  ;; TODO: remove
+  ".well-known" {"smart-configuration" {:GET smartbox.smart-api/smart-configuration-op}}
+  }
 
 
  notification-templates
