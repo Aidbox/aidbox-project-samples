@@ -74,6 +74,13 @@
                      :smartbox.dev-portal/get-developer-application-review-info true
                      :aidbox.smart/get-launch-uri true
                      }}
+              {:id           "dev-portal-operator-rpc"
+               :description  "RPC methods for the portal operator"
+               :resourceType "AccessPolicy"
+               :type         "rpc"
+               :engine       "matcho-rpc"
+               :rpc          {:smartbox.dev-portal/get-operator-review-requests
+                              {:user {:roles [{:type "operator"}]}}}}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -226,4 +233,8 @@
   :params   {:type      zen/map
              :require #{:application}
              :keys      {:application {:type zen/string}}}}
+
+ ;; Operator
+ get-operator-review-requests
+ {:zen/tags #{zenbox/rpc}}
  }
