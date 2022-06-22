@@ -82,7 +82,10 @@
                :rpc          {:smartbox.dev-portal/get-operator-review-requests
                               {:user {:roles [{:type "operator"}]}}
                               :smartbox.dev-portal/get-operator-review-request
-                              {:user {:roles [{:type "operator"}]}}}}
+                              {:user {:roles [{:type "operator"}]}}
+                              :smartbox.dev-portal/reject-review-request
+                              {:user {:roles [{:type "operator"}]}}
+                              }}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -245,4 +248,11 @@
   :params   {:type      zen/map
              :require   #{:id}
              :keys      {:id {:type zen/string}}}}
+
+ reject-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type      zen/map
+             :require   #{:id}
+             :keys      {:id     {:type zen/string}
+                         :reason {:type zen/string}}}}
  }
