@@ -67,7 +67,6 @@
  patient-lvl-export-op
  {:zen/tags #{aidbox.rest/op}
   :engine   aidbox.rest.smart/aidbox-action
-  ;; FIXME: use fhir export
   :action   :box.fhir.bulk.export.core/start-fhir-patient-level-export}
 
  group-lvl-export-op
