@@ -1,7 +1,6 @@
 {ns smartbox.portal
  import #{aidbox
           aidbox.rest
-          zenbox
           smartbox.demo-fixtures
           smartbox.smart-api
           smartbox.bulk-api
@@ -51,12 +50,6 @@
                                         "/smart/demo/profile"
                                         "/smart/demo/login"
                                         "/smart-auth/grant"]}}}
-              {:id           "dev-portal-operator-rpc"
-               :description  "RPC methods for the dev portal operator"
-               :resourceType "AccessPolicy"
-               :type         "rpc"
-               :engine       "allow-rpc"
-               :rpc          {:smartbox.portal/remove-client-sessions {:user {:id "admin"}}}}
               {:id "smart-api-public-endpoints"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -147,8 +140,4 @@
   "bulk"    {:apis #{smartbox.bulk-api/bulk-api}}}
 
 
- remove-client-sessions
- {:zen/tags #{zenbox/rpc}
-  :required #{:id}
-  :params   {:id {:type zen/string}}}
  }
