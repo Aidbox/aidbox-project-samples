@@ -27,7 +27,6 @@
   :engine   aidbox.rest.smart/aidbox-action
   :action   :auth/grant-view-v2}
 
- ;; FIXME: why it doesn't raise an error because of zen/tag absence
  smart-api
  {:zen/tags #{aidbox.rest/api}
   :middlewares         [oauth-middleware]
