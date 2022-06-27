@@ -87,6 +87,14 @@
                               {:user {:roles [{:type "operator"}]}}
                               :smartbox.dev-portal/accept-review-request
                               {:user {:roles [{:type "operator"}]}}
+                              :smartbox.dev-portal/get-deployed-applications
+                              {:user {:roles [{:type "operator"}]}}
+                              :smartbox.dev-portal/get-deployed-application
+                              {:user {:roles [{:type "operator"}]}}
+                              :smartbox.dev-portal/inactive-deployed-application
+                              {:user {:roles [{:type "operator"}]}}
+                              :smartbox.dev-portal/activate-deployed-application
+                              {:user {:roles [{:type "operator"}]}}
                               }}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
@@ -263,4 +271,23 @@
   :params   {:type      zen/map
              :require   #{:id}
              :keys      {:id {:type zen/string}}}}
+
+ get-deployed-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ get-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :required #{:id}
+  :params   {:id {:type zen/string}}}
+
+ inactive-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :required #{:id}
+  :params   {:id {:type zen/string}}}
+
+ activate-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :required #{:id}
+  :params   {:id {:type zen/string}}}
+
  }
