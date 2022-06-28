@@ -278,19 +278,19 @@
  get-deployed-application
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
-             :required #{:id}
+             :require  #{:id}
              :keys     {:id {:type zen/string}}}}
 
  inactive-deployed-application
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
-             :required #{:id}
+             :require  #{:id}
              :keys     {:id {:type zen/string}}}}
 
  activate-deployed-application
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
-             :required #{:id}
+             :require  #{:id}
              :keys     {:id {:type zen/string}}}}
 
  }
