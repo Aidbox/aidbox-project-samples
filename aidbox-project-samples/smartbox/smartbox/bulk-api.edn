@@ -12,7 +12,6 @@
   "Group"          {:GET  bulk-group-search
                     [:id] {:GET      bulk-group-read-op
                            "$export" {:GET group-lvl-export-op}}}
-  "$export"        {:GET system-lvl-export-op}
   "$export-status" {[:bulk-export-id] {:GET    export-status-op
                                        :DELETE cancel-export-op}}}
 
@@ -68,11 +67,6 @@
   :engine             aidbox.rest.smart/aidbox-action
   :action             :box.fhir.bulk.export.core/start-fhir-group-level-export
   :restrict-by-scope? true}
-
- system-lvl-export-op
- {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.fhir.bulk.export.core/start-fhir-system-level-export}
 
  export-status-op
  {:zen/tags #{aidbox.rest/op}
