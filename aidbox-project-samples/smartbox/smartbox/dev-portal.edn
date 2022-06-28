@@ -67,6 +67,7 @@
                      :smartbox.dev-portal/registration-developer-confirm        true
                      :smartbox.dev-portal/save-developer-application            true
                      :smartbox.dev-portal/get-developer-applications            true
+                     :smartbox.dev-portal/get-developer-bulks                   true
                      :smartbox.dev-portal/get-developer-application             true
                      :smartbox.dev-portal/delete-developer-application          true
                      :smartbox.dev-portal/get-developer-application-secret      true
@@ -220,6 +221,9 @@
                     }}}
 
  get-developer-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ get-developer-bulks
  {:zen/tags #{zenbox/rpc}}
 
  get-developer-application
