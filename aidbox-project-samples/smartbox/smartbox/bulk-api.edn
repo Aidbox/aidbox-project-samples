@@ -9,7 +9,6 @@
   :middlewares     [bulk-export-base-url-middleware]
   "metadata"       {:GET bulk-metadata}
   "$redirect"      {:GET redirect-op}
-  "Patient"        {"$export" {:GET patient-lvl-export-op}}
   "Group"          {:GET  bulk-group-search
                     [:id] {:GET      bulk-group-read-op
                            "$export" {:GET group-lvl-export-op}}}
@@ -63,11 +62,6 @@
                             :operation
                             [{:name "export"
                               :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"}]}]}}}
-
- patient-lvl-export-op
- {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.fhir.bulk.export.core/start-fhir-patient-level-export}
 
  group-lvl-export-op
  {:zen/tags           #{aidbox.rest/op aidbox.rest.smart/bulk-op}
