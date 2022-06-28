@@ -9,7 +9,6 @@
   :middlewares     [bulk-export-base-url-middleware]
   "metadata"       {:GET bulk-metadata}
   "$redirect"      {:GET redirect-op}
-  "Patient"        {"$export" {:GET patient-lvl-export-op}}
   "Group"          {:GET  bulk-group-search
                     [:id] {:GET      bulk-group-read-op
                            "$export" {:GET group-lvl-export-op}}}
@@ -43,31 +42,26 @@
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/static-response
-  :response {:status 200
-             :body {:id "bulk-data"
-                    :resourceType "CapabilityStatement"
-                    :status "active"
-                    :date "2022-01-01"
-                    :kind "requirements"
-                    :fhirVersion "4.0.1"
-                    :format ["json"]
-                    :instantiates ["http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data"] ;; required by bulk-export guide
-                    :implementationGuide ["http://hl7.org/fhir/uv/bulkdata/ImplementationGuide/hl7.fhir.uv.bulkdata"]
-                    :rest [{:mode "server"
-                            :resource
-                            [{:type "Group"
-                              :operation
-                              [{:name "export"
-                                :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export"}]}]
-                            :operation
-                            [{:name "export"
-                              :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"}]}]}}}
-
- patient-lvl-export-op
- {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/aidbox-action
-  :action   :box.fhir.bulk.export.core/start-fhir-patient-level-export}
+  :engine   aidbox.rest.v1/static-response
+  :status 200
+  :body {:id "bulk-data"
+         :resourceType "CapabilityStatement"
+         :status "active"
+         :date "2022-01-01"
+         :kind "requirements"
+         :fhirVersion "4.0.1"
+         :format ["json"]
+         :instantiates ["http://hl7.org/fhir/uv/bulkdata/CapabilityStatement/bulk-data"] ;; required by bulk-export guide
+         :implementationGuide ["http://hl7.org/fhir/uv/bulkdata/ImplementationGuide/hl7.fhir.uv.bulkdata"]
+         :rest [{:mode "server"
+                 :resource
+                 [{:type "Group"
+                   :operation
+                   [{:name "export"
+                     :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/group-export"}]}]
+                 :operation
+                 [{:name "export"
+                   :definition "http://hl7.org/fhir/uv/bulkdata/OperationDefinition/export"}]}]}}
 
  group-lvl-export-op
  {:zen/tags           #{aidbox.rest/op aidbox.rest.smart/bulk-op}
