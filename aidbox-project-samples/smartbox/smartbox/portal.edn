@@ -90,13 +90,20 @@
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri "/bulk/$redirect"}}
+              {:id "bulk-api-client-group-export"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "#/bulk/Group/.+/\\$export"
+                        :request-method "get"
+                        :params {:_type "nil?"}
+                        :client {:type "bulk"}}}
               {:id "bulk-api-client-system-all-read"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri {:$one-of ["#/bulk/Group/.+/\\$export"
-                                        "#/bulk/Group/[^/]+$"
-                                        "#/bulk/Group"
+               :matcho {:uri {:$one-of ["#/bulk/Group/[^/]+$"
+                                        "#/bulk/Group$"
                                         "#/bulk/\\$export-status/.+"]}
+                        :request-method "get"
                         :client {:type "bulk"}}}]}
 
  inferno-clients
