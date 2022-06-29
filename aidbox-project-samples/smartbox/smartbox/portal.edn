@@ -7,7 +7,8 @@
           smartbox.documentation
           smartbox.inferno-demo
           hl7-fhir-r4-core
-          hl7-fhir-us-core}
+          hl7-fhir-us-core
+          zenbox}
 
  test-box
  {:zen/tags #{aidbox/system}
@@ -58,6 +59,29 @@
                                         "/smart/.well-known/smart-configuration"
                                         "/smart/style-v1.json"
                                         "/smart-auth/grant"]}}}
+              {:id           "portal-operator-rpc"
+               :description  "RPC methods for the portal operator"
+               :resourceType "AccessPolicy"
+               :type         "rpc"
+               :engine       "matcho-rpc"
+               :rpc
+               {:smartbox.portal/get-review-requests
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/get-review-request
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/reject-review-request
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/accept-review-request
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/get-deployed-applications
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/get-deployed-application
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/inactive-deployed-application
+                {:user {:roles [{:type "operator"}]}}
+                :smartbox.portal/activate-deployed-application
+                {:user {:roles [{:type "operator"}]}}
+                }}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -140,5 +164,48 @@
                      smartbox.smart-api/public-api}}
   "bulk"    {:apis #{smartbox.bulk-api/bulk-api}}}
 
+ get-review-requests
+ {:zen/tags #{zenbox/rpc}}
+
+ get-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type      zen/map
+             :require   #{:id}
+             :keys      {:id {:type zen/string}}}}
+
+ reject-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type      zen/map
+             :require   #{:id}
+             :keys      {:id     {:type zen/string}
+                         :reason {:type zen/string}}}}
+
+ accept-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type      zen/map
+             :require   #{:id}
+             :keys      {:id {:type zen/string}}}}
+
+ get-deployed-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ get-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}
+
+ inactive-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}
+
+ activate-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}
 
  }
+
