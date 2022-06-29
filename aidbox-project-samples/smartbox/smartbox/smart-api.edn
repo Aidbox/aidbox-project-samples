@@ -5,13 +5,10 @@
           aidbox.rest.acl
           aidbox.rest.v1
           smartbox.documentation
-          smartbox.inferno-demo
-
-
-          }
+          smartbox.inferno-demo}
 
  ;; FIXME: auth module hack
-  grant-lookup-method
+ grant-lookup-method
  {:zen/tags #{aidbox.auth/grant-lookup}
   :method   aidbox.auth/single-patient-grant-lookup}
 
@@ -22,9 +19,9 @@
   :response [smartbox.documentation/response-unauthorized
              smartbox.documentation/response-access-denied]}
 
-  grant-view
+ grant-view
  {:zen/tags #{aidbox.rest/op}
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :auth/grant-view-v2}
 
  smart-api
@@ -302,7 +299,7 @@
  document-reference-docref
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/op}
   :zen/desc "This operation is used to return all the references to documents related to a patient"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/document-reference-docref
   :scope    #{"user/*.read"
               "user/DocumentReference.read"
@@ -572,13 +569,13 @@
  smart-configuration-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "SMART configuration metadata, including OAuth authorization_endpoint and token_endpoint URLs"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :smart.fhir/smart-configuration}
 
  capability-op
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Get Authorization Server Metadata"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :smart.fhir/capability}
 
  style-smart-op
@@ -600,7 +597,7 @@
  ;; FIXME: remove it
  smartbox-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/smartbox-ui}
 
 

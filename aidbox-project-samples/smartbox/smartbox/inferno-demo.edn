@@ -7,19 +7,19 @@
  demo-user-auth
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Demo user auth"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/demo-user-auth}
 
  demo-user-page
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Demo user page"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/demo-user-page}
 
  logout-demo-user
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Log out a demo user"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/logout-demo-user}
 
  create-user-and-login
@@ -321,7 +321,7 @@ input::placeholder {
  create-demo-user-page
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Creating a demo user"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/create-demo-user-page}
 
  }

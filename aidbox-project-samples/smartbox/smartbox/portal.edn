@@ -113,13 +113,13 @@
 
  admin-portal-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/smartbox-ui}
 
  documentation-page
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :zen/desc "Smart API documentation"
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/api-doc}
 
  api

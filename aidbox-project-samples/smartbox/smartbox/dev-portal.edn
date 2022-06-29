@@ -152,7 +152,7 @@
 
  dev-portal-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :engine   aidbox.rest.smart/aidbox-action
+  :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/smartbox-ui}
 
  api
