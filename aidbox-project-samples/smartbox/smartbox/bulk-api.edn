@@ -6,7 +6,7 @@
  ;; Bulk API
  bulk-api
  {:zen/tags #{aidbox.rest/api}
-  :middlewares     [{:engine aidbox.rest.smart/fhir-base-url :prefix "/bulk"}]
+  :middlewares     [prefix-middleware]
   "metadata"       {:GET bulk-metadata}
   "$redirect"      {:GET {:engine aidbox.rest.v1/aidbox-action
                           :action :onc.certification/redirect}}
@@ -25,6 +25,11 @@
                                              :action :box.fhir.bulk.export.core/export-status}
                                        :DELETE {:engine aidbox.rest.v1/aidbox-action
                                                 :action :box.fhir.bulk.export.core/cancel-export}}}}
+
+ prefix-middleware
+ {:zen/tags #{aidbox.rest/middleware}
+  :engine aidbox.rest.smart/fhir-base-url
+  :prefix "/bulk"}
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}
