@@ -1,0 +1,33 @@
+{ns     smartbox.patient-portal
+ import #{aidbox
+          zenbox}
+
+ seed
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox/seed
+  :resources
+  {:AccessPolicy
+   {:smartbox-patient-portal-rpc-methods
+    {:description  "RPC methods for the patient portal"
+     :type         "rpc"
+     :engine       "matcho-rpc"
+     :rpc
+     {:smartbox.patient-portal/get-smart-applications
+      {:user {:roles [{:type "patient"}]}}
+      :smartbox.patient-portal/revoke-application-grants
+      {:user {:roles [{:type "patient"}]}}}}}}}
+
+ get-smart-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ launch-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}
+
+ revoke-application-grants
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}}
