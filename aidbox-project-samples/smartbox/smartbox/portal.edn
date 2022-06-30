@@ -97,6 +97,12 @@
                         :request-method "get"
                         :params {:_type "nil?"}
                         :client {:type "bulk"}}}
+              {:id "bulk-api-client-cancel-export"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "#/bulk/\\$export-status/.+"
+                        :request-method "delete"
+                        :client {:type "bulk"}}}
               {:id "bulk-api-client-system-all-read"
                :resourceType "AccessPolicy"
                :engine "matcho"
