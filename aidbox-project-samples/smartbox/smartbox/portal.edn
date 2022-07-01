@@ -39,7 +39,7 @@
                :engine "matcho"
                :matcho {:uri "#/smart/.*"
                         :session {:audience "#.+smart$"}
-                        :client  {:active true}}}
+                        :client  {:$not {:active false}}}}
               {:id "inferno-public-endpoints"
                :resourceType "AccessPolicy"
                :engine "matcho"
