@@ -112,7 +112,7 @@
               {:id "bulk-api-client-can-manage-only-own-export-status"
                :resourceType "AccessPolicy"
                :engine "sql"
-               :sql {:query " select true
+               :sql {:query "select true
 from bulkexportstatus
 where {{params.bulk-export-id}} = id
 and {{client.id}} = resource#>>'{requester,id}'
