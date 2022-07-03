@@ -84,8 +84,7 @@
                 :smartbox.portal/inactive-deployed-application
                 {:user {:roles [{:type "operator"}]}}
                 :smartbox.portal/activate-deployed-application
-                {:user {:roles [{:type "operator"}]}}
-                }}
+                {:user {:roles [{:type "operator"}]}}}}
               {:id "bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -101,20 +100,25 @@
                         :request-method "get"
                         :params {:_type "nil?"}
                         :client {:type "bulk"}}}
-              {:id "bulk-api-client-cancel-export"
-               :resourceType "AccessPolicy"
-               :engine "matcho"
-               :matcho {:uri "#/bulk/\\$export-status/.+"
-                        :request-method "delete"
-                        :client {:type "bulk"}}}
+              {:id "remove-access-policy-bulk-api-client-cancel-export"
+               :sql "delete from accesspolicy where id = 'bulk-api-client-cancel-export'"}
               {:id "bulk-api-client-system-all-read"
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri {:$one-of ["#/bulk/Group/[^/]+$"
-                                        "#/bulk/Group$"
-                                        "#/bulk/\\$export-status/.+"]}
+                                        "#/bulk/Group$"]}
                         :request-method "get"
-                        :client {:type "bulk"}}}]}
+                        :client {:type "bulk"}}}
+              {:id "bulk-api-client-can-manage-only-own-export-status"
+               :resourceType "AccessPolicy"
+               :engine "sql"
+               :sql {:query " select true
+from bulkexportstatus
+where {{params.bulk-export-id}} = id
+and {{client.id}} = resource#>>'{requester,id}'
+and resource#>>'{requester,resourceType}' = 'Client'
+and {{uri}} LIKE '/bulk/$export-status/%'
+and ({{request-method}} in ('get', 'delete'))"}}]}
 
  inferno-clients
  {:zen/tags #{aidbox/service}
