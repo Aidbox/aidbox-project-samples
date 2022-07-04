@@ -24,7 +24,8 @@
     {:description "Public RPC methods for the patient portal"
      :engine      "allow-rpc"
      :type        "rpc"
-     :rpc         {:smartbox.patient-portal/enroll true}}}
+     :rpc         {:smartbox.patient-portal/enroll true
+                   :smartbox.patient-portal/enroll-confirm true}}}
 
    :NotificationTemplate
    {:patient-confirm-email
@@ -49,4 +50,11 @@
                         :last-name  {:type zen/string}
                         :email      {:type zen/string}
                         :member-id  {:type zen/string}}}}
- }
+
+ enroll-confirm
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:registration-id :password-1 :password-2}
+             :keys    {:registration-id {:type zen/string}
+                       :password-1      {:type zen/string}
+                       :password-2      {:type zen/string}}}}}
