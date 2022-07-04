@@ -16,8 +16,11 @@
       {:user {:roles [{:type "patient"}]}}
       :smartbox.patient-portal/revoke-application-grants
       {:user {:roles [{:type "patient"}]}}
+      :smartbox.patient-portal/enroll
+      {:user {:roles [{:type "patient"}]}}
       :aidbox.smart/get-launch-uri
-      {:user {:roles [{:type "patient"}]}}}}}}}
+      {:user {:roles [{:type "patient"}]}}
+      }}}}}
 
  get-smart-applications
  {:zen/tags #{zenbox/rpc}}
@@ -26,4 +29,15 @@
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
              :require  #{:id}
-             :keys     {:id {:type zen/string}}}}}
+             :keys     {:id {:type zen/string}}}}
+
+ enroll
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:first-name :last-name :email :member-id}
+             :keys     {:first-name {:type zen/string}
+                        :last-name  {:type zen/string}
+                        :email      {:type zen/string}
+                        :member-id  {:type zen/string}
+                        :accept-tos {:type zen/boolean}}}}
+ }
