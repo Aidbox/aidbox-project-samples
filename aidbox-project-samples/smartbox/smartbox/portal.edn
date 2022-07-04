@@ -169,6 +169,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri {:$one-of ["#/multi-tenant/[^/]+/auth/authorize"
+                                        "#/multi-tenant/[^/]+/auth/login"
                                         "#/multi-tenant/[^/]+/auth/grant"]}}}
 
               {:id "multi-tenant-smart-api"
@@ -246,9 +247,13 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                             :action   :smart.fhir/multi-tenant-capability}}
                                           ".well-known" {"smart-configuration" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                                                       :action   :smart.fhir/multi-tenant-smart-configuration}}}
-                                          "style-v1.json" {:GET aidbox.rest.v1/style-smart-op}}
+                                          "style-v1.json" {:GET smartbox.smart-api/style-smart-op}}
 
-                             "auth" {#_#_"login" {:zen/desc "login user and save asid cookie with path /multi-tenant/:tenant"}
+                             "auth" {"login" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                    :action :auth/login-view}
+                                              :POST {:engine   aidbox.rest.v1/aidbox-action
+                                                     :action :auth/login
+                                                     :asid-cookie-path ["multi-tenant" [:request :route-params :tenant]]}}
                                      "grant" {:POST {:engine   aidbox.rest.v1/aidbox-action
                                                      :action   :auth/grant
                                                      ;; FIXME: find proper way to propagate params
