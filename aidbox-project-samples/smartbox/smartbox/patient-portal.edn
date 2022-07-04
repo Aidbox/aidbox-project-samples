@@ -19,8 +19,12 @@
       :smartbox.patient-portal/enroll
       {:user {:roles [{:type "patient"}]}}
       :aidbox.smart/get-launch-uri
-      {:user {:roles [{:type "patient"}]}}
-      }}}}}
+      {:user {:roles [{:type "patient"}]}}}}
+    :smartbox-patient-portal-public-rpc-methods
+    {:description "Public RPC methods for the patient portal"
+     :engine      "allow-rpc"
+     :type        "rpc"
+     :rpc         {:smartbox.patient-portal/enroll true}}}}}
 
  get-smart-applications
  {:zen/tags #{zenbox/rpc}}
@@ -38,6 +42,5 @@
              :keys     {:first-name {:type zen/string}
                         :last-name  {:type zen/string}
                         :email      {:type zen/string}
-                        :member-id  {:type zen/string}
-                        :accept-tos {:type zen/boolean}}}}
+                        :member-id  {:type zen/string}}}}
  }
