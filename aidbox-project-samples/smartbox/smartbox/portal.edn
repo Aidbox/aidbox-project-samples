@@ -35,6 +35,8 @@
  access-policies
  {:zen/tags  #{aidbox/service}
   :engine    aidbox/seed
+  :migrations [{:id "remove-access-policy-bulk-api-client-cancel-export"
+               :sql "delete from accesspolicy where id = 'bulk-api-client-cancel-export'"}]
   :resources [{:id "smart-api"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -100,8 +102,6 @@
                         :request-method "get"
                         :params {:_type "nil?"}
                         :client {:type "bulk"}}}
-              {:id "remove-access-policy-bulk-api-client-cancel-export"
-               :sql "delete from accesspolicy where id = 'bulk-api-client-cancel-export'"}
               {:id "bulk-api-client-system-all-read"
                :resourceType "AccessPolicy"
                :engine "matcho"
@@ -155,6 +155,28 @@ and resource#>>'{requester,resourceType}' = 'Client'
 and {{uri}} LIKE '/multi-tenant/bulk-api/$export-status/%'
 and ({{request-method}} in ('get', 'delete'))"}}
 
+              {:id "multi-tenant-smart-api-public-endpoints"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri {:$one-of ["#/multi-tenant/[^/]+/smart-api/metadata"
+                                        "#/multi-tenant/[^/]+/smart-api/.well-known/smart-configuration"
+                                        "#/multi-tenant/[^/]+/smart-api/style-v1.json"
+
+                                        ;; FIXME: what is it?
+                                        "#/multi-tenant/[^/]+/smart-api-auth/grant"]}}}
+
+              {:id "multi-tenant-auth-public-endpoints"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri {:$one-of ["#/multi-tenant/[^/]+/auth/authorize"
+                                        "#/multi-tenant/[^/]+/auth/grant"]}}}
+
+              {:id "multi-tenant-smart-api"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "#/multi-tenant/[^/]+/smart-api/.*"
+                        :session {:audience "#/multi-tenant/[^/]+/smart-api$"}
+                        :client  {:$not {:active false}}}}
 
               ]}
 
@@ -218,8 +240,29 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "portal" {:GET portal-ui}
 
-  "multi-tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api
-                                                  smartbox.smart-api/public-api}}}
+  "multi-tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api}
+
+                                          "metadata" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                            :action   :smart.fhir/multi-tenant-capability}}
+                                          ".well-known" {"smart-configuration" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                                                      :action   :smart.fhir/multi-tenant-smart-configuration}}}
+                                          "style-v1.json" {:GET aidbox.rest.v1/style-smart-op}}
+
+                             "auth" {#_#_"login" {:zen/desc "login user and save asid cookie with path /multi-tenant/:tenant"}
+                                     "grant" {:POST {:engine   aidbox.rest.v1/aidbox-action
+                                                     :action   :auth/grant
+                                                     ;; FIXME: find proper way to propagate params
+                                                     :authorize-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "authorize"]}
+                                              #_#_:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                    :action   :auth/grant-view-v2
+                                                    ;; FIXME: find proper way to propagate params
+                                                    :grant-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "grant"]
+                                                    :login-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "login"]}}
+                                     "authorize" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                        :action   :auth/authorization-request-endpoint
+                                                        ;; FIXME: find proper way to propagate params
+                                                        :grant-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "grant"]
+                                                        :login-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "login"]}}}}
                   "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
 
   "smart"   {:apis #{smartbox.smart-api/smart-api

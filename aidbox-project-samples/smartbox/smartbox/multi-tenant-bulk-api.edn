@@ -49,8 +49,6 @@
   :source-schema {:type zen/string}
   :path          [:client :meta :_tenant]}
 
-
-
  prefix-middleware
  {:zen/tags #{aidbox.rest/middleware}
   :engine aidbox.rest.smart/fhir-base-url
