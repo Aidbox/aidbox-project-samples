@@ -253,6 +253,8 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                     :action :auth/login-view}
                                               :POST {:engine   aidbox.rest.v1/aidbox-action
                                                      :action :auth/login
+                                                     :tenant {:resource-path [:meta :_tenant]
+                                                              :ctx-path [:request :route-params :tenant]}
                                                      :asid-cookie-path ["multi-tenant" [:request :route-params :tenant]]}}
                                      "grant" {:POST {:engine   aidbox.rest.v1/aidbox-action
                                                      :action   :auth/grant
