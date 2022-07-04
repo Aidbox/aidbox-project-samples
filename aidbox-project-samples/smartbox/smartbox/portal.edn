@@ -4,6 +4,7 @@
           smartbox.demo-fixtures
           smartbox.smart-api
           smartbox.bulk-api
+          smartbox.multi-tenant-bulk-api
           smartbox.documentation
           smartbox.inferno-demo
           smartbox.patient-portal
@@ -113,11 +114,49 @@
                :engine "sql"
                :sql {:query "select true
 from bulkexportstatus
-where {{params.bulk-export-id}} = id
+where id = {{params.bulk-export-id}}
 and {{client.id}} = resource#>>'{requester,id}'
 and resource#>>'{requester,resourceType}' = 'Client'
 and {{uri}} LIKE '/bulk/$export-status/%'
-and ({{request-method}} in ('get', 'delete'))"}}]}
+and ({{request-method}} in ('get', 'delete'))"}}
+
+              {:id "multi-tenant-bulk-api-client-group-search"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "/multi-tenant/bulk-api/Group"
+                        :request-method "get"
+                        :client {:type "multi-tenant-bulk"}}}
+
+              {:id "multi-tenant-bulk-api-redirect"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "/multi-tenant/bulk-api/$redirect"}}
+              {:id "multi-teanant-bulk-api-metadata"
+               :resourceType "AccessPolicy"
+               :engine "matcho"
+               :matcho {:uri "/multi-tenant/bulk-api/metadata"}}
+              {:id "multi-tenant-bulk-api-client-can-read-and-export-group-from-same-tenant"
+               :resourceType "AccessPolicy"
+               :engine "sql"
+               :sql {:query "select true
+from \"group\"
+where id = {{params.id}}
+and resource#>>'{meta,_tenant}' = {{client.meta._tenant}}
+and ({{uri}} LIKE '/multi-tenant/bulk-api/Group/%' or {{uri}} LIKE '/multi-tenant/bulk-api/Group/%/$export')
+and {{request-method}} = 'get'"}}
+              {:id "multi-tenant-bulk-api-client-can-manage-only-own-export-status"
+               :resourceType "AccessPolicy"
+               :engine "sql"
+               :sql {:query "select true
+from bulkexportstatus
+where id = {{params.bulk-export-id}}
+and {{client.id}} = resource#>>'{requester,id}'
+and resource#>>'{requester,resourceType}' = 'Client'
+and {{uri}} LIKE '/multi-tenant/bulk-api/$export-status/%'
+and ({{request-method}} in ('get', 'delete'))"}}
+
+
+              ]}
 
  inferno-clients
  {:zen/tags #{aidbox/service}
@@ -178,6 +217,10 @@ and ({{request-method}} in ('get', 'delete'))"}}]}
   "documentation" {:GET documentation-page}
 
   "portal" {:GET portal-ui}
+
+  "multi-tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api
+                                                  smartbox.smart-api/public-api}}}
+                  "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
 
   "smart"   {:apis #{smartbox.smart-api/smart-api
                      smartbox.smart-api/legacy-public-api

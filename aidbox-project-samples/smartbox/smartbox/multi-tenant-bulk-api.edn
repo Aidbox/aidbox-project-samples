@@ -1,18 +1,20 @@
-{ns smartbox.bulk-api
+{ns smartbox.multi-tenant-bulk-api
  import #{aidbox.rest
           aidbox.rest.smart
+          aidbox.rest.acl
           aidbox.rest.v1}
 
- bulk-api
+ root-api
  {:zen/tags #{aidbox.rest/api}
   :middlewares     [prefix-middleware]
   "metadata"       {:GET bulk-metadata}
+
   "$redirect"      {:GET {:engine aidbox.rest.v1/aidbox-action
                           :action :onc.certification/redirect}}
-  "Group"          {:GET  {:engine   aidbox.rest.v1/search
-                           :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
-                           :resource "Group"
-                           :format   "fhir"}
+
+  "Group"          {:GET search-group
+
+                    ;; TODO: write sql access policies for those operations
                     [:id] {:GET      {:engine   aidbox.rest.v1/read
                                       :zen/desc "Reads the current state of a resource. See documentation at: https://www.hl7.org/fhir/http.html#read"
                                       :resource "Group"
@@ -20,15 +22,39 @@
                            "$export" {:GET {:engine aidbox.rest.v1/aidbox-action
                                             :action :box.fhir.bulk.export.core/start-fhir-group-level-export
                                             :types-on-param-absense :session-scope}}}}
+
   "$export-status" {[:bulk-export-id] {:GET {:engine aidbox.rest.v1/aidbox-action
                                              :action :box.fhir.bulk.export.core/export-status}
                                        :DELETE {:engine aidbox.rest.v1/aidbox-action
                                                 :action :box.fhir.bulk.export.core/cancel-export}}}}
 
+ search-group
+ {:zen/tags #{aidbox.rest/op}
+  :engine   aidbox.rest.acl/search
+  :resource "Group"
+  :format   "fhir"
+  :filter   tenant-filter}
+
+ tenant-filter
+ {:zen/tags     #{aidbox.rest.acl/filter}
+  :expression  client-tenant-filter-sql-template}
+
+ client-tenant-filter-sql-template
+ {:zen/tags #{aidbox.rest.acl/sql-template}
+  :params   {:client-tenant client-tenant}
+  :template "resource#>>'{meta,_tenant}' = {{params.client-tenant}}"}
+
+ client-tenant
+ {:zen/tags      #{aidbox.rest.acl/request-param}
+  :source-schema {:type zen/string}
+  :path          [:client :meta :_tenant]}
+
+
+
  prefix-middleware
  {:zen/tags #{aidbox.rest/middleware}
   :engine aidbox.rest.smart/fhir-base-url
-  :prefix "/bulk"}
+  :prefix "/multi-tenant/bulk-api"}
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}
