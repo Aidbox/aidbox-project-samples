@@ -48,8 +48,7 @@
                                         "/inferno"
                                         "/inferno/create-demo-user"
                                         "/inferno/logout"
-                                        "/admin-portal"
-                                        "/patient-portal"
+                                        "/portal"
 
                                         "/smart/api"
                                         "/smart/ui" ;; FIXME: remove
@@ -156,12 +155,7 @@ and ({{request-method}} in ('get', 'delete'))"}}]}
                :grant_types ["authorization_code"
                              "basic"]}]}
 
- admin-portal-ui
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :engine   aidbox.rest.v1/aidbox-action
-  :action   :box.rest.smart/smartbox-ui}
-
- patient-portal-ui
+ portal-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/smartbox-ui}
@@ -183,8 +177,7 @@ and ({{request-method}} in ('get', 'delete'))"}}]}
              "logout" {:GET smartbox.inferno-demo/logout-demo-user}}
   "documentation" {:GET documentation-page}
 
-  "admin-portal"   {:GET admin-portal-ui}
-  "patient-portal" {:GET patient-portal-ui}
+  "portal" {:GET portal-ui}
 
   "smart"   {:apis #{smartbox.smart-api/smart-api
                      smartbox.smart-api/legacy-public-api
