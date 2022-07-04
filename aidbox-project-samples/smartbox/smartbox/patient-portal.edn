@@ -15,19 +15,46 @@
      {:smartbox.patient-portal/get-smart-applications
       {:user {:roles [{:type "patient"}]}}
       :smartbox.patient-portal/revoke-application-grants
-      {:user {:roles [{:type "patient"}]}}}}}}}
+      {:user {:roles [{:type "patient"}]}}
+      :smartbox.patient-portal/enroll
+      {:user {:roles [{:type "patient"}]}}
+      :aidbox.smart/get-launch-uri
+      {:user {:roles [{:type "patient"}]}}}}
+    :smartbox-patient-portal-public-rpc-methods
+    {:description "Public RPC methods for the patient portal"
+     :engine      "allow-rpc"
+     :type        "rpc"
+     :rpc         {:smartbox.patient-portal/enroll true
+                   :smartbox.patient-portal/enroll-confirm true}}}
+
+   :NotificationTemplate
+   {:patient-confirm-email
+    {:template
+     "<p>Follow the link to verify your email and get started:</p>
+      <a href={{confirm-address}}>Confirm</a>"}}}}
 
  get-smart-applications
  {:zen/tags #{zenbox/rpc}}
-
- launch-application
- {:zen/tags #{zenbox/rpc}
-  :params   {:type     zen/map
-             :require  #{:id}
-             :keys     {:id {:type zen/string}}}}
 
  revoke-application-grants
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
              :require  #{:id}
-             :keys     {:id {:type zen/string}}}}}
+             :keys     {:id {:type zen/string}}}}
+
+ enroll
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:first-name :last-name :email :member-id}
+             :keys     {:first-name {:type zen/string}
+                        :last-name  {:type zen/string}
+                        :email      {:type zen/string}
+                        :member-id  {:type zen/string}}}}
+
+ enroll-confirm
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:registration-id :password-1 :password-2}
+             :keys    {:registration-id {:type zen/string}
+                       :password-1      {:type zen/string}
+                       :password-2      {:type zen/string}}}}}
