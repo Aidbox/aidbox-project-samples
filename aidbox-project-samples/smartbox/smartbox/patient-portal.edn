@@ -24,7 +24,13 @@
     {:description "Public RPC methods for the patient portal"
      :engine      "allow-rpc"
      :type        "rpc"
-     :rpc         {:smartbox.patient-portal/enroll true}}}}}
+     :rpc         {:smartbox.patient-portal/enroll true}}}
+
+   :NotificationTemplate
+   {:patient-confirm-email
+    {:template
+     "<p>Follow the link to verify your email and get started:</p>
+      <a href={{confirm-address}}>Confirm</a>"}}}}
 
  get-smart-applications
  {:zen/tags #{zenbox/rpc}}
