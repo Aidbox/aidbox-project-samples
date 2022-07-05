@@ -189,7 +189,14 @@
                     :display "Medical Record Number"}],
                   :text "Medical Record Number"},
                  :system "http://hospital.smarthealthit.org",
-                 :value "1032702"}],
+                 :value "1032702"}
+                {:type
+                 {:coding
+                  [{:code    "MB",
+                    :system  "http://terminology.hl7.org/CodeSystem/v2-0203",
+                    :display "Member ID"}]},
+                 :value "102030", 
+                 :system "https://www.org.org"}],
                :telecom
                [{:system "phone", :value "555-555-5555", :use "home"}
                 {:system "email", :value "amy.shaw@example.com"}],
