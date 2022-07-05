@@ -26,7 +26,7 @@
      :type        "rpc"
      :rpc         {:smartbox.patient-portal/enroll            true
                    :smartbox.patient-portal/enroll-confirm    true
-                   :smartbox.patoent-portal/get-enroll-schema true}}}
+                   :smartbox.patient-portal/get-enroll-schema true}}}
 
    :NotificationTemplate
    {:patient-confirm-email
@@ -90,10 +90,10 @@
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
              :require  #{:first-name :last-name :email :member-id}
-             :keys     {:first-name {:confirms #{enroll-first-name}}
-                        :last-name  {:confirms #{enroll-last-name}}
-                        :email      {:confirms #{enroll-email}}
-                        :member-id  {:confirms #{enroll-member-id}}}}}
+             :keys     {:first-name {:zen/desc "First Name" :confirms #{enroll-first-name}}
+                        :last-name  {:zen/desc "Last Name"  :confirms #{enroll-last-name}}
+                        :email      {:zen/desc "Email"      :confirms #{enroll-email}}
+                        :member-id  {:zen/desc "Member ID"  :confirms #{enroll-member-id}}}}}
 
  enroll-confirm
  {:zen/tags #{zenbox/rpc}
