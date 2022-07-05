@@ -143,7 +143,8 @@ from \"group\"
 where id = {{params.id}}
 and resource#>>'{meta,_tenant}' = {{client.meta._tenant}}
 and ({{uri}} LIKE '/tenant/bulk-api/Group/%' or {{uri}} LIKE '/tenant/bulk-api/Group/%/$export')
-and {{request-method}} = 'get'"}}
+and {{request-method}} = 'get'
+and {{client.type}} ='multi-tenant-bulk'"}}
               {:id "multi-tenant-bulk-api-client-can-manage-only-own-export-status"
                :resourceType "AccessPolicy"
                :engine "sql"
