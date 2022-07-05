@@ -123,18 +123,18 @@ and ({{request-method}} in ('get', 'delete'))"}}
               {:id "multi-tenant-bulk-api-client-group-search"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri "/multi-tenant/bulk-api/Group"
+               :matcho {:uri "/tenant/bulk-api/Group"
                         :request-method "get"
                         :client {:type "multi-tenant-bulk"}}}
 
               {:id "multi-tenant-bulk-api-redirect"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri "/multi-tenant/bulk-api/$redirect"}}
+               :matcho {:uri "/tenant/bulk-api/$redirect"}}
               {:id "multi-teanant-bulk-api-metadata"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri "/multi-tenant/bulk-api/metadata"}}
+               :matcho {:uri "/tenant/bulk-api/metadata"}}
               {:id "multi-tenant-bulk-api-client-can-read-and-export-group-from-same-tenant"
                :resourceType "AccessPolicy"
                :engine "sql"
@@ -142,7 +142,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
 from \"group\"
 where id = {{params.id}}
 and resource#>>'{meta,_tenant}' = {{client.meta._tenant}}
-and ({{uri}} LIKE '/multi-tenant/bulk-api/Group/%' or {{uri}} LIKE '/multi-tenant/bulk-api/Group/%/$export')
+and ({{uri}} LIKE '/tenant/bulk-api/Group/%' or {{uri}} LIKE '/tenant/bulk-api/Group/%/$export')
 and {{request-method}} = 'get'"}}
               {:id "multi-tenant-bulk-api-client-can-manage-only-own-export-status"
                :resourceType "AccessPolicy"
@@ -152,31 +152,36 @@ from bulkexportstatus
 where id = {{params.bulk-export-id}}
 and {{client.id}} = resource#>>'{requester,id}'
 and resource#>>'{requester,resourceType}' = 'Client'
-and {{uri}} LIKE '/multi-tenant/bulk-api/$export-status/%'
+and {{uri}} LIKE '/tenant/bulk-api/$export-status/%'
 and ({{request-method}} in ('get', 'delete'))"}}
 
               {:id "multi-tenant-smart-api-public-endpoints"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri {:$one-of ["#/multi-tenant/[^/]+/smart-api/metadata"
-                                        "#/multi-tenant/[^/]+/smart-api/.well-known/smart-configuration"
-                                        "#/multi-tenant/[^/]+/smart-api/style-v1.json"
+               :matcho {:uri {:$one-of ["#/tenant/[^/]+/smart-api/metadata"
+                                        "#/tenant/[^/]+/smart-api/.well-known/smart-configuration"
+                                        "#/tenant/[^/]+/smart-api/style-v1.json"
 
                                         ;; FIXME: what is it?
-                                        "#/multi-tenant/[^/]+/smart-api-auth/grant"]}}}
+                                        "#/tenant/[^/]+/smart-api-auth/grant"]}}}
 
               {:id "multi-tenant-auth-public-endpoints"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri {:$one-of ["#/multi-tenant/[^/]+/auth/authorize"
-                                        "#/multi-tenant/[^/]+/auth/login"
-                                        "#/multi-tenant/[^/]+/auth/grant"]}}}
+               :matcho {:uri {:$one-of ["#/tenant/[^/]+/auth/authorize$"
+                                        "#/tenant/[^/]+/auth/login$"
+                                        "#/tenant/[^/]+/auth/logout$"
+                                        "#/tenant/[^/]+/auth/grant$"
+                                        "#/tenant/[^/]+/auth/grants$"
+                                        "#/tenant/[^/]+/auth/sessions$"
+                                        "#/tenant/[^/]+/auth/smart-apps$"
+                                        "#/tenant/[^/]+/auth/two-factor$"]}}}
 
               {:id "multi-tenant-smart-api"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri "#/multi-tenant/[^/]+/smart-api/.*"
-                        :session {:audience "#/multi-tenant/[^/]+/smart-api$"}
+               :matcho {:uri "#/tenant/[^/]+/smart-api/.*"
+                        :session {:audience "#/tenant/[^/]+/smart-api$"}
                         :client  {:$not {:active false}}}}
 
               ]}
@@ -241,7 +246,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "portal" {:GET portal-ui}
 
-  "multi-tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api}
+  "tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api}
 
                                           "metadata" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                             :action   :smart.fhir/multi-tenant-capability}}
@@ -250,26 +255,71 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                           "style-v1.json" {:GET smartbox.smart-api/style-smart-op}}
 
                              "auth" {"login" {:GET {:engine   aidbox.rest.v1/aidbox-action
-                                                    :action :auth/login-view}
+                                                    :action :auth/login-view
+                                                    :logout-url ["tenant" [:request :route-params :tenant] "auth" "logout"]
+                                                    :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                    :session-url ["tenant" [:request :route-params :tenant] "auth" "sessions"]
+                                                    :grant-url ["tenant" [:request :route-params :tenant] "auth" "grants"]
+                                                    :two-factor-url ["tenant" [:request :route-params :tenant] "auth" "two-factor"]
+                                                    :smart-app-url ["tenant" [:request :route-params :tenant] "auth" "smart-apps"]}
+
                                               :POST {:engine   aidbox.rest.v1/aidbox-action
                                                      :action :auth/login
+                                                     :authorize-url ["tenant" [:request :route-params :tenant] "auth" "authorize"]
                                                      :tenant {:resource-path [:meta :_tenant]
                                                               :ctx-path [:request :route-params :tenant]}
-                                                     :asid-cookie-path ["multi-tenant" [:request :route-params :tenant]]}}
+                                                     :asid-cookie-path ["tenant" [:request :route-params :tenant]]}}
+
+                                     "sessions" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                       :action :auth/sesisons-view
+
+                                                       :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                       :session-url ["tenant" [:request :route-params :tenant] "auth" "sessions"]
+                                                       :grant-url ["tenant" [:request :route-params :tenant] "auth" "grants"]
+                                                       :two-factor-url ["tenant" [:request :route-params :tenant] "auth" "two-factor"]
+                                                       :smart-app-url ["tenant" [:request :route-params :tenant] "auth" "smart-apps"]}}
+
+                                     "grants" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                     :action :auth/grants-view
+
+                                                     :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                     :session-url ["tenant" [:request :route-params :tenant] "auth" "sessions"]
+                                                     :grant-url ["tenant" [:request :route-params :tenant] "auth" "grants"]
+                                                     :two-factor-url ["tenant" [:request :route-params :tenant] "auth" "two-factor"]
+                                                     :smart-app-url ["tenant" [:request :route-params :tenant] "auth" "smart-apps"]}}
+                                     "smart-apps" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                         :action :auth/smart-apps-view
+                                                         :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                         :session-url ["tenant" [:request :route-params :tenant] "auth" "sessions"]
+                                                         :grant-url ["tenant" [:request :route-params :tenant] "auth" "grants"]
+                                                         :two-factor-url ["tenant" [:request :route-params :tenant] "auth" "two-factor"]
+                                                         :smart-app-url ["tenant" [:request :route-params :tenant] "auth" "smart-apps"]}}
+                                     "two-factor" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                         :action :auth/two-factor-view
+
+                                                         :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                         :session-url ["tenant" [:request :route-params :tenant] "auth" "sessions"]
+                                                         :grant-url ["tenant" [:request :route-params :tenant] "auth" "grants"]
+                                                         :two-factor-url ["tenant" [:request :route-params :tenant] "auth" "two-factor"]
+                                                         :smart-app-url ["tenant" [:request :route-params :tenant] "auth" "smart-apps"]
+                                                         }}
+                                     "logout" {:POST {:engine   aidbox.rest.v1/aidbox-action
+                                                      :action :auth/logout
+                                                      :login-url ["tenant" [:request :route-params :tenant] "auth" "login"]
+                                                      :asid-cookie-path ["tenant" [:request :route-params :tenant]]}}
+
                                      "grant" {:POST {:engine   aidbox.rest.v1/aidbox-action
                                                      :action   :auth/grant
-                                                     ;; FIXME: find proper way to propagate params
-                                                     :authorize-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "authorize"]}
-                                              #_#_:GET {:engine   aidbox.rest.v1/aidbox-action
+                                                     :authorize-redirect ["tenant" [:request :route-params :tenant] "auth" "authorize"]}
+                                              :GET {:engine   aidbox.rest.v1/aidbox-action
                                                     :action   :auth/grant-view-v2
                                                     ;; FIXME: find proper way to propagate params
-                                                    :grant-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "grant"]
-                                                    :login-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "login"]}}
+                                                    :grant-url ["tenant" [:request :route-params :tenant] "auth" "grant"]}}
                                      "authorize" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                         :action   :auth/authorization-request-endpoint
                                                         ;; FIXME: find proper way to propagate params
-                                                        :grant-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "grant"]
-                                                        :login-redirect ["multi-tenant" [:request :route-params :tenant] "auth" "login"]}}}}
+                                                        :grant-redirect ["tenant" [:request :route-params :tenant] "auth" "grant"]
+                                                        :login-redirect ["tenant" [:request :route-params :tenant] "auth" "login"]}}}}
                   "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
 
   "smart"   {:apis #{smartbox.smart-api/smart-api

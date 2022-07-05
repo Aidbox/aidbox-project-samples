@@ -52,7 +52,7 @@
  prefix-middleware
  {:zen/tags #{aidbox.rest/middleware}
   :engine aidbox.rest.smart/fhir-base-url
-  :prefix "/multi-tenant/bulk-api"}
+  :prefix "/tenant/bulk-api"}
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}
