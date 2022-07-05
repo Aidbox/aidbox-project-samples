@@ -24,8 +24,9 @@
     {:description "Public RPC methods for the patient portal"
      :engine      "allow-rpc"
      :type        "rpc"
-     :rpc         {:smartbox.patient-portal/enroll true
-                   :smartbox.patient-portal/enroll-confirm true}}}
+     :rpc         {:smartbox.patient-portal/enroll            true
+                   :smartbox.patient-portal/enroll-confirm    true
+                   :smartbox.patoent-portal/get-enroll-schema true}}}
 
    :NotificationTemplate
    {:patient-confirm-email
@@ -51,15 +52,6 @@
                          :every {:type zen/vector
                                  :every {:type zen/any}}}}}
 
- get-smart-applications
- {:zen/tags #{zenbox/rpc}}
-
- revoke-application-grants
- {:zen/tags #{zenbox/rpc}
-  :params   {:type     zen/map
-             :require  #{:id}
-             :keys     {:id {:type zen/string}}}}
-
  enroll-first-name
  {:zen/tags     #{zen/schema patient-path user-path}
   :type         zen/string
@@ -82,6 +74,17 @@
   :type         zen/string
   :patient-path [[:identifier {:type {:coding [{:code "MB"}]}} :value]]}
 
+ get-smart-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ get-enroll-schema
+ {:zen/tags #{zenbox/rpc}}
+
+ revoke-application-grants
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type     zen/map
+             :require  #{:id}
+             :keys     {:id {:type zen/string}}}}
 
  enroll
  {:zen/tags #{zenbox/rpc}
