@@ -52,6 +52,10 @@
                                                "/inferno/create-demo-user"
                                                "/inferno/logout"
                                                "/portal"
+                                               "#^/tenant/[^/]+/patient-portal$"
+                                               "#^/tenant/[^/]+/auth/userinfo$"
+                                               "#^/tenant/[^/]+/rpc$"
+                                               "/admin/portal"
 
                                                "/smart/api"
                                                "/smart/ui" ;; FIXME: remove
@@ -258,9 +262,21 @@ and ({{request-method}} in ('get', 'delete'))"}}
                    "logout"           {:GET smartbox.inferno-demo/logout-demo-user}}
   "documentation" {:GET documentation-page}
 
-  "portal" {:GET portal-ui}
+  "admin" {"portal" {:GET portal-ui}}
 
-  "tenant" {[:tenant] {"smart-api" {:apis #{smartbox.smart-api/smart-api}
+  "tenant" {[:tenant] {"patient-portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
+                                               :action   :box.rest.smart/smartbox-ui
+                                               :api-base-url ["/tenant" [:request :route-params :tenant]]
+                                               :userinfo-url  ["/tenant" [:request :route-params :tenant] "auth" "userinfo"]
+                                               :iss [[:config :base-url] "tenant" [:request :route-params :tenant] "smart-api"]
+                                               :logout-url ["/tenant" [:request :route-params :tenant] "auth" "logout"]
+                                               :login-url ["/tenant" [:request :route-params :tenant] "auth" "login"]
+                                               :sign-up-url "#/patient/enroll"}}
+
+                       "rpc" {:POST {:engine aidbox.rest.v1/aidbox-action
+                                     :action :proto.rpc/rpc}}
+
+                       "smart-api" {:apis #{smartbox.smart-api/smart-api}
 
                                     "metadata"      {:GET {:engine aidbox.rest.v1/aidbox-action
                                                            :action :smart.fhir/multi-tenant-capability}}
@@ -282,7 +298,11 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                :authorize-url    ["tenant" [:request :route-params :tenant] "auth" "authorize"]
                                                :tenant           {:resource-path [:meta :_tenant]
                                                                   :ctx-path      [:request :route-params :tenant]}
-                                               :asid-cookie-path ["tenant" [:request :route-params :tenant]]}}
+                                               :asid-cookie-path ["tenant" [:request :route-params :tenant]]
+                                               :default-redirect-url ["tenant" [:request :route-params :tenant] "patient-portal"]}}
+
+                               "userinfo" {:GET {:engine aidbox.rest.v1/aidbox-action
+                                                 :action :auth/userinfo}}
 
                                "sessions"
                                {:GET
@@ -311,7 +331,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
                                          [:id]
                                          {:DELETE {:engine   aidbox.rest.v1/delete
-                                                   :resource "Grant"
+
                                                    :format   "fhir"}}}
                                "smart-apps" {:GET {:engine         aidbox.rest.v1/aidbox-action
                                                    :action         :auth/smart-apps-view
