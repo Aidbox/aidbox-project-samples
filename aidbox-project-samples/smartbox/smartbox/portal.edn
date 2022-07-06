@@ -243,7 +243,8 @@ and ({{request-method}} in ('get', 'delete'))"}}
  portal-ui
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
   :engine   aidbox.rest.v1/aidbox-action
-  :action   :box.rest.smart/smartbox-ui}
+  :action   :box.rest.smart/smartbox-ui
+  :ui-type  "admin-portal"}
 
  documentation-page
  {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
@@ -266,6 +267,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "tenant" {[:tenant] {"patient-portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                :action   :box.rest.smart/smartbox-ui
+                                               :ui-type  "patient-portal"
                                                :api-base-url ["/tenant" [:request :route-params :tenant]]
                                                :userinfo-url  ["/tenant" [:request :route-params :tenant] "auth" "userinfo"]
                                                :iss [[:config :base-url] "tenant" [:request :route-params :tenant] "smart-api"]
