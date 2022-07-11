@@ -273,6 +273,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                :iss [[:config :base-url] "tenant" [:request :route-params :tenant] "smart-api"]
                                                :logout-url ["/tenant" [:request :route-params :tenant] "auth" "logout"]
                                                :login-url ["/tenant" [:request :route-params :tenant] "auth" "login"]
+                                               :tenant-home-path ["tenant" [:request :route-params :tenant] "patient-portal"]
                                                :sign-up-url "#/patient/enroll"}}
 
                        "rpc" {:POST {:engine aidbox.rest.v1/aidbox-action
