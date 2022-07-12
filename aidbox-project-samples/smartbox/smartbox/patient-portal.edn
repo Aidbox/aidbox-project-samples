@@ -31,8 +31,8 @@
    :NotificationTemplate
    {:patient-confirm-email
     {:template
-     "<p>Follow the link to verify your email and get started:</p>
-      <a href={{confirm-address}}>Confirm</a>"}}}}
+     "<p>Verify your email using this </p>
+      <a href={{confirm-address}}>link</a>"}}}}
 
  patient-path
  {:zen/tags #{zen/schema zen/tag}
@@ -90,8 +90,8 @@
  {:zen/tags #{zenbox/rpc}
   :params   {:type     zen/map
              :require  #{:first-name :last-name :email :member-id}
-             :keys     {:first-name {:zen/desc "First Name" :confirms #{enroll-first-name}}
-                        :last-name  {:zen/desc "Last Name"  :confirms #{enroll-last-name}}
+             :keys     {:first-name {:zen/desc "Name" :confirms #{enroll-first-name}}
+                        :last-name  {:zen/desc "Surname"  :confirms #{enroll-last-name}}
                         :email      {:zen/desc "Email"      :confirms #{enroll-email}}
                         :member-id  {:zen/desc "Member ID"  :confirms #{enroll-member-id}}}}}
 

@@ -1,4 +1,4 @@
-{ns     smartbox.portal1
+{ns     smartbox.portal-single
  import #{aidbox
           aidbox.rest
           smartbox.demo-fixtures

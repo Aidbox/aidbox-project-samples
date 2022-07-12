@@ -165,8 +165,8 @@
   :resources [{:resourceType "NotificationTemplate"
                :id "developer-confirm-email"
                :template
-               "<p>Follow the link to verify your email and get started:</p>
-                 <a href={{confirm-address}}>Confirm</a>"}]}
+               "<p>Verify your email using this </p>
+                <a href={{confirm-address}}>link</a>"}]}
 
  registration-developer
  {:zen/tags #{zenbox/rpc}
