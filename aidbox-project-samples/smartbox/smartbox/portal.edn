@@ -22,7 +22,6 @@
  {:zen/tags #{aidbox/system}
   :services {:http                 server
              :seed                 access-policies
-             :patient-portal-seed  smartbox.patient-portal/seed
              :seed-fixtures        smartbox.demo-fixtures/fixtures
              :seed-inferno-clients inferno-clients
              :portal-patient-seed   smartbox.portal.patient.seed/resources
@@ -33,7 +32,6 @@
  {:zen/tags #{aidbox/system}
   :services {:http                server
              :seed                access-policies
-             :patient-portal-seed smartbox.patient-portal/seed
              :portal-patient-seed   smartbox.portal.patient.seed/resources
              :portal-operator-seed  smartbox.portal.operator.seed/resources
              }}
