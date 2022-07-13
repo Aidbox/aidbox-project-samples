@@ -1,0 +1,21 @@
+{ns     smartbox.portal.operator.seed
+ import #{aidbox}
+
+ resources
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :resources
+  {:AccessPolicy
+   {:smartbox-portal-operator-rpc
+    {:description "RPC methods for the operator portal"
+     :type        "rpc"
+     :engine      "matcho-rpc"
+     :rpc
+     {:smartbox.portal.operator.rpc/get-review-request           {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-review-requests          {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/reject-review-request        {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/accept-review-request        {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-deployed-application     {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-deployed-applications    {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/suspend-deployed-application {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}}}}}}}

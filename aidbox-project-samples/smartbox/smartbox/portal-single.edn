@@ -6,24 +6,33 @@
           smartbox.bulk-api
           smartbox.documentation
           smartbox.inferno-demo
-          smartbox.patient-portal
+
+          smartbox.portal.patient.seed
+          smartbox.portal.patient.rpc
+
+          smartbox.portal.operator.rpc
+          smartbox.portal.operator.seed
+
           hl7-fhir-r4-core
           hl7-fhir-us-core
           zenbox}
 
  test-box
  {:zen/tags #{aidbox/system}
-  :services {:http                 server
-             :seed                 access-policies
-             :patient-portal-seed  smartbox.patient-portal/seed
-             :seed-fixtures        smartbox.demo-fixtures/fixtures
-             :seed-inferno-clients inferno-clients}}
+  :services {:http                  server
+             :seed                  access-policies
+             :seed-fixtures         smartbox.demo-fixtures/fixtures
+             :seed-inferno-clients  inferno-clients
+             :portal-patient-seed   smartbox.portal.patient.seed/resources
+             :portal-operator-seed  smartbox.portal.operator.seed/resources
+             }}
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:http                server
-             :seed                access-policies
-             :patient-portal-seed smartbox.patient-portal/seed}}
+  :services {:http                 server
+             :seed                 access-policies
+             :portal-patient-seed  smartbox.portal.patient.seed/resources
+             :portal-operator-seed smartbox.portal.operator.seed/resources}}
 
 
  server
@@ -191,49 +200,4 @@ and ({{request-method}} in ('get', 'delete'))"}}]}
   "smart" {:apis #{smartbox.smart-api/smart-api
                    smartbox.smart-api/legacy-public-api
                    smartbox.smart-api/public-api}}
-  "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}}
-
- get-review-requests
- {:zen/tags #{zenbox/rpc}}
-
- get-review-request
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id {:type zen/string}}}}
-
- reject-review-request
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id     {:type zen/string}
-                       :reason {:type zen/string}}}}
-
- accept-review-request
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id {:type zen/string}}}}
-
- get-deployed-applications
- {:zen/tags #{zenbox/rpc}}
-
- get-deployed-application
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id {:type zen/string}}}}
-
- inactive-deployed-application
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id {:type zen/string}}}}
-
- activate-deployed-application
- {:zen/tags #{zenbox/rpc}
-  :params   {:type    zen/map
-             :require #{:id}
-             :keys    {:id {:type zen/string}}}}
-
- }
+  "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}}}

@@ -1,0 +1,46 @@
+{ns     smartbox.portal.operator.rpc
+ import #{zenbox}
+
+ get-review-requests
+ {:zen/tags #{zenbox/rpc}}
+
+ get-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+
+ reject-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id     {:type zen/string}
+                       :reason {:type zen/string}}}}
+
+ accept-review-request
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+
+ get-deployed-applications
+ {:zen/tags #{zenbox/rpc}}
+
+ get-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+
+ suspend-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+
+ approve-deployed-application
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+ }
