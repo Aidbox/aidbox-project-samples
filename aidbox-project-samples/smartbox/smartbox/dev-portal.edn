@@ -166,7 +166,19 @@
                :id "developer-confirm-email"
                :template
                "<p>Verify your email using this </p>
-                <a href={{confirm-address}}>link</a>"}]}
+                <a href={{confirm-address}}>link</a>"}
+              {:resourceType "NotificationTemplate"
+               :id "smartbox-review-request-rejected"
+               :template
+               "<span>Your application '</span>
+                <b>{{client.name}}</span>
+                <span>' has been rejected</span>"}
+              {:resourceType "NotificationTemplate"
+               :id "smartbox-review-request-approved"
+               :template
+               "<span>Your application '</span>
+                <b>{{client.name}}</span>
+                <span>' has been approved</span>"}]}
 
  registration-developer
  {:zen/tags #{zenbox/rpc}

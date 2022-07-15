@@ -18,4 +18,13 @@
       :smartbox.portal.operator.rpc/get-deployed-application     {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-deployed-applications    {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/suspend-deployed-application {:user {:roles [{:type "operator"}]}}
-      :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}}}}}}}
+      :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}}}}
+
+   :NotificationTemplate
+   {:smartbox-suspend-deployed-application
+    {:template "<span>Access has been suspended for </span>
+                <b>{{client.name}}</b>"}
+
+    :smartbox-approve-deployed-application
+    {:template "<span>Access has been approved for </span>
+                <b>{{client.name}}</b> "}}}}}
