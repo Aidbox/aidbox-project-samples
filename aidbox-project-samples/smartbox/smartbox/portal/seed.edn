@@ -1,0 +1,15 @@
+{ns     smartbox.portal.seed
+ import #{aidbox}
+
+ resources
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :resources
+  {:AccessPolicy
+   {:smartbox-portal-rpc-methods
+    {:description  "RPC methods for the portal"
+     :type         "rpc"
+     :engine       "matcho-rpc"
+     :rpc
+     {:smartbox.portal.rpc/change-user-password
+      {:user {:roles [{:type "not-blank?"}]}}}}}}}}

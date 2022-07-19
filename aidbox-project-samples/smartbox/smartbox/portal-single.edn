@@ -13,6 +13,9 @@
           smartbox.portal.operator.rpc
           smartbox.portal.operator.seed
 
+          smartbox.portal.seed
+          smartbox.portal.rpc
+
           hl7-fhir-r4-core
           hl7-fhir-us-core
           zenbox}
@@ -25,6 +28,7 @@
              :seed-inferno-clients  inferno-clients
              :portal-patient-seed   smartbox.portal.patient.seed/resources
              :portal-operator-seed  smartbox.portal.operator.seed/resources
+             :portal-seed           smartbox.portal.seed/resources
              }}
 
  box
@@ -32,7 +36,9 @@
   :services {:http                 server
              :seed                 access-policies
              :portal-patient-seed  smartbox.portal.patient.seed/resources
-             :portal-operator-seed smartbox.portal.operator.seed/resources}}
+             :portal-operator-seed smartbox.portal.operator.seed/resources
+             :portal-seed           smartbox.portal.seed/resources
+             }}
 
 
  server
