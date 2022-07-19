@@ -6,4 +6,18 @@
   :params   {:type    zen/map
              :require #{:password-1 :password-2}
              :keys    {:password-1 {:type zen/string :minLength 6}
+                       :password-2 {:type zen/string :minLength 6}}}}
+
+ reset-user-password
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:email}
+             :keys    {:email {:type zen/string}}}}
+
+ confirm-reset-user-password
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id :password-1 :password-2}
+             :keys    {:id         {:type zen/string}
+                       :password-1 {:type zen/string :minLength 6}
                        :password-2 {:type zen/string :minLength 6}}}}}
