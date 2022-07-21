@@ -47,4 +47,10 @@
  get-patients
  {:zen/tags #{zenbox/rpc}
   :params   {}}
- }
+
+ enroll-patient
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id :email}
+             :keys    {:id    {:type zen/string}
+                       :email {:type zen/string}}}}}
