@@ -59,4 +59,11 @@
  {:zen/tags #{zenbox/rpc}
   :params   {:type    zen/map
              :require #{:id}
-             :keys    {:id {:type zen/string}}}}}
+             :keys    {:id {:type zen/string}}}}
+
+ delete-patient-user
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}
+ }
