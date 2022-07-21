@@ -13,6 +13,7 @@
      :rpc
      {:smartbox.portal.operator.rpc/get-patients                 {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/enroll-patient               {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-patient-info             {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-review-request           {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-review-requests          {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/reject-review-request        {:user {:roles [{:type "operator"}]}}

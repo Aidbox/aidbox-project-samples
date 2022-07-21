@@ -53,4 +53,10 @@
   :params   {:type    zen/map
              :require #{:id :email}
              :keys    {:id    {:type zen/string}
-                       :email {:type zen/string}}}}}
+                       :email {:type zen/string}}}}
+
+ get-patient-info
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:id}
+             :keys    {:id {:type zen/string}}}}}
