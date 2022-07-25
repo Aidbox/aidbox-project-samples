@@ -4,7 +4,9 @@
           smartbox.demo-fixtures
           smartbox.smart-api
           smartbox.bulk-api
+
           smartbox.documentation
+          smartbox.portal.config
 
           smartbox.portal.seed
           smartbox.portal.rpc

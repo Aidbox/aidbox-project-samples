@@ -5,8 +5,10 @@
           smartbox.smart-api
           smartbox.bulk-api
           smartbox.multi-tenant-bulk-api
+
           smartbox.documentation
           smartbox.inferno-demo
+          smartbox.portal.config
 
           smartbox.portal.patient.seed
           smartbox.portal.patient.rpc
