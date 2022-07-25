@@ -13,6 +13,7 @@
      :rpc
      {:smartbox.portal.patient.rpc/get-smart-applications    {:user {:roles [{:type "patient"}]}}
       :smartbox.portal.patient.rpc/revoke-application-grants {:user {:roles [{:type "patient"}]}}
+      :smartbox.portal.patient.rpc/get-grants                {:user {:roles [{:type "patient"}]}}
       :aidbox.smart/get-launch-uri                           {:user {:roles [{:type "patient"}]}}
       :smartbox.portal.patient.rpc/enroll                    {}
       :smartbox.portal.patient.rpc/enroll-confirm            {}

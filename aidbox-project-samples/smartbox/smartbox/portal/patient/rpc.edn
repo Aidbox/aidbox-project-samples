@@ -13,6 +13,9 @@
              :require  #{:id}
              :keys     {:id {:type zen/string}}}}
 
+ get-grants
+ {:zen/tags #{zenbox/rpc}}
+
  enroll-confirm
  {:zen/tags #{zenbox/rpc}
   :params   {:type    zen/map
