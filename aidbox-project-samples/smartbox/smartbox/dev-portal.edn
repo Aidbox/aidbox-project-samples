@@ -5,6 +5,10 @@
           smartbox.smart-api
           smartbox.bulk-api
           smartbox.documentation
+
+          smartbox.portal.seed
+          smartbox.portal.rpc
+
           hl7-fhir-r4-core
           hl7-fhir-us-core
           zenbox}
@@ -15,12 +19,14 @@
              :seed access-policies
              :seed-fixtures smartbox.demo-fixtures/fixtures
              :seed-inferno-clients inferno-clients
+             :portal-seed           smartbox.portal.seed/resources
              :seed-notification-templates notification-templates}}
 
  box
  {:zen/tags #{aidbox/system}
   :services {:http  server
              :seed  access-policies
+             :portal-seed           smartbox.portal.seed/resources
              :seed-notification-templates notification-templates}}
 
  server
