@@ -1,14 +1,17 @@
 {ns smartbox.portal.kustomization
 
  configuration
- {:zen/tag #{zen/schema}
-  :type    zen/map
-  :keys    {:media {:text  {:brand {:type zen/string}}
-                    :image {:favicon {:type zen/string}
-                            :logo    {:type zen/string}}}}}
+ {:zen/tags #{zen/schema}
+  :type     zen/map
+  :keys     {:media {:type zen/map
+                     :keys {:text  {:type zen/map
+                                    :keys {:brand {:type zen/string}}}
+                            :image {:type zen/map
+                                    :keys {:favicon {:type zen/string}
+                                           :logo    {:type zen/string}}}}}}}
 
  tenant
- {:zen/tag  #{zen/schema}
+ {:zen/tags #{zen/schema}
   :confirms #{configuration}
   :require  #{:id}
   :type     zen/map
@@ -17,5 +20,5 @@
  manifest
  {:zen/tags #{zen/schema zen/tag}
   :type     zen/map
-  :keys     {:configuration {:confirm #{configuration}}
+  :keys     {:configuration {:confirms #{configuration}}
              :tenants       {:type zen/vector :every {:confirms #{tenant}}}}}}
