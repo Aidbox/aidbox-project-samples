@@ -66,4 +66,11 @@
   :params   {:type    zen/map
              :require #{:id}
              :keys    {:id {:type zen/string}}}}
- }
+
+ edit-patient-user
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:email}
+             :keys    {:user  {:type zen/string}
+                       :email {:type zen/string}
+                       :phone {:type zen/string}}}}}
