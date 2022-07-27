@@ -12,6 +12,9 @@
      :engine       "matcho-rpc"
      :rpc
      {:smartbox.portal.rpc/change-user-password        {:user {:roles [{:type "not-blank?"}]}}
+      :smartbox.portal.rpc/enable-two-factor           {:user {:roles [{:type "not-blank?"}]}}
+      :smartbox.portal.rpc/disable-two-factor          {:user {:roles [{:type "not-blank?"}]}}
+      :smartbox.portal.rpc/get-two-factor-qrcode       {:user {:roles [{:type "not-blank?"}]}}
       :smartbox.portal.rpc/reset-user-password         {}
       :smartbox.portal.rpc/confirm-reset-user-password {}
       }}}

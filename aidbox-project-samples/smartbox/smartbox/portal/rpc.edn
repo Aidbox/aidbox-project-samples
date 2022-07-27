@@ -14,6 +14,20 @@
              :require #{:email}
              :keys    {:email {:type zen/string}}}}
 
+ get-two-factor-qrcode
+ {:zen/tags #{zenbox/rpc}}
+
+ disable-two-factor
+ {:zen/tags #{zenbox/rpc}}
+
+ enable-two-factor
+ {:zen/tags #{zenbox/rpc}
+  :params   {:type    zen/map
+             :require #{:token :secret-key}
+             :keys    {:token      {:type zen/string}
+                       :secret-key {:type zen/string}}}}
+ 
+
  confirm-reset-user-password
  {:zen/tags #{zenbox/rpc}
   :params   {:type    zen/map
