@@ -13,6 +13,10 @@
      :rpc
      {:smartbox.portal.operator.rpc/get-patients                 {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/enroll-patient               {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-operators                {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/get-operator                 {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/delete-operator              {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/save-operator                {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-patient-info             {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/edit-patient-user            {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-review-request           {:user {:roles [{:type "operator"}]}}
