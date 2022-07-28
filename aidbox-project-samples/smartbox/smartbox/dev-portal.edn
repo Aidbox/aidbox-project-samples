@@ -227,9 +227,7 @@
                     :tos-url          {:type zen/string}
                     :description      {:type zen/string}
                     :bulk-jwks-uri    {:type zen/string}
-                    :bulk-scope       {:type zen/case
-                                       :case [{:when zen/vector
-                                               :then {:type zen/vector :every {:type zen/string}}}]}
+                    :bulk-scope       {:type zen/any}
                     }}}
 
  get-developer-applications

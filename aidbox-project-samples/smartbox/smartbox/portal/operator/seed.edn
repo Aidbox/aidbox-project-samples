@@ -27,7 +27,10 @@
       :smartbox.portal.operator.rpc/get-deployed-application     {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/get-deployed-applications    {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.operator.rpc/suspend-deployed-application {:user {:roles [{:type "operator"}]}}
-      :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}}}}
+      :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}
+      :smartbox.dev-portal/save-developer-application            {:user {:roles [{:type "operator"}]}}
+      :smartbox.dev-portal/get-developer-application             {:user {:roles [{:type "operator"}]}}
+      }}}
 
    :NotificationTemplate
    {:smartbox-suspend-deployed-application
