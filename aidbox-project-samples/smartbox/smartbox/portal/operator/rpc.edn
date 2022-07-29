@@ -1,5 +1,6 @@
 {ns     smartbox.portal.operator.rpc
- import #{zenbox}
+ import #{zenbox
+          smartbox.portal.developer.rpc}
 
  get-review-requests
  {:zen/tags #{zenbox/rpc}}

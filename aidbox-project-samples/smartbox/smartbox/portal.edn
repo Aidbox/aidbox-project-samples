@@ -13,7 +13,6 @@
           smartbox.portal.patient.seed
           smartbox.portal.patient.rpc
 
-          smartbox.dev-portal
           smartbox.portal.operator.rpc
           smartbox.portal.operator.seed
 
