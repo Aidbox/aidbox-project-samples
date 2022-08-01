@@ -8,9 +8,7 @@ This repo contains aidbox project, certified for (g)(10) criteria.
 
 The solution consists of two Aidbox.One. One is for production and another one is used as developer sandbox.
 
-There are single-tenant and multi-tenant versions.
-
-## Single Tenant on Aidbox.One
+## Certified single-tenant on Aidbox
 
 ### Prerequisites 
 
@@ -79,7 +77,7 @@ services:
     links:
       - "aidbox-db:database"
     ports:
-      - "8889:8888"
+      - "9999:8888"
     env_file:
       - .env
     environment:
@@ -171,48 +169,55 @@ On Aidbox run
 1. create GCPServiceAccount
 2. create Client for portal to connect to sandbox
 
+## Usage
 
+### As developer of SMART App
 
+Developer's main flow is to register his/her SMART App and publish to the `portal`. To reach the goal developer should:
 
-## Multi-Tenant on Aidbox.One
+1. Enroll to the `sandbox`
+2. Create SMART App
+3. Submit the app for publish
+4. Receive review status, update app details and re-submit
+5. Get the app published
 
+#### Enroll to the `sandbox`
 
+1. Open web-page http://sandbox:9999 and click the `Enroll in the Developer Sandbox` link
+2. Populate the form `Developer registration` and submit it
+3. Receive the email and click the link to confirm your email address exists
+4. Enter your password and save it
+5. Sign in to the `sandbox` with with your email and password
 
-# Developer portal
+#### Create SMART App
 
-``` 
-AIDBOX_LICENSE_ID=<your-license-id>
-AIDBOX_LICENSE_KEY=<your-license-key>
+After login developer sees the list if its Apps. Initially its empty. To register new SMART App:
 
-AIDBOX_BASE_URL=<your-base-url>
+1. Click `Create App` button
+2. Fill all the necessary details about the application
+3. Press `Submit` button
+4. After checks `sandbox` registers the app and gets user back to the list of applications
 
-AIDBOX_CLIENT_ID=root
-AIDBOX_CLIENT_SECRET=secret
+#### Submit app for publish
 
-AIDBOX_ADMIN_ID=admin
-AIDBOX_ADMIN_PASSWORD=secret
+To make app being accessible by users (patients) developer shoud submit app for thre review:
 
-AIDBOX_PORT=8888
-AIDBOX_FHIR_VERSION=4.0.0
-AIDBOX_COMPLIANCE=enabled
+1. Click the app in the list of apps
+2. Press `Submit for review` button
+3. Notice `Status` changed to `In review`
 
-PGPORT=5432
-PGHOSTPORT=5437
-PGUSER=<your-pg-user>
-PGPASSWORD=<your-pg-pass>
-PGDATABASE=devbox
+### Receive review status, update app details and re-submit
 
-BOX_AUTH_LOGIN__REDIRECT=/
+Sometimes `operator` can reject publish request. If it happens the reason should be provided. To get app published:
 
-BOX_PROJECT_GIT_PROTOCOL=https
-BOX_PROJECT_GIT_URL=https://github.com/Aidbox/aidbox-project-samples.git
-BOX_PROJECT_GIT_SUB__PATH=aidbox-project-samples
-BOX_PROJECT_ENTRYPOINT=smartbox.dev-portal/test-box
+1. Click the app in the list of apps
+2. Notice `Rejection reason`
+3. Fix your app details
+4. Re-submit it one more time pressing `Submit for review` button
 
-BOX_PROVIDER_MAILGUN__PROVIDER_TYPE=mailgun
-BOX_PROVIDER_MAILGUN__PROVIDER_FROM=<your-provider-mail>
-BOX_PROVIDER_MAILGUN__PROVIDER_USERNAME=<your-provider-username>
-BOX_PROVIDER_MAILGUN__PROVIDER_PASSWORD=<your-provider-pass>
-BOX_PROVIDER_MAILGUN__PROVIDER_URL=<your-provider-url>
+### Get the app published
 
-```
+Once your app is approved you (as developer) receive notification email. But you can always chek current app approve status:
+
+1. Click the app in the list of apps
+2. Notice current `Status`
