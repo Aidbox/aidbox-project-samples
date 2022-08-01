@@ -179,6 +179,7 @@
                :active true,
                :communication
                [{:language {:coding [{:code "en", :system "urn:ietf:bcp:47"}]}}],
+               :meta {:_tenant "clinic-a"}
                :id "pt-1",
                :identifier
                [{:use "usual",
