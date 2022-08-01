@@ -46,17 +46,8 @@
   "Provenance"         {:apis #{provenance-api}}
   "Location"           {:apis #{location-api}}}
 
-
- legacy-public-api
- {:zen/tags #{aidbox.rest/api}
-  :zen/desc "Don't remove since we shared those links"
-  "api"                   {:GET redirect-to-api-doc}
-  "demo"                  {"login"   {:GET redirect-to-index}
-                           "profile" {:GET redirect-to-inferno-instruction}}}
-
  public-api
  {:zen/tags #{aidbox.rest/api}
-  "ui"                    {:GET smartbox-ui} ;; FIXME: remove it
   ".well-known"           {"smart-configuration" {:GET smart-configuration-op}}
   "metadata"              {:GET capability-op}
   "style-v1.json"         {:GET style-smart-op}}
@@ -593,13 +584,5 @@
          :dim_spacing_size     "20px"
          :font_family_body     "Georgia Times 'Times New Roman' serif"
          :font_family_heading  "'HelveticaNeue-Light' Helvetica Arial 'Lucida Grande' sans-serif;"}}
-
- ;; FIXME: remove it
- smartbox-ui
- {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
-  :engine   aidbox.rest.v1/aidbox-action
-  :action   :box.rest.smart/smartbox-ui}
-
-
 
  }
