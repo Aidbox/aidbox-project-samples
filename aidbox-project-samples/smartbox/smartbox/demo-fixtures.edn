@@ -206,6 +206,11 @@
                :password     "pass"
                :id           "inferno-patient-user"
                :resourceType "User"}
+              {:fhirUser     {:resourceType "Patient" :id "pt-1"}
+               :password     "test@hs.io"
+               :email        "test@hs.io"
+               :id           "inferno-patient-user-2"
+               :resourceType "User"}
               {:address
                [{:line ["49 Meadow St"],
                  :city "Mounds",
