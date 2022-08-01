@@ -195,7 +195,7 @@
                   [{:code    "MB",
                     :system  "http://terminology.hl7.org/CodeSystem/v2-0203",
                     :display "Member ID"}]},
-                 :value "102030", 
+                 :value "102030",
                  :system "https://www.org.org"}],
                :telecom
                [{:system "phone", :value "555-555-5555", :use "home"}
@@ -205,6 +205,11 @@
               {:fhirUser     {:resourceType "Patient" :id "pt-1"}
                :password     "pass"
                :id           "inferno-patient-user"
+               :resourceType "User"}
+              {:fhirUser     {:resourceType "Patient" :id "pt-1"}
+               :password     "test@hs.io"
+               :email        "test@hs.io"
+               :id           "inferno-patient-user-2"
                :resourceType "User"}
               {:address
                [{:line ["49 Meadow St"],
