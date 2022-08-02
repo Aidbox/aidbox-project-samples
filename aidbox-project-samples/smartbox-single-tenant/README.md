@@ -221,7 +221,8 @@ Once your app is approved, you (as a developer) receive a notification email. Bu
 
 1. Click the app in the list of apps
 2. Notice current `Status`
-#### As administrator of the portal
+
+### As administrator of the portal
 
 The administrator's main flow is to receive the app publishing request of the developers and decide if they could be published.
 
@@ -280,3 +281,38 @@ On the Administrators list:
 3. Press the `Submit` button
 
 The new administrator receives the enrollment email.
+
+### As a patient
+
+The flow of the patient is to manage access to it's data and to launch SMART applications:
+
+1. Launch a SMART App
+2. Revoke granted access
+
+#### Launch a SMART App
+
+On the Applications page:
+
+1. Press the `Launch` button against an application
+2. Mark with checkboxes what information the app is going to have
+3. Uncheck the `Remember my choice` to make Aidbox show the consent screen on each launch of the app
+4. Press the `Allow` button to launch the app
+
+#### Revoke granted access
+
+There are two options to revoke the access of the application:
+
+1. On the Applications page
+2. On the Grants page
+
+On the Applications page:
+
+1. Press the `Revoke access` button against an application
+
+2. Confirm revoking the access by pressing the `Revoke` button
+
+On the Grants page:
+
+1. Click an application
+
+2. Press the `Revoke access` button
