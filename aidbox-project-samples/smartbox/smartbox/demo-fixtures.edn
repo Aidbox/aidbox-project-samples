@@ -125,6 +125,7 @@
                  :period {:start "2020-07-22"}}],
                :meta
                {:profile
+                :_tenant "clinic-a"
                 ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"],
                 :extension
                 [{:url "http://hl7.org/fhir/StructureDefinition/instance-name",
@@ -179,7 +180,6 @@
                :active true,
                :communication
                [{:language {:coding [{:code "en", :system "urn:ietf:bcp:47"}]}}],
-               :meta {:_tenant "clinic-a"}
                :id "pt-1",
                :identifier
                [{:use "usual",
