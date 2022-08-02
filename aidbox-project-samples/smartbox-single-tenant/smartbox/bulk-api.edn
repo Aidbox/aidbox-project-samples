@@ -28,7 +28,7 @@
  prefix-middleware
  {:zen/tags #{aidbox.rest/middleware}
   :engine aidbox.rest.smart/fhir-base-url
-  :prefix "/bulk"}
+  :prefix "/bulk-api"}
 
  bulk-metadata
  {:zen/tags #{aidbox.rest/op}

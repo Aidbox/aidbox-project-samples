@@ -6,7 +6,6 @@
           smartbox.bulk-api
 
           smartbox.documentation
-          smartbox.inferno-demo
           smartbox.portal.config
 
           smartbox.portal.patient.seed
@@ -113,7 +112,12 @@ where id = {{params.bulk-export-id}}
 and {{client.id}} = resource#>>'{requester,id}'
 and resource#>>'{requester,resourceType}' = 'Client'
 and {{uri}} LIKE '/bulk/$export-status/%'
-and ({{request-method}} in ('get', 'delete'))"}}]}
+and ({{request-method}} in ('get', 'delete'))"}}
+
+               {:id           "patient-portal-auth-public-endpoints"
+                :resourceType "AccessPolicy"
+                :engine       "matcho"
+                :matcho       {:uri {:$one-of ["/patient/portal"]}}}]}
 
  api
  {:zen/tags #{aidbox.rest/api}
@@ -122,76 +126,14 @@ and ({{request-method}} in ('get', 'delete'))"}}]}
                          :engine   aidbox.rest.v1/aidbox-action
                          :action   :box.rest.smart/api-doc}}
 
+  "auth" {"consent-screen" {:GET smartbox.smart-api/grant-view}}
+
+  "smart-api" {:apis #{smartbox.smart-api/smart-api
+                       smartbox.smart-api/public-api}}
+
   "patient" {"portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
                              :action   :box.rest.smart/smartbox-ui
-                             :ui-type  "patient-portal"
-                             :api-base-url ["patient"]
-                             :userinfo-url  ["patient" "auth" "userinfo"]
-                             :iss [[:config :base-url] "patient" "smart-api"]
-                             :logout-url ["/patient" "auth" "logout"]
-                             :login-url ["/patient" "auth" "login"]
-                             :tenant-home-path ["/patient" "patient-portal"]
-                             :sign-up-url "#/patient/enroll"}}
-
-             "rpc" {:POST {:engine aidbox.rest.v1/aidbox-action
-                           :action :proto.rpc/rpc}}
-
-             "consent-screen" {:GET smartbox.smart-api/grant-view}
-
-             "smart-api" {:apis #{smartbox.smart-api/smart-api
-                                  smartbox.smart-api/public-api}}
-
-             "auth" {"login" {:GET {:engine         aidbox.rest.v1/aidbox-action
-                                    :action         :auth/login-view
-                                    :auth-prefix ["patient" "auth"]}
-
-                              :POST {:engine           aidbox.rest.v1/aidbox-action
-                                     :action           :auth/login
-                                     :auth-prefix ["patient" "auth"]
-                                     :asid-cookie-path ["patient" "auth"]}}
-
-                     "userinfo" {:GET {:engine aidbox.rest.v1/aidbox-action
-                                       :action :auth/userinfo}}
-
-                     "sessions"
-                     {:GET
-                      {:engine                  aidbox.rest.v1/aidbox-action
-                       :action                  :auth/sesisons-view
-                       :auth-prefix             ["patient" "auth"]}
-
-                      [:id]
-                      {:DELETE {:engine   aidbox.rest.v1/delete
-                                :resource "Session"
-                                :format   "fhir"}}}
-
-                     "grants" {:GET {:engine aidbox.rest.v1/aidbox-action
-                                     :action :auth/grants-view
-                                     :auth-prefix             ["patient" "auth"]}
-
-                               [:id]
-                               {:DELETE {:engine   aidbox.rest.v1/delete}}}
-
-                     "smart-apps" {:GET {:engine         aidbox.rest.v1/aidbox-action
-                                         :action         :auth/smart-apps-view
-                                         :auth-prefix             ["patient" "auth"]}}
-
-                     "two-factor" {:GET {:engine aidbox.rest.v1/aidbox-action
-                                         :action :auth/two-factor-view
-                                         :auth-prefix             ["patient" "auth"]}}
-                     "logout" {:POST {:engine           aidbox.rest.v1/aidbox-action
-                                      :action           :auth/logout
-                                      :auth-prefix      ["patient" "auth"]
-                                      :asid-cookie-path ["patient"]}}
-
-                     "grant"     {:POST {:engine             aidbox.rest.v1/aidbox-action
-                                         :action             :auth/grant
-                                         :authorize-redirect ["tenant" [:request :route-params :tenant] "auth" "authorize"]}
-                                  :GET  {:engine    aidbox.rest.v1/aidbox-action
-                                         :action    :auth/grant-view-v2
-                                         :auth-prefix      ["patient" "auth"]}}
-                     "authorize" {:GET {:engine         aidbox.rest.v1/aidbox-action
-                                        :action         :auth/authorization-request-endpoint
-                                        :auth-prefix      ["patient" "auth"]}}}}
+                             :ui-type  "patient-portal"}}}
 
 
   "admin" {"portal" {:GET {:engine  aidbox.rest.v1/aidbox-action
