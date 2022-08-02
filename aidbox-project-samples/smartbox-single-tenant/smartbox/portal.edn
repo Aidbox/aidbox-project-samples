@@ -122,6 +122,23 @@ and ({{request-method}} in ('get', 'delete'))"}}
  api
  {:zen/tags #{aidbox.rest/api}
 
+  :GET {:engine aidbox.rest.v1/dispatch-by-user-role
+        "operator" {:engine aidbox.rest.v1/static-response
+                    :status 302
+                    :headers {"location" "/admin/portal"}}
+        "admin" {:engine aidbox.rest.v1/static-response
+                 :status 302
+                 :headers {"location" "/ui/console"}}
+        "patient" {:engine aidbox.rest.v1/static-response
+                   :status 302
+                   :headers {"location" "/patient/portal"}}
+        :logged {:engine aidbox.rest.v1/static-response
+                 :status 302
+                 :headers {"location" "/ui/console"}}
+        :guest {:engine aidbox.rest.v1/static-response
+                :status 302
+                :headers {"location" "/auth/login"}}}
+
   "documentation" {:GET {:zen/desc "Smart API documentation"
                          :engine   aidbox.rest.v1/aidbox-action
                          :action   :box.rest.smart/api-doc}}
