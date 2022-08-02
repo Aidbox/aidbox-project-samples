@@ -282,7 +282,8 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "admin" {"portal" {:GET portal-ui}}
 
-  "tenant" {[:tenant] {"patient-portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
+  "tenant" {[:tenant] {
+                       "patient-portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                :action   :box.rest.smart/smartbox-ui
                                                :ui-type  "patient-portal"
                                                :api-base-url ["/tenant" [:request :route-params :tenant]]
