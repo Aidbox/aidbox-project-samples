@@ -4,9 +4,9 @@
 > 
 > https://www.health-samurai.io/fhir-api
 
-This repo contains aidbox project, certified for (g)(10) criteria.
+This repo contains the Aidbox project, certified for (g)(10) criteria.
 
-The solution consists of two Aidbox.One. One is for production and another one is used as developer sandbox.
+The solution consists of two Aidbox.One. One is for production and another one is used as a developer `sandbox`.
 
 ## Certified single-tenant on Aidbox
 
@@ -18,19 +18,19 @@ Follow the [official Docker guide](https://docs.docker.com/compose/install/#inst
 
 #### Get Aidbox.One License 
 
-At first you need to get your [Aidbox.One license](https://docs.aidbox.app/getting-started/run-aidbox-locally-with-docker#get-a-license).
+At first, you need to get your [Aidbox.One license](https://docs.aidbox.app/getting-started/run-aidbox-locally-with-docker#get-a-license).
 
-> Go to the [Aidbox portal](https://aidbox.app/). Sign up and click the new license button. Choose product type "Aidbox" and hosting type "on premises".
+> Go to the [Aidbox portal](https://aidbox.app/). Sign up and click the new license button. Choose product type "Aidbox" and hosting type "on-premises".
 > You'll see your license in the "My Licenses" list. Click on your new license and copy credentials. It is a long string like
 
 #### Set up GCP CLoud Storage
 
-GCP Cloud Storage is used in Bulk API for storing and distributing exported data. In order to enable bulk api, you need to create GCP Cloud Storage, setup GCP Service Account and provide full access for the service account on this Cloud Storage. 
+GCP Cloud Storage is used in Bulk API for storing and distributing exported data. To enable bulk API, you need to create GCP Cloud Storage, set up GCP Service Account, and provide full access to the service account on this Cloud Storage. 
 
 
 #### Set up Mailgun
 
-[Mailgun](https://www.mailgun.com/) is used to communication with users (developers, patients). It sends emails for reseting password, emal verification, etc.
+[Mailgun](https://www.mailgun.com/) is used to communicate with users (developers, patients). It sends emails for resetting a password, email verification, etc.
 
 ### Installation
 
@@ -103,11 +103,11 @@ PGIMAGE=healthsamurai/aidboxdb:14.2
 AIDBOX_IMAGE=healthsamurai/aidboxone:edge
 
 
-# Client to create on start up
+# Client to create on startup
 AIDBOX_CLIENT_ID=root
 AIDBOX_CLIENT_SECRET=secret
 
-# root user to create on start up
+# root user to create on startup
 AIDBOX_ADMIN_ID=admin
 AIDBOX_ADMIN_PASSWORD=secret
 
@@ -160,64 +160,123 @@ This command will download and start Aidbox and its dependencies. This can take 
 
 #### Go to the Aidbox Portal Console UI
 
-Open http://localhost:8888. You'll see Aidbox login page. Sign in using login admin and password secret.
+Open http://localhost:8888. You'll see the Aidbox login page. Sign in using login admin and password secret.
 
 Now you are ready to use Aidbox.
 
 
 On Aidbox run
 1. create GCPServiceAccount
-2. create Client for portal to connect to sandbox
+2. create `Client` for the portal to connect to `sandbox`
 
 ## Usage
 
-### As developer of SMART App
+### As a developer of SMART App
 
-Developer's main flow is to register his/her SMART App and publish to the `portal`. To reach the goal developer should:
+The developer's main flow is to register his/her SMART App and publish it to the `portal`. To reach the goal developer should:
 
-1. Enroll to the `sandbox`
+1. Enroll in the `sandbox`
 2. Create SMART App
-3. Submit the app for publish
+3. Submit the app for publishing
 4. Receive review status, update app details and re-submit
 5. Get the app published
 
 #### Enroll to the `sandbox`
 
-1. Open web-page http://sandbox:9999 and click the `Enroll in the Developer Sandbox` link
+1. Open the web page http://sandbox:9999 and click the `Enroll in the Developer Sandbox` link
 2. Populate the form `Developer registration` and submit it
 3. Receive the email and click the link to confirm your email address exists
 4. Enter your password and save it
-5. Sign in to the `sandbox` with with your email and password
+5. Sign in to the `sandbox` with your email and password
 
 #### Create SMART App
 
-After login developer sees the list if its Apps. Initially its empty. To register new SMART App:
+After login developer sees the list of its Apps. Initially, it is empty. To register the new SMART App:
 
-1. Click `Create App` button
-2. Fill all the necessary details about the application
-3. Press `Submit` button
-4. After checks `sandbox` registers the app and gets user back to the list of applications
+1. Click the `Create App` button
+2. Fill in all the necessary details about the application
+3. Press the `Submit` button
+4. After checks `sandbox` registers the app and gets the user back to the list of applications
 
 #### Submit app for publish
 
-To make app being accessible by users (patients) developer shoud submit app for thre review:
+To make the app accessible to users (patients) developer should submit the app for review:
 
 1. Click the app in the list of apps
-2. Press `Submit for review` button
+2. Press the `Submit for review` button
 3. Notice `Status` changed to `In review`
 
-### Receive review status, update app details and re-submit
+#### Receive review status, update app details and re-submit
 
-Sometimes `operator` can reject publish request. If it happens the reason should be provided. To get app published:
+Sometimes `administrator` can reject your publish request. If it happens the reason should be provided. To get the app published:
 
 1. Click the app in the list of apps
-2. Notice `Rejection reason`
+2. Notice `Rejection reason` and `Status`
 3. Fix your app details
-4. Re-submit it one more time pressing `Submit for review` button
+4. Re-submit it one more time by pressing the `Submit for review` button
 
-### Get the app published
+#### Get the app published
 
-Once your app is approved you (as developer) receive notification email. But you can always chek current app approve status:
+Once your app is approved, you (as a developer) receive a notification email. But you can always check the current app approval status:
 
 1. Click the app in the list of apps
 2. Notice current `Status`
+#### As administrator of the portal
+
+The administrator's main flow is to receive the app publishing request of the developers and decide if they could be published.
+
+1. Approve a publishing request
+2. Reject a publishing request
+3. Suspend a published app
+4. Approve a suspended app
+5. Enroll a patient
+6. Enroll an administrator
+
+#### Approve a publishing request
+
+On the page containing the list of review requests:
+
+1. Click the request in the list
+2. Press the `Approve` button
+
+#### Reject a publishing request
+
+On the page containing the list of review requests:
+
+1. Click the request in the list
+2. Press the `Reject` button
+3. Populate the `Reason` field
+4. Click the `Reject` button
+
+#### Suspend a published app
+
+On the `Apps` page:
+
+1. Click the `Active` app
+2. Press the `Suspend access` button
+
+#### Approve a suspended app
+
+1. Click the `On hold` app
+2. Press the `Approve access` button
+
+#### Enroll  a patient
+
+On the Patients list:
+
+1. Click a patient with the grey circle (not enrolled)
+2. Press the `Enroll` button
+3. Fill in the email of the patient
+4. Press the `Enroll` button
+
+The patient receives the enrollment email. When the patient finishes the enrollment, the circle indicator on the list of patients becomes green (enrolled).
+
+#### Enroll an administrator
+
+On the Administrators list:
+
+1. Press the `New` button
+2. Fill in the email and the name of the administrator
+3. Press the `Submit` button
+
+The new administrator receives the enrollment email.
