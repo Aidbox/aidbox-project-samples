@@ -170,6 +170,10 @@ On Aidbox run
 1. create GCPServiceAccount
 2. create `Client` for the portal to connect to `sandbox`
 
+3. create clients for inferno
+
+
+
 ## Usage
 
 ### As a developer of SMART App

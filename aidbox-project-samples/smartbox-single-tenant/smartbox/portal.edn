@@ -43,7 +43,7 @@
   :resources  [{:id           "smart-api"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri     "#/smart/.*"
+                :matcho       {:uri     "#/smart-api/.*"
                                :session {:audience "#.+smart$"}
                                :client  {:$not {:active false}}}}
                {:id           "inferno-public-endpoints"
@@ -55,19 +55,14 @@
                                                "/inferno/create-demo-user"
                                                "/inferno/logout"
                                                "/portal"
-                                               "/admin/portal"
-
-                                               "/smart/api"
-                                               "/smart/demo/profile"
-                                               "/smart/demo/login"
-                                               "/smart-auth/grant"]}}}
+                                               "/admin/portal"]}}}
                {:id           "smart-api-public-endpoints"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri {:$one-of ["/smart/metadata"
-                                               "/smart/.well-known/smart-configuration"
-                                               "/smart/style-v1.json"
-                                               "/smart-auth/grant"]}}}
+                :matcho       {:uri {:$one-of ["/smart-api/metadata"
+                                               "/smart-api/.well-known/smart-configuration"
+                                               "/smart-api/style-v1.json"
+                                               "/auth/consent-screen"]}}}
                {:id           "portal-operator-rpc"
                 :description  "RPC methods for the portal operator"
                 :resourceType "AccessPolicy"
@@ -85,22 +80,22 @@
                {:id           "bulk-api-metadata"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri "/bulk/metadata"}}
+                :matcho       {:uri "/bulk-api/metadata"}}
                {:id           "bulk-api-redirect"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri "/bulk/$redirect"}}
+                :matcho       {:uri "/bulk-api/$redirect"}}
                {:id           "bulk-api-client-group-export"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri            "#/bulk/Group/.+/\\$export"
+                :matcho       {:uri            "#/bulk-api/Group/.+/\\$export"
                                :request-method "get"
                                :params         {:_type "nil?"}
                                :client         {:type "bulk"}}}
                {:id           "bulk-api-client-system-all-read"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
-                :matcho       {:uri            {:$one-of ["#/bulk/Group/[^/]+$"
+                :matcho       {:uri            {:$one-of ["#/bulk-api/Group/[^/]+$"
                                                           "#/bulk/Group$"]}
                                :request-method "get"
                                :client         {:type "bulk"}}}
@@ -112,7 +107,7 @@ from bulkexportstatus
 where id = {{params.bulk-export-id}}
 and {{client.id}} = resource#>>'{requester,id}'
 and resource#>>'{requester,resourceType}' = 'Client'
-and {{uri}} LIKE '/bulk/$export-status/%'
+and {{uri}} LIKE '/bulk-api/$export-status/%'
 and ({{request-method}} in ('get', 'delete'))"}}
 
                {:id           "patient-portal-auth-public-endpoints"
