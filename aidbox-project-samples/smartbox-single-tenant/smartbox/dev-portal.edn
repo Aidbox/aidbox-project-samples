@@ -20,7 +20,7 @@
  {:zen/tags #{aidbox/system}
   :services {:http                  server
              :seed                  access-policies
-             :sandbox-seed          smartbox.sandbox-seed/resources
+             :sandbox-seed          smartbox.sandbox-seed/fixtures
              :portal-seed           smartbox.portal.seed/resources
              :portal-developer-seed smartbox.portal.developer.seed/resources}}
 
