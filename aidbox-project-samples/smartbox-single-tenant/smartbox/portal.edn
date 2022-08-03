@@ -147,6 +147,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
   "patient" {"portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
                              :action   :box.rest.smart/smartbox-ui
                              :iss      [[:config :base-url] "smart-api"]
+                             :sign-up-url "#/patient/enroll"
                              :ui-type  "patient-portal"}}}
 
 
