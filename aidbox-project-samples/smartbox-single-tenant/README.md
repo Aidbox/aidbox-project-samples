@@ -190,7 +190,7 @@ The developer's main flow is to register his/her SMART App and publish it to the
 
 #### Enroll to the `sandbox`
 
-1. Open the web page http://sandbox:9999 and click the `Enroll in the Developer Sandbox` link
+1. Open the web page http://localhost:9999 and click the `Enroll in the Developer Sandbox` link
 2. Populate the form `Developer registration` and submit it
 3. Receive the email and click the link to confirm your email address exists
 4. Enter your password and save it
