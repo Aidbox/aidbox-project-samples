@@ -4,8 +4,7 @@
           aidbox.rest.smart
           aidbox.rest.acl
           aidbox.rest.v1
-          smartbox.documentation
-          smartbox.inferno-demo}
+          smartbox.documentation}
 
  ;; FIXME: auth module hack
  grant-lookup-method
