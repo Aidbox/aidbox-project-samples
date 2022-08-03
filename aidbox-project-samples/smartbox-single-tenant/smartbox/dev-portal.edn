@@ -60,6 +60,7 @@
   :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/smartbox-ui
   :ui-type  "sandbox"
+  :iss      [[:config :base-url] "smart-api"]
   :sign-up-url "#/dev/enroll"}
 
  api
