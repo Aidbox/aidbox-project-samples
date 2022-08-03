@@ -6,6 +6,7 @@
           zenbox
 
           smartbox.smart-api
+          smartbox.sandbox-seed
 
           smartbox.documentation
 
@@ -19,6 +20,7 @@
  {:zen/tags #{aidbox/system}
   :services {:http                  server
              :seed                  access-policies
+             :sandbox-seed          smartbox.sandbox-seed/resources
              :portal-seed           smartbox.portal.seed/resources
              :portal-developer-seed smartbox.portal.developer.seed/resources}}
 
