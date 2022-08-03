@@ -44,7 +44,7 @@
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
                 :matcho       {:uri     "#/smart-api/.*"
-                               :session {:audience "#.+smart$"}
+                               :session {:audience "#.+smart-api$"}
                                :client  {:$not {:active false}}}}
                {:id           "inferno-public-endpoints"
                 :resourceType "AccessPolicy"
