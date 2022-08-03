@@ -145,7 +145,7 @@ BOX_BULK__STORAGE_GCP_BUCKET=<YOUR_GCP_BUCKET_NAME>
 # Aidbox project
 BOX_PROJECT_GIT_PROTOCOL=https
 BOX_PROJECT_GIT_URL=https://github.com/Aidbox/aidbox-project-samples.git
-BOX_PROJECT_GIT_SUB__PATH=aidbox-project-samples/smartbox
+BOX_PROJECT_GIT_SUB__PATH=aidbox-project-samples/smartbox-single-tenant
 ```
 
 #### Launch Aidbox

@@ -23,10 +23,11 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:http                server
-             :seed                access-policies
+  :services {:http                  server
+             :seed                  access-policies
              :portal-patient-seed   smartbox.portal.patient.seed/resources
              :portal-operator-seed  smartbox.portal.operator.seed/resources
+             :demo-data             smartbox.demo-fixtures/fixtures
              :portal-seed           smartbox.portal.seed/resources}}
 
  server
