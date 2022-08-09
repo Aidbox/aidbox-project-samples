@@ -1,6 +1,7 @@
 {ns     smartbox.portal.operator.rpc
  import #{zenbox
-          smartbox.portal.developer.rpc}
+          smartbox.portal.developer.rpc
+          smartbox.demo-fixtures}
 
  get-review-requests
  {:zen/tags #{zenbox/rpc}}
@@ -97,4 +98,25 @@
              :require #{:email}
              :keys    {:user  {:type zen/string}
                        :email {:type zen/string}
-                       :phone {:type zen/string}}}}}
+                       :phone {:type zen/string}}}}
+
+ seed-inferno-test-data
+ {:zen/tags #{zenbox/rpc}
+  :opts {:seed smartbox.demo-fixtures/fixtures}
+  :params {:type zen/map
+           :require #{:action}
+           :keys {:action {:type zen/string
+                           :enum [{:value "upload"}
+                                  {:value "delete"}
+                                  {:value "check"}]}}}}
+
+ attach-test-patient-to-current-user
+ {:zen/tags #{zenbox/rpc}}
+
+ detach-test-patient-from-current-user
+ {:zen/tags #{zenbox/rpc}}
+
+ inferno-clients
+ {:zen/tags #{zenbox/rpc}}
+
+ }

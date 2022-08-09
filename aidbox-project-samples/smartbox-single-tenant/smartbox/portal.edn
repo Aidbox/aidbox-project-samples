@@ -27,8 +27,24 @@
              :seed                  access-policies
              :portal-patient-seed   smartbox.portal.patient.seed/resources
              :portal-operator-seed  smartbox.portal.operator.seed/resources
-             :demo-data             smartbox.demo-fixtures/fixtures
+             :concept-index         concept-index
+             :gcp-acc               gcp-acc
              :portal-seed           smartbox.portal.seed/resources}}
+
+
+ concept-index
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :migrations [{:id "concept-index"
+                :sql "create index if not exists concept_jsonb on concept using gin ((resource)); vacuum analyze concept;"}]}
+
+ gcp-acc
+ {:zen/tags #{aidbox/service}
+  :engine aidbox/seed
+  :resources [{:id "gcp-acc"
+               :resourceType "GcpServiceAccount"
+               :service-account-email #env BOX_BULK__STORAGE_GCP_SERVICE__ACCOUNT__EMAIL
+               :private-key #env BOX_BULK__STORAGE_GCP_SERVICE__ACCOUNT__PRIVATE__KEY}]}
 
  server
  {:zen/tags #{aidbox/service}
@@ -81,6 +97,11 @@
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
                 :matcho       {:uri "/bulk-api/metadata"}}
+               {:id           "portal-operator-config-endpoint"
+                :resourceType "AccessPolicy"
+                :engine       "matcho"
+                :matcho       {:uri "/$config"
+                               :user {:roles [{:type "operator"}]}}}
                {:id           "bulk-api-redirect"
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
@@ -153,6 +174,8 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "admin" {"portal" {:GET {:engine  aidbox.rest.v1/aidbox-action
                            :action  :box.rest.smart/smartbox-ui
-                           :ui-type "admin-portal"}}}
+                           :ui-type "admin-portal"}}
+           "inferno-configuration" {:GET {:engine aidbox.rest.v1/aidbox-action
+                                          :action :smartbox.portal.operator.rpc/inferno-configuration}}}
 
   "bulk-api"  {:apis #{smartbox.bulk-api/bulk-api}}}}

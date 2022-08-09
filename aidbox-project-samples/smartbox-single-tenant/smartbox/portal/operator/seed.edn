@@ -30,7 +30,17 @@
       :smartbox.portal.operator.rpc/approve-deployed-application {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.developer.rpc/save-developer-application  {:user {:roles [{:type "operator"}]}}
       :smartbox.portal.developer.rpc/get-developer-application   {:user {:roles [{:type "operator"}]}}
-      }}}
+      :smartbox.portal.operator.rpc/seed-inferno-test-data                {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/attach-test-patient-to-current-user   {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/detach-test-patient-from-current-user {:user {:roles [{:type "operator"}]}}
+      :smartbox.portal.operator.rpc/inferno-clients                       {:user {:roles [{:type "operator"}]}}
+      :aidbox.bulk/storage-healthcheck                                    {:user {:roles [{:type "operator"}]}}
+      }}
+    :smartbox-portal-operator-inferno-config
+    {:engine "matcho"
+     :matcho {:uri "/admin/inferno-configuration"
+              :user {:roles [{:type "operator"}]}}}}
+
 
    :NotificationTemplate
    {:smartbox-review-request-approved

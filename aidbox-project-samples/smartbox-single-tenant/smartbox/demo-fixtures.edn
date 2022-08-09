@@ -90,6 +90,7 @@
               {:resourceType "Medication",
                :id "test-uscore-med1",
                :meta
+
                {:extension
                 [{:url "http://hl7.org/fhir/StructureDefinition/instance-name",
                   :value {:string "Uscore Med1 Example"}}
@@ -202,15 +203,6 @@
                 {:system "email", :value "amy.shaw@example.com"}],
                :gender "female",
                :birthsex "F"}
-              {:fhirUser     {:resourceType "Patient" :id "test-pt-1"}
-               :password     "pass"
-               :id "test-inferno-patient-user"
-               :resourceType "User"}
-              {:fhirUser     {:resourceType "Patient" :id "test-pt-1"}
-               :password     "test@hs.io"
-               :email        "test@hs.io"
-               :id "test-inferno-patient-user-2"
-               :resourceType "User"}
               {:address
                [{:line ["49 Meadow St"],
                  :city "Mounds",
