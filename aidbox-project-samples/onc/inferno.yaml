@@ -23,7 +23,7 @@
   description: OAuth 2.0 scope provided by system to enable all required functionality
   type: textarea
   default: launch/patient openid fhirUser offline_access patient/*.read
-  value:  launch/patient openid fhirUser offline_access patient/Patient.read patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read patient/Condition.read patient/Device.read patient/DiagnosticReport.read patient/DocumentReference.read patient/Goal.read patient/Encounter.read patient/Immunization.read patient/MedicationRequest.read patient/Observation.read patient/Procedure.read patient/Provenance.read patient/Practitioner.read patient/Organization.read patient/Location.read
+  value: launch/patient openid fhirUser offline_access patient/*.read
 - name: use_pkce
   title: Proof Key for Code Exchange (PKCE)
   type: radio
