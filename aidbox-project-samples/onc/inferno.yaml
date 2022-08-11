@@ -53,14 +53,14 @@
     The user will only grant access to the following resources during
     authorization.
   type: text
-  default: Patient, Condition, Observation
+  default: Patient, Condition, Observation, Encounter, Observation, Provenance, Practitioner, Organization, Location
   value: Patient, Condition, Observation
-- name: limited_requested_scopes
-  title: Limited Access Scope
-  description: OAuth 2.0 scope provided by system to enable all required functionality
-  type: textarea
-  default: launch/patient openid fhirUser offline_access patient/*.read
-  value: launch/patient openid fhirUser offline_access patient/Patient.read patient/Condition.read patient/Observation.read patient/Device.read
+# - name: limited_requested_scopes
+#  title: Limited Access Scope
+# description: OAuth 2.0 scope provided by system to enable all required functionality
+# type: textarea
+# default: launch/patient openid fhirUser offline_access patient/*.read
+# value: launch/patient openid fhirUser offline_access patient/Patient.read patient/Condition.read patient/Observation.read patient/Device.read
 - name: ehr_client_id
   title: EHR Launch Client ID
   description: >-
