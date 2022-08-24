@@ -389,7 +389,10 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                   :login-redirect ["tenant" [:request :route-params :tenant] "auth" "login"]}}}}
             "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
 
-  "smart" {:apis #{smartbox.smart-api/smart-api
+  "smart" {:GET {:engine aidbox.rest.v1/static-response
+                 :status 302
+                 :headers {"location" "https://www.health-samurai.io/fhir-api"}}
+           :apis #{smartbox.smart-api/smart-api
                    smartbox.smart-api/legacy-public-api
                    smartbox.smart-api/public-api}}
   "bulk"  {:apis #{smartbox.bulk-api/bulk-api}}}}
