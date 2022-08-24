@@ -64,6 +64,7 @@
                 :resourceType "AccessPolicy"
                 :engine       "matcho"
                 :matcho       {:uri {:$one-of ["/"
+                                               "/smart"
                                                "/documentation"
                                                "/inferno"
                                                "/inferno/create-demo-user"
