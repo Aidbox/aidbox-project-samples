@@ -21,7 +21,7 @@ Follow the [official Docker guide](https://docs.docker.com/compose/install/#inst
 At first, you need to get your [Aidbox.One license](https://docs.aidbox.app/getting-started/run-aidbox-locally-with-docker#get-a-license).
 
 > Go to the [Aidbox portal](https://aidbox.app/). Sign up and click the new license button. Choose product type "Aidbox" and hosting type "on-premises".
-> You'll see your license in the "My Licenses" list. Click on your new license and copy credentials. It is a long string like
+> You'll see your license in the "My Licenses" list. Click on your new license and copy credentials.
 
 #### Set up GCP CLoud Storage
 
