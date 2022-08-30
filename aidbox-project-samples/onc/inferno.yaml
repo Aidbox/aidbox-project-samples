@@ -16,14 +16,20 @@
     Client Secret provided during registration of Inferno as a standalone
     application
   type: text
-  optional: false
   value: inferno-secret
 - name: standalone_requested_scopes
   title: Standalone Scope
   description: OAuth 2.0 scope provided by system to enable all required functionality
   type: textarea
-  default: launch/patient openid fhirUser offline_access patient/*.read
-  value: launch/patient openid fhirUser offline_access patient/*.read
+  value: >-
+    launch/patient openid fhirUser offline_access patient/Medication.read
+    patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read
+    patient/Condition.read patient/Device.read patient/DiagnosticReport.read
+    patient/DocumentReference.read patient/Encounter.read patient/Goal.read
+    patient/Immunization.read patient/Location.read
+    patient/MedicationRequest.read patient/Observation.read
+    patient/Organization.read patient/Patient.read patient/Practitioner.read
+    patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read
 - name: use_pkce
   title: Proof Key for Code Exchange (PKCE)
   type: radio
@@ -55,12 +61,6 @@
   type: text
   default: Patient, Condition, Observation
   value: Patient, Condition, Observation
-- name: limited_requested_scopes
-  title: Limited Access Scope
-  description: OAuth 2.0 scope provided by system to enable all required functionality
-  type: textarea
-  default: launch/patient openid fhirUser offline_access patient/*.read
-  value: launch/patient openid fhirUser offline_access patient/Patient.read patient/Condition.read patient/Observation.read patient/Device.read
 - name: ehr_client_id
   title: EHR Launch Client ID
   description: >-
@@ -74,7 +74,6 @@
     Client Secret provided during registration of Inferno as an EHR launch
     application
   type: text
-  optional: false
   value: inferno-secret
 - name: ehr_requested_scopes
   title: EHR Launch Scope
@@ -204,7 +203,7 @@
       timeout is greater than 600 (10 minutes), Inferno uses the maximum value 600.
   type: text
   default: 180
-  value: '180'
+  value: 180
 - name: public_client_id
   title: Public Launch Client ID
   description: >-
@@ -223,10 +222,26 @@
   value: ''
 - name: public_requested_scopes
   title: Public Launch Scope
+  default: >-
+    launch/patient openid fhirUser offline_access patient/Medication.read
+    patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read
+    patient/Condition.read patient/Device.read patient/DiagnosticReport.read
+    patient/DocumentReference.read patient/Encounter.read patient/Goal.read
+    patient/Immunization.read patient/Location.read
+    patient/MedicationRequest.read patient/Observation.read
+    patient/Organization.read patient/Patient.read patient/Practitioner.read
+    patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read
   description: OAuth 2.0 scope provided by system to enable all required functionality
   type: textarea
-  default: launch/patient openid fhirUser offline_access patient/*.read
-  value: launch/patient openid fhirUser offline_access patient/*.read
+  value: >-
+    launch/patient openid fhirUser offline_access patient/Medication.read
+    patient/AllergyIntolerance.read patient/CarePlan.read patient/CareTeam.read
+    patient/Condition.read patient/Device.read patient/DiagnosticReport.read
+    patient/DocumentReference.read patient/Encounter.read patient/Goal.read
+    patient/Immunization.read patient/Location.read
+    patient/MedicationRequest.read patient/Observation.read
+    patient/Organization.read patient/Patient.read patient/Practitioner.read
+    patient/Procedure.read patient/Provenance.read patient/PractitionerRole.read
 - name: token_revocation_attestation
   title: >-
     Prior to executing test, Health IT developer demonstrated revoking tokens
@@ -241,10 +256,32 @@
         value: 'false'
   value: 'true'
 - name: token_revocation_notes
+  optional: true
   title: 'Notes, if applicable:'
   type: textarea
-  optional: true
   value: ''
+- name: ehr_patient_client_id
+  description: >-
+    Client ID provided during registration of Inferno as an EHR launch
+    application
+  title: EHR Launch Client ID
+  type: text
+  value: inferno-g10-client
+- name: ehr_patient_client_secret
+  description: >-
+    Client Secret provided during registration of Inferno as an EHR launch
+    application
+  optional: true
+  title: EHR Launch Client Secret
+  type: text
+  value: inferno-secret
+- name: ehr_patient_requested_scopes
+  default: launch openid fhirUser offline_access patient/Patient.read
+  description: OAuth 2.0 scope provided by system to enable all required functionality
+  locked: true
+  title: EHR Launch Scope
+  type: textarea
+  value: launch openid fhirUser offline_access patient/Patient.read
 - name: single_patient_registration_supported
   title: >-
     Health IT Module demonstrated support for application registration for
