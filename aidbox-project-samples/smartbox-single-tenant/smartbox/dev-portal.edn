@@ -36,12 +36,11 @@
                :resourceType "AccessPolicy"
                :engine "matcho"
                :matcho {:uri "#/smart-api/.*"
-                        :session {:audience "#.+smart$"}}}
+                        :session {:audience "#.+smart-api$"}}}
               {:id "public-index"
                :resourceType "AccessPolicy"
                :engine "matcho"
-               :matcho {:uri {:$one-of ["/"
-                                        ]}}}
+               :matcho {:uri {:$one-of ["/"]}}}
               {:id "public-documentation"
                :resourceType "AccessPolicy"
                :engine "matcho"
