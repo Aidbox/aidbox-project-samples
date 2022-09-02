@@ -270,6 +270,12 @@ and ({{request-method}} in ('get', 'delete'))"}}
   :engine   aidbox.rest.v1/aidbox-action
   :action   :box.rest.smart/api-doc}
 
+ service-base-urls-page
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Service base URLs list"
+  :engine   aidbox.rest.v1/aidbox-action
+  :action   :box.rest.smart/base-url-service-list}
+
  api
  {:zen/tags #{aidbox.rest/api}
 
@@ -390,9 +396,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                   :login-redirect ["tenant" [:request :route-params :tenant] "auth" "login"]}}}}
             "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
 
-  "smart" {:GET {:engine aidbox.rest.v1/static-response
-                 :status 302
-                 :headers {"location" "https://www.health-samurai.io/fhir-api"}}
+  "smart" {:GET service-base-urls-page
            :apis #{smartbox.smart-api/smart-api
                    smartbox.smart-api/legacy-public-api
                    smartbox.smart-api/public-api}}
