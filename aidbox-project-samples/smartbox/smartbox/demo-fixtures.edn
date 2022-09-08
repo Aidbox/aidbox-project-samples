@@ -124,8 +124,8 @@
                  :country "US",
                  :period {:start "2020-07-22"}}],
                :meta
-               {:profile
-                :_tenant "clinic-a"
+               {:_tenant "clinic-a"
+                :profile
                 ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"],
                 :extension
                 [{:url "http://hl7.org/fhir/StructureDefinition/instance-name",
