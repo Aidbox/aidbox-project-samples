@@ -30,7 +30,7 @@
                                                                {:value "bulk"}]}
                     :pkce             {:type zen/boolean}
                     :redirect-url     {:type zen/string}
-                    :lauch-url        {:type zen/string}
+                    :launch-url        {:type zen/string}
                     :logo-url         {:type zen/string}
                     :org-name         {:type zen/string}
                     :org-url          {:type zen/string}
