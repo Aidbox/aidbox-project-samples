@@ -2,7 +2,7 @@
  import #{hl7-fhir-r4-core.string
           hl7-fhir-r4-core.Patient}
 
- consent-app-id-extension
+ patient-tenant-id-extension
  {:zen/tags #{zen/schema zen.fhir/base-schema}
   :zen.fhir/version "0.5.11"
   :zen.fhir/type "Patient"
