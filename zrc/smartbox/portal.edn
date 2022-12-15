@@ -233,6 +233,16 @@ and ({{request-method}} in ('get', 'delete'))"}}
                :type         "bulk"
                :jwks_uri     "https://inferno.healthit.gov/suites/custom/g10_certification/.well-known/jwks.json"
                :grant_types  ["client_credentials"]}
+              {:id "touchstone-client",
+               :resourceType "Client"
+               :secret "touchstone-secret",
+               :grant_types ["code" "basic" "client_credentials"]
+               :auth
+               {:authorization_code
+                {:audience ["https://hot-flowers-learn-5-226-156-235.loca.lt/smart"],
+                 :redirect_uri "https://touchstone.aegis.net/touchstone/oauth2/authcode/redirect",
+                 :refresh_token true,
+                 :access_token_expiration 300}}}
               {:id           "inferno-g10-client"
                :resourceType "Client"
                :grant_types  ["authorization_code" "basic"]
