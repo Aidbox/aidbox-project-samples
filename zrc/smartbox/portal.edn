@@ -23,8 +23,43 @@
           hl7-fhir-us-core
           zenbox}
 
+ web-config
+ {:zen/tags              #{aidbox.config/web}
+  :base-url              "https://slick-lamps-relate-5-136-88-133.loca.lt"
+  :port                  8765
+  :thread                8
+  :max-body              10000000
+  :request-save-raw-body false
+  }
+
+ db-config
+ {:zen/tags #{aidbox.config/db}
+  :pool {:connection-timeout  30000
+         :idle-timeout        1000
+         :minimum-idle        2
+         :maximum-pool-size   30
+         :connection-init-sql "SELECT 1"}
+  :database "protobox"
+  :host "localhost"
+  :port 5436
+  :user "postgres"
+  :password "postgres"}
+
+ test-config
+ {:zen/tags                #{aidbox.config/config}
+  :web                     web-config
+  :db                      db-config
+  #_#_:search                  search-config
+  :aidbox-license          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJvZmZsaW5lIjpmYWxzZSwia2V5Ijoib25saW5lLTIwMjIwNTI0LTE0MzY0NyIsIm5hbWUiOiJzYW5zYXJhLWRldi11c2VyIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDYtMTZUMTA6Mzg6NDAuNDA5WiIsInR5cGUiOiJkZXZlbG9wbWVudCIsImNyZWF0ZWQiOiIyMDIyLTA2LTE2VDEwOjM4OjQwLjQxMFoiLCJwcm9kdWN0IjoiYWlkYm94IiwicHJvamVjdCI6eyJpZCI6IjdmMDM3ZTQ4LWJjZTQtNDZkOC1iNTQ3LTU2OTNmYzk1NmUxZCIsInJlc291cmNlVHlwZSI6IlByb2plY3QifSwic3RhdHVzIjoiYWN0aXZlIiwiaWQiOiJiZThlYTBjZC1jYzVhLTRlZmQtYTU1Zi00MzMyM2U4NTdhOTQiLCJpbmZvIjp7ImdvYWwiOiJkZXZlbG9wbWVudCIsImhvc3RpbmciOiJvbi1wcmVtaXNlcyIsImNvbW1lbnRzIjoiTGljZW5zZSB1c2VkIGZvciBsb2NhbCBkZXZlbG9wbWVudCBvZiBTYW5zYXJhKGFpZGJveCkgcHJvamVjdC4ifSwiaXNzdWVyIjoiaHR0cHM6Ly9haWRib3guYXBwIn0.ZTZ0csC6yK4FhLZ50W-k1og8YczJrnjeTni3lgyCvCEPg9yNngrENOkIknBd5aP490nJzytyP3Xj7bkPmS4-XLD2n37bD8TQNjcchA3AoKJEA3FdLWth4jsQ3NWw5nKdphqYgG-pkNC24nRuhQ64IN8rAAMPCfl1x6-pnYz5v40"
+  :fhir-version            "4.0.1"
+  :compliant-mode-enabled? true
+  :override-createdat-url "http://fhir.aidbox.app/extension/createdat"
+  :correct-aidbox-format   true
+  }
+
  test-box
  {:zen/tags #{aidbox/system}
+  :config   test-config
   :services {:http                 server
              :seed                 access-policies
              :seed-fixtures        smartbox.demo-fixtures/fixtures
@@ -239,7 +274,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
                :grant_types ["code" "basic" "client_credentials"]
                :auth
                {:authorization_code
-                {:audience ["https://hot-flowers-learn-5-226-156-235.loca.lt/smart"],
+                {:audience ["https://early-turkeys-smell-5-136-88-133.loca.lt/smart"],
                  :redirect_uri "https://touchstone.aegis.net/touchstone/oauth2/authcode/redirect",
                  :refresh_token true,
                  :access_token_expiration 300}}}
