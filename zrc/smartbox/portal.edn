@@ -25,7 +25,7 @@
 
  web-config
  {:zen/tags              #{aidbox.config/web}
-  :base-url              "https://slick-lamps-relate-5-136-88-133.loca.lt"
+  :base-url              "https://fruity-yaks-call-5-136-88-133.loca.lt"
   :port                  8765
   :thread                8
   :max-body              10000000
@@ -34,34 +34,83 @@
 
  db-config
  {:zen/tags #{aidbox.config/db}
-  :pool {:connection-timeout  30000
-         :idle-timeout        1000
-         :minimum-idle        2
-         :maximum-pool-size   30
-         :connection-init-sql "SELECT 1"}
+  :pool     {:connection-timeout  30000
+             :idle-timeout        1000
+             :minimum-idle        2
+             :maximum-pool-size   30
+             :connection-init-sql "SELECT 1"}
   :database "protobox"
-  :host "localhost"
-  :port 5436
-  :user "postgres"
+  :host     "localhost"
+  :port     "5436"
+  :user     "postgres"
   :password "postgres"}
+
+ search-config
+ {:zen/tags         #{aidbox.config/search}
+  :zen-fhir         :disable
+  :fhir-comparisons true
+  :default-params   {:timeout 30
+                     :total   "none"
+                     :count   100}
+  :chain {:subselect true}}
+
+ compatibility-config
+ {:zen/tags #{aidbox.config/compatibility}
+  :validation
+  {:json-schema
+   {:regex #{:fhir-datetime}}}
+  :auth
+  {:pkce
+   {:code-challenge
+    {:s256
+     {:conformant true}}}}}
+
+ auth-config
+ {:zen/tags #{aidbox.config/auth}
+  :grant-page-url "/smart-auth/grant"
+  :login-redirect "/ui/console"
+  :keys {:private ""
+         :public  ""
+         :secret  ""}
+  }
+
+ seed-config
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox/seed-v2
+  :resources
+  {:Client
+   {:root {:secret      "secret"
+           :first_party true
+           :grant_types ["client_credentials" "basic"]}}
+   :User
+   {:admin {:password "password"}}
+   :AccessPolicy
+   {:admin-policy {:engine "allow"
+                   :link   [{:resourceType "User" :id "admin"}
+                            {:resourceType "Client" :id "root"}]}}}}
 
  test-config
  {:zen/tags                #{aidbox.config/config}
   :web                     web-config
   :db                      db-config
-  #_#_:search                  search-config
+  :search                  search-config
+  :compatibility           compatibility-config
+  #_#_:auth                    auth-config
   :aidbox-license          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJvZmZsaW5lIjpmYWxzZSwia2V5Ijoib25saW5lLTIwMjIwNTI0LTE0MzY0NyIsIm5hbWUiOiJzYW5zYXJhLWRldi11c2VyIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDYtMTZUMTA6Mzg6NDAuNDA5WiIsInR5cGUiOiJkZXZlbG9wbWVudCIsImNyZWF0ZWQiOiIyMDIyLTA2LTE2VDEwOjM4OjQwLjQxMFoiLCJwcm9kdWN0IjoiYWlkYm94IiwicHJvamVjdCI6eyJpZCI6IjdmMDM3ZTQ4LWJjZTQtNDZkOC1iNTQ3LTU2OTNmYzk1NmUxZCIsInJlc291cmNlVHlwZSI6IlByb2plY3QifSwic3RhdHVzIjoiYWN0aXZlIiwiaWQiOiJiZThlYTBjZC1jYzVhLTRlZmQtYTU1Zi00MzMyM2U4NTdhOTQiLCJpbmZvIjp7ImdvYWwiOiJkZXZlbG9wbWVudCIsImhvc3RpbmciOiJvbi1wcmVtaXNlcyIsImNvbW1lbnRzIjoiTGljZW5zZSB1c2VkIGZvciBsb2NhbCBkZXZlbG9wbWVudCBvZiBTYW5zYXJhKGFpZGJveCkgcHJvamVjdC4ifSwiaXNzdWVyIjoiaHR0cHM6Ly9haWRib3guYXBwIn0.ZTZ0csC6yK4FhLZ50W-k1og8YczJrnjeTni3lgyCvCEPg9yNngrENOkIknBd5aP490nJzytyP3Xj7bkPmS4-XLD2n37bD8TQNjcchA3AoKJEA3FdLWth4jsQ3NWw5nKdphqYgG-pkNC24nRuhQ64IN8rAAMPCfl1x6-pnYz5v40"
   :fhir-version            "4.0.1"
   :compliant-mode-enabled? true
   :override-createdat-url "http://fhir.aidbox.app/extension/createdat"
   :correct-aidbox-format   true
+  :dev-mode                true
+  :stdout-pretty           true
+  :disable-legacy-seed     true
   }
 
  test-box
  {:zen/tags #{aidbox/system}
   :config   test-config
   :services {:http                 server
-             :seed                 access-policies
+             :seed                 seed-config #_access-policies
              :seed-fixtures        smartbox.demo-fixtures/fixtures
              :seed-inferno-clients inferno-clients
              :portal-patient-seed   smartbox.portal.patient.seed/resources
