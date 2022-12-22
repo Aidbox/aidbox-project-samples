@@ -25,7 +25,7 @@
 
  web-config
  {:zen/tags              #{aidbox.config/web}
-  :base-url              "https://fruity-yaks-call-5-136-88-133.loca.lt"
+  :base-url              "https://floppy-cloths-jam-5-136-88-133.loca.lt"
   :port                  8765
   :thread                8
   :max-body              10000000
@@ -39,12 +39,12 @@
              :minimum-idle        2
              :maximum-pool-size   30
              :connection-init-sql "SELECT 1"}
-  #_"To .env"
-  :database "protobox"
-  :host     "localhost"
-  :port     "5436"
-  :user     "postgres"
-  :password "postgres"}
+
+  :database #env PGDATABASEE
+  :host     #env PGHOST
+  :port     #env PGPORTE
+  :user     #env PGUSER
+  :password #env PGPASSWORD}
 
  search-config
  {:zen/tags         #{aidbox.config/search}
@@ -70,27 +70,27 @@
  {:zen/tags #{aidbox.config/auth}
   :grant-page-url "/smart-auth/grant"
   :login-redirect "/ui/console"
-  #_"To .env"
-  :keys {:private ""
-         :public  ""
-         :secret  ""}
-  }
+  :keys {:private #env AUTH_KEYS_PRIVATE
+         :public  #env AUTH_KEYS_PUBLIC
+         :secret  #env AUTH_KEYS_SECRET}}
 
  seed-config
  {:zen/tags #{aidbox/service}
   :engine   aidbox/seed-v2
   :resources
-  #_"Like aidbox-docker-compose"
   {:Client
-   {:root {:secret      "secret"
-           :first_party true
-           :grant_types ["client_credentials" "basic"]}}
+   {#env-keyword AIDBOX_CLIENT_ID
+    {:secret      #env AIDBOX_CLIENT_SECRET
+     :first_party true
+     :grant_types ["client_credentials" "basic"]}}
    :User
-   {:admin {:password "password"}}
+   {#env-keyword AIDBOX_ADMIN_ID
+    {:password #env AIDBOX_ADMIN_PASSWORD}}
    :AccessPolicy
-   {:admin-policy {:engine "allow"
-                   :link   [{:resourceType "User" :id "admin"}
-                            {:resourceType "Client" :id "root"}]}}}}
+   {:admin-policy
+    {:engine "allow"
+     :link   [{:resourceType "User" :id #env AIDBOX_ADMIN_ID}
+              {:resourceType "Client" :id #env AIDBOX_CLIENT_ID}]}}}}
 
  test-config
  {:zen/tags                #{aidbox.config/config}
@@ -100,8 +100,7 @@
   :compatibility           compatibility-config
   :auth                    auth-config
 
-  #_"To .env"
-  :aidbox-license          "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJvZmZsaW5lIjpmYWxzZSwia2V5Ijoib25saW5lLTIwMjIwNTI0LTE0MzY0NyIsIm5hbWUiOiJzYW5zYXJhLWRldi11c2VyIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDYtMTZUMTA6Mzg6NDAuNDA5WiIsInR5cGUiOiJkZXZlbG9wbWVudCIsImNyZWF0ZWQiOiIyMDIyLTA2LTE2VDEwOjM4OjQwLjQxMFoiLCJwcm9kdWN0IjoiYWlkYm94IiwicHJvamVjdCI6eyJpZCI6IjdmMDM3ZTQ4LWJjZTQtNDZkOC1iNTQ3LTU2OTNmYzk1NmUxZCIsInJlc291cmNlVHlwZSI6IlByb2plY3QifSwic3RhdHVzIjoiYWN0aXZlIiwiaWQiOiJiZThlYTBjZC1jYzVhLTRlZmQtYTU1Zi00MzMyM2U4NTdhOTQiLCJpbmZvIjp7ImdvYWwiOiJkZXZlbG9wbWVudCIsImhvc3RpbmciOiJvbi1wcmVtaXNlcyIsImNvbW1lbnRzIjoiTGljZW5zZSB1c2VkIGZvciBsb2NhbCBkZXZlbG9wbWVudCBvZiBTYW5zYXJhKGFpZGJveCkgcHJvamVjdC4ifSwiaXNzdWVyIjoiaHR0cHM6Ly9haWRib3guYXBwIn0.ZTZ0csC6yK4FhLZ50W-k1og8YczJrnjeTni3lgyCvCEPg9yNngrENOkIknBd5aP490nJzytyP3Xj7bkPmS4-XLD2n37bD8TQNjcchA3AoKJEA3FdLWth4jsQ3NWw5nKdphqYgG-pkNC24nRuhQ64IN8rAAMPCfl1x6-pnYz5v40"
+  :aidbox-license          #env AIDBOX_LICENSE
 
   :fhir-version            "4.0.1"
   :compliant-mode-enabled? true
