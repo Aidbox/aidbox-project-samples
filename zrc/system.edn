@@ -1,10 +1,10 @@
-{ns     smartbox.portal
+{ns     system
  import #{aidbox
-          smartbox.demo-fixtures}
+          fixtures}
 
  web-config
  {:zen/tags              #{aidbox.config/web}
-  :base-url              "https://floppy-cloths-jam-5-136-88-133.loca.lt"
+  :base-url              "https://vast-news-bet-5-136-88-133.loca.lt"
   :port                  8765
   :thread                8
   :max-body              10000000
@@ -93,4 +93,4 @@
  {:zen/tags #{aidbox/system}
   :config   zen-config
   :services {:seed                 seed-config
-             :seed-fixtures        smartbox.demo-fixtures/fixtures}}}
+             :seed-fixtures        fixtures/fixtures}}}

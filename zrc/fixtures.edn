@@ -1,4 +1,4 @@
-{ns smartbox.demo-fixtures
+{ns demo-fixtures
  import #{aidbox}
 
  fixtures
