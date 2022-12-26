@@ -4,7 +4,7 @@
 
  web-config
  {:zen/tags              #{aidbox.config/web}
-  :base-url              "https://vast-news-bet-5-136-88-133.loca.lt"
+  :base-url              #env AIDBOX_BASE_URL
   :port                  8765
   :thread                8
   :max-body              10000000
@@ -26,7 +26,7 @@
 
  search-config
  {:zen/tags         #{aidbox.config/search}
-  :zen-fhir         :disable
+  :zen-fhir         :enable
   :fhir-comparisons true
   :default-params   {:timeout 30
                      :total   "none"

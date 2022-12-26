@@ -1,4 +1,4 @@
-{ns demo-fixtures
+{ns fixtures
  import #{aidbox}
 
  fixtures
