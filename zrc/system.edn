@@ -18,9 +18,9 @@
              :maximum-pool-size   30
              :connection-init-sql "SELECT 1"}
 
-  :database #env PGDATABASEE
+  :database #env PGDATABASE
   :host     #env PGHOST
-  :port     #env PGPORTE
+  :port     #env PGPORT
   :user     #env PGUSER
   :password #env PGPASSWORD}
 
