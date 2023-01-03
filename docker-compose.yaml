@@ -11,8 +11,8 @@ services:
       POSTGRES_PASSWORD: "${PGPASSWORD}"
       POSTGRES_DB:       "${PGDATABASE}"
 
-  devbox:
-    image: "healthsamurai/devbox:edge"
+  aidbox:
+    image: "healthsamurai/aidboxone:edge"
     pull_policy: always
     depends_on: ["aidboxdb"]
     restart: on-failure
