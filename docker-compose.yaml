@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   aidboxdb:
-    image: "healthsamurai/aidboxdb:13.2"
+    image: "healthsamurai/aidboxdb:14.5"
     pull_policy: always
     restart: on-failure:5
     volumes:
