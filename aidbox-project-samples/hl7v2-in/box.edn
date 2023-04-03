@@ -12,18 +12,5 @@
 
  box
  {:zen/tags #{aidbox/system}
-  :services {:http server
-             :seed access-policy-seed}}
-
- HL7v2demo
- {:zen/tags     #{zen/schema zenbox/persistent}
-  :zen/desc     "Store messages requested by user."
-  :resourceType "HL7v2demo"
-  :type         zen/map
-  :confirms     #{zenbox/Resource}
-  :require      #{:message}
-  :keys         {:message {:type   zen/string}
-                 :result  {:type   zen/any}
-                 :public  {:type   zen/boolean}
-                 :name    {:type   zen/string}}}
+  :services {:http server}}
 }

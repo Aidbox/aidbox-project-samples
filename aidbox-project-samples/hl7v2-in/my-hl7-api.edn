@@ -7,7 +7,7 @@
  adt-in
  {:zen/tags #{aidbox.rest/op}
   :engine           hl7v2.api/in-op
-  :mapping          my-mappings/adt-fhir-mapping
+  :mapping          my-mappings/patient-fhir-mapping
   :parser-config    hl7v2.config/default-config
   }
 

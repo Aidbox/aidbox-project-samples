@@ -1,4 +1,4 @@
-{ns my-hl7-api
+{ns my-mappings
  import #{hl7v2.api}
 
  patient-fhir-mapping
