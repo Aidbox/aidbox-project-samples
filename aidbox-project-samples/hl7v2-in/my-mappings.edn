@@ -11,6 +11,12 @@
 
                       :resource {:resourceType "Patient"
 
+                                 :extension
+                                 [(when (get-in [:parsed :message :proc_id :id]) {:url "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+                                                                                  :extension (for [i (get-in [:parsed :patient_group :patient :race])]
+                                                                                               {:url "text"
+                                                                                                :valueCoding (select-keys i [:display :system :code])})} )]
+
                                  :identifier   (for [i (get-in [:parsed :patient_group :patient :identifier])]
                                                  (select-keys i [:value :system :type]))
 
@@ -19,7 +25,7 @@
 
                                  :birthDate    (get-in [:parsed :patient_group :patient :birthDate])
 
-                                 :gender       (get-in [:parsed :patient_group :patient :gender])
+                                 :gender       {:code (get-in [:parsed :patient_group :patient :gender])}
 
                                  :address      (for [i (get-in [:parsed :patient_group :patient :address])]
                                                  (select-keys i [:line :city :state :postalCode :country]))
