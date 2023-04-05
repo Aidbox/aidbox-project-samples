@@ -11,12 +11,6 @@
 
                       :resource {:resourceType "Patient"
 
-                                 :extension
-                                 [{:url "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
-                                   :extension (for [i (get-in [:parsed :patient_group :patient :race])]
-                                                {:url "text"
-                                                 :valueCoding (select-keys i [:display :system :code])})}]
-
                                  :identifier   (for [i (get-in [:parsed :patient_group :patient :identifier])]
                                                  (select-keys i [:value :system :type]))
 
