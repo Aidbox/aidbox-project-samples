@@ -1,0 +1,18 @@
+{ns box
+ import #{zenbox
+          aidbox
+          operation}
+
+ api
+ {:zen/tags #{aidbox.rest/api}
+  "fitbit" {"map-to-fhir" {:POST operation/map-to-fhir}}}
+
+ server
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox/http
+  :apis     #{api}}
+
+ box
+ {:zen/tags #{aidbox/system}
+  :services {:http server}}
+ }

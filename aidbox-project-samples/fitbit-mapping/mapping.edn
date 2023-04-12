@@ -1,0 +1,27 @@
+{ns mapping
+ import #{lisp}
+
+ my-mapping
+ {:zen/tags #{lisp/mapping}
+  :mapping  {:resourceType "Bundle"
+             :type "transaction"
+             :entry [{:resource {:resourceType "Patient"}
+                      :request {:method "PUT"
+                                :url "/Patient/zero"}}
+
+                     {:resource {:resourceType "Observation"
+                                 :status "final"
+                                 :code {:coding [{:system "http://loinc.org"
+                                                  :code "8867-4"
+                                                  :display "Respiratory rate"}]
+                                        :text "Breathing Rate"}
+                                 :subject {:reference "Patient/zero"}
+                                 :effectiveDateTime (get-in [:br 0 :dateTime]),
+                                 :valueQuantity   {
+                                                   :value (get-in [:br 0 :value :breathingRate]),
+                                                   :unit "breaths/minute",
+                                                   :system "http://unitsofmeasure.org",
+                                                   :code "/min"}}
+                      :request {:method "POST"
+                                :url "/Observation"}}]}}
+ }
