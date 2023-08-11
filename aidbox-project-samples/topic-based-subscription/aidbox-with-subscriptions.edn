@@ -26,7 +26,6 @@
  box
  {:zen/tags #{aidbox/system}
   :zen/desc "box for topic test"
-  :services {:patient-topic-srv patient-topic-srv
-             :practitioner-topic-srv practitioner-topic-srv}}
+  :services {:patient-topic-srv patient-topic-srv}}
 
  }
