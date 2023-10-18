@@ -1,0 +1,28 @@
+{ns     main
+ import #{aidbox
+          aidbox.telemetry.metrics
+          aidbox.telemetry.trace
+          aidbox.log
+          config}
+ 
+ box
+ {:zen/tags #{aidbox/system}
+  :config   config/base-config
+  :services {:admin-user-seed              config/admin-user-seed
+             :root-client-seed             config/root-client-seed
+             :open-telemetry-logs-appender open-telemetry-logs-appender}}
+
+ open-telemetry-logs-appender
+ {:zen/tags #{aidbox/service}
+  :engine   aidbox.log/open-telemetry-appender
+  :config   {:url "http://otel-collector:4318/v1/logs"}}
+
+ open-telemetry-metrics-exporter
+ {:zen/tags #{aidbox.telemetry.metrics/otlp-exporter}
+  :url      "http://otel-collector:4318/v1/metrics"
+  :period   5 #_ "sec"}
+
+ otel-trace-exporter
+ {:zen/tags #{aidbox.telemetry.trace/exporter}
+  :engine   aidbox.telemetry.trace/otlp-exporter
+  :url      "http://otel-collector:4318/v1/traces"}}

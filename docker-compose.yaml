@@ -1,33 +1,116 @@
 version: '3.7'
 services:
-  aidboxdb:
-    image: "healthsamurai/aidboxdb:14.5"
+  aidbox-db:
+    image: healthsamurai/aidboxdb:15.3
     pull_policy: always
-    restart: on-failure:5
+    ports:
+      - "${PGHOSTPORT}:5432"
     volumes:
-    - "./pgdata:/data"
+      - "./pgdata:/data"
     environment:
       POSTGRES_USER:     "${PGUSER}"
       POSTGRES_PASSWORD: "${PGPASSWORD}"
       POSTGRES_DB:       "${PGDATABASE}"
 
   aidbox:
-    image: "healthsamurai/aidboxone:edge"
+    image: healthsamurai/aidboxone:edge
     pull_policy: always
-    depends_on: ["aidboxdb"]
-    restart: on-failure
+    depends_on: ["aidbox-db"]
+    command: ["sleep", "99999"]
     ports:
-      - "8888:8888"
+      - "${AIDBOX_PORT}:${AIDBOX_PORT}"
+    volumes:
+      - "./zrc:/aidbox-project/zrc"
+      - "./zen-package.edn:/aidbox-project/zen-package.edn"
+      - "./zen-packages:/aidbox-project/zen-packages"
     env_file:
       - .env
     environment:
-      PGHOST: "aidboxdb"
-      PGPORT: "5432"
-      AIDBOX_PORT: "8888"
-      AIDBOX_FHIR_VERSION: "4.0.1"
-      AIDBOX_ZEN_PROJECT: "/aidbox-project"
-      AIDBOX_ZEN_ENTRY: "core"
-      AIDBOX_ZEN_DEV_MODE: "ok"
-      AIDBOX_COMPLIANCE: "enabled" # NOTE: remove it when constructor api generates compliant capabilitystatement
+      BOX_PROJECT_GIT_TARGET__PATH: /aidbox-project
+      AIDBOX_ZEN_ENTRYPOINT: main/box
+      AIDBOX_DEV_MODE: "true"
+      PGPORT: 5432
+      PGHOST: aidbox-db
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.84.0
+    restart: unless-stopped
     volumes:
-      - "./aidbox-project:/aidbox-project"
+    - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+    - 1888:1888 # pprof extension
+    - 18888:8888 # Prometheus metrics exposed by the collector
+    - 18889:8889 # Prometheus exporter metrics
+    - 13133:13133 # health_check extension
+    - 4317:4317 # OTLP gRPC receiver
+    - 4318:4318 # OTLP http receiver
+    - 55679:55679 # zpages extension
+
+  # Logging
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.1
+    volumes:
+      - ./elastic-data:/usr/share/elasticsearch/data
+    environment:
+      - cluster.name=aidbox
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+
+  kibana:
+    depends_on:
+      - "es"
+    links:
+      - "es:es"
+    image: docker.elastic.co/kibana/kibana:8.9.1
+    ports:
+      - "5602:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://es:9200
+
+  # Metrics
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    env_file:
+      - .env
+    environment:
+      V: 'v5'
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/:/etc/prometheus/:cached
+      - ./prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  grafana:
+    environment:
+      V: 'v5'
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_SECURITY_COOKIE_SECURITY: "true"
+      GF_SECURITY_COOKIE_SAMESITE: "none"
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+      # - ./grafana/provisioning:/etc/grafana/provisioning:cached
+      - ./grafana/datasources:/etc/grafana/datasources:cached
+    image: grafana/grafana:8.3.0
+    ports:
+      - 3001:3000
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
