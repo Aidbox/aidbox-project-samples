@@ -73,8 +73,8 @@ data:
     exporters:
       logging: {loglevel: debug}
       otlp/elastic:
-        endpoint: 1c69d21d51944722aee570f85d72b35b.apm.us-central1.gcp.cloud.es.io:443
-        headers: {Authorization: Bearer 25h3R1HYRZBtBLwVnf}
+        endpoint: <APM_URL>
+        headers: {Authorization: Bearer <TOKEN>}
     service:
       pipelines:
         traces:
