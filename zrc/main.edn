@@ -15,14 +15,14 @@
  open-telemetry-logs-appender
  {:zen/tags #{aidbox/service}
   :engine   aidbox.log/open-telemetry-appender
-  :config   {:url "http://otel-collector:4318/v1/logs"}}
+  :config   {:url #env AIDBOX_OTLP_LOG_URL}}
 
  open-telemetry-metrics-exporter
  {:zen/tags #{aidbox.telemetry.metrics/otlp-exporter}
-  :url      "http://otel-collector:4318/v1/metrics"
-  :period   5 #_ "sec"}
+  :url      #env AIDBOX_OTLP_METRICS_URL
+  :period   5 #_"sec"}
 
  otel-trace-exporter
  {:zen/tags #{aidbox.telemetry.trace/exporter}
   :engine   aidbox.telemetry.trace/otlp-exporter
-  :url      "http://otel-collector:4318/v1/traces"}}
+  :url      #env AIDBOX_OTLP_TRACE_URL}}
