@@ -1,0 +1,88 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  namespace: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: otel-collector
+  template:
+    metadata:
+      labels:
+        service: otel-collector
+    spec:
+      volumes:
+        - name: otel-collector-otel-config
+          configMap:
+            name: otel-collector-otel-config
+            defaultMode: 511
+      containers:
+        - name: main
+          image: otel/opentelemetry-collector-contrib:0.84.0
+          ports:
+            - containerPort: 1888
+              protocol: TCP
+            - containerPort: 8888
+              protocol: TCP
+            - containerPort: 8889
+              protocol: TCP
+            - containerPort: 13133
+              protocol: TCP
+            - containerPort: 4317
+              protocol: TCP
+            - containerPort: 4318
+              protocol: TCP
+            - containerPort: 55679
+              protocol: TCP
+          env:
+            - name: files_version
+              value: ve2cd123f
+          resources: {}
+          volumeMounts:
+            - name: otel-collector-otel-config
+              mountPath: /etc/otelcol-contrib
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-otel-config
+  namespace: otel-collector
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols: {http: null}
+    exporters:
+      logging: {loglevel: debug}
+      otlp/elastic:
+        endpoint: 1c69d21d51944722aee570f85d72b35b.apm.us-central1.gcp.cloud.es.io:443
+        headers: {Authorization: Bearer 25h3R1HYRZBtBLwVnf}
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          exporters: [otlp/elastic]
+        metrics:
+          receivers: [otlp]
+          exporters: [logging, otlp/elastic]
+        logs:
+          receivers: [otlp]
+          exporters: [otlp/elastic]

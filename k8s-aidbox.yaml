@@ -1,0 +1,149 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aidbox
+  namespace: aidbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: aidbox
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        service: aidbox
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: aidbox
+        - secretRef:
+            name: aidbox
+        image: healthsamurai/aidboxone:edge
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 12
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: main
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8765
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 10
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aidbox
+  namespace: aidbox
+data:
+  AIDBOX_BASE_URL: http://localhost:8080
+  AIDBOX_DEV_MODE: 'true'
+  AIDBOX_OTLP_LOGS_URL: http://otel-collector-otlp-http-receiver.otel-collector/v1/logs
+  AIDBOX_OTLP_METRICS_URL: http://otel-collector-otlp-http-receiver.otel-collector/v1/metrics
+  AIDBOX_OTLP_TRACES_URL: http://otel-collector-otlp-http-receiver.otel-collector/v1/traces
+  AIDBOX_PORT: '8080'
+  AIDBOX_ZEN_DEV_MODE: 'true'
+  AIDBOX_ZEN_ENTRYPOINT: main/box
+  BOX_AUTH_KEYS_PRIVATE: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIICXAIBAAKBgQCRLKv0n9HPsajw3wcDH1k5DUSPPdKjxqp8h4OZKiG3wGEFYXi9
+    fxBbpkQXjxGEmORi8UR4aM41kX8dd4SdMRGS1VX2AMgLEAFq354MpGBPIeJyv00y
+    qV6wW0HT58+Nh+xdridDFSHkkplJFjDuQbYjfQzbSNECA31ME/GI9rGomQIDAQAB
+    AoGAEYGytFecCnjtC6wHiVK71JeTIZd12fJsj4MbhWpJYeJxCMAz+l0S7MxweGtU
+    NFpoKz7XUBJqcJcMvlHSBA89ZDobp3HS0R8ZDcdxossNRio3Ix1bRG7Pxnhs3R/T
+    sOxlrQSgnSbg1k6M5iVSZt1ptCwch+ZLG37tD3ZvdAN0LCECQQC0IFiPJJEPauUi
+    eKmW4oUgBvOUVA93EqnBiv9lzk7UxrPgusFqnY02qJouDNvXXso6+FM8u9DNxSvw
+    HPIuqJvhAkEAzlNYaJzoInkCS5PYTGg2f1GqRih9WHj8NUukfgbO61xT9QscM6An
+    +RF8dfshU2zuaQFLTBPWrS0Nk0ZOxLFjuQJAZ4gz/sqwyiDR5RdfuscmZ3s3ZClQ
+    3ksO4ZzoIXcMnoY7e888PvCh6ynLvO5NKiRkrrJu/XiikrNjBtdMaH8nYQJADkCF
+    l9xW0KLJPM0+oLCGKy9J8sSzO9xHl6rc9vOjcXCUQBX/YbWLbVH+5ett9uRMZ6Z2
+    PBAWwSmeiXDO2hliyQJBAI/7Gtzf1Z2O5pDgNMLkKcyX4BqsHFKFSD5Btb/zReEq
+    Tsr6vTvzucjJcS8843vgyhIUDtW2cu7G9BGxSfsZNCw=
+    -----END RSA PRIVATE KEY-----
+  BOX_AUTH_KEYS_PUBLIC: |
+    -----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCRLKv0n9HPsajw3wcDH1k5DUSP
+    PdKjxqp8h4OZKiG3wGEFYXi9fxBbpkQXjxGEmORi8UR4aM41kX8dd4SdMRGS1VX2
+    AMgLEAFq354MpGBPIeJyv00yqV6wW0HT58+Nh+xdridDFSHkkplJFjDuQbYjfQzb
+    SNECA31ME/GI9rGomQIDAQAB
+    -----END PUBLIC KEY-----
+  BOX_AUTH_KEYS_SECRET: auth-key-secret
+  BOX_INSTANCE_NAME: dev
+  BOX_METRICS_PORT: '8765'
+  BOX_PROJECT_GIT_CHECKOUT: aidbox-observability
+  BOX_PROJECT_GIT_PROTOCOL: https
+  BOX_PROJECT_GIT_TARGET__PATH: /tmp/aidbox-project
+  BOX_PROJECT_GIT_URL: https://github.com/Aidbox/aidbox-project-samples.git
+  PGDATABASE: aidbox
+  PGHOST: db-db.postgres.svc.cluster.local
+  PGPORT: '5432'
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: aidbox
+  namespace: aidbox
+data:
+  AIDBOX_ADMIN_ID: YWRtaW4=
+  AIDBOX_ADMIN_PASSWORD: cGFzc3dvcmQ=
+  AIDBOX_CLIENT_ID: YWRtaW4=
+  AIDBOX_CLIENT_SECRET: c2VjcmV0
+  AIDBOX_LICENSE: >-
+    ZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnZabVpzYVc1bElqcG1ZV3h6WlN3aVkzSmxZWFJ2Y2lJNmV5SnBaQ0k2SWpObVpHTXdZak5oTFRSbU4yUXROR0V5TkMxaU1qZ3hMVGxrTW1VMk1qQTVZV0UyTkNJc0luSmxjMjkxY21ObFZIbHdaU0k2SWxWelpYSWlmU3dpYTJWNUlqb2liMjVzYVc1bExUSXdNakl3TlRJMExURTBNelkwTnlJc0ltNWhiV1VpT2lKaGFXUmliM2dpTENKbGVIQnBjbUYwYVc5dUlqb2lNakE1TUMwd05pMHhORlF3TURvd01Eb3dNQzR3TURCYUlpd2lkSGx3WlNJNkluTjBZVzVrWVhKa0lpd2lZM0psWVhSbFpDSTZJakl3TWpNdE1EVXRNekZVTVRZNk5EUTZNVFV1T0RFM1dpSXNJbTFoZUMxcGJuTjBZVzVqWlhNaU9qRXNJbkJ5YjJSMVkzUWlPaUpoYVdSaWIzZ2lMQ0p3Y205cVpXTjBJanA3SW1sa0lqb2lOMlkyT0dObU5qTXROekppWmkwMFlUQmxMVGhsTXpBdE5qazNZMk00TURrMU56Z3lJaXdpY21WemIzVnlZMlZVZVhCbElqb2lVSEp2YW1WamRDSjlMQ0p6ZEdGMGRYTWlPaUpoWTNScGRtVWlMQ0pwWkNJNklqSXlZV0ZqWVdVNUxUaG1OalV0TkRkaU1TMWlZbVU1TFROaVpUSm1Oemd6WldaalpDSXNJbWx1Wm04aU9uc2lhRzl6ZEdsdVp5STZJbk5sYkdZdGFHOXpkR1ZrSW4wc0ltbHpjM1ZsY2lJNkltaDBkSEJ6T2k4dllXbGtZbTk0TG1Gd2NDSjkuWF9keHpfd1ZCMzJBSDlLdXJla2NRcmpVWEdJa0R2R3dweTdEQndnb3BINzVOc3ZXTWlRVWRlRE93UTZRM1Nmc3FMaUZHQldseFkxdWJrdF9FUGdTckRVSnBiRDRSU1hGTzVuUEVRM0QtVkxYc0tQZUhWMGZheWNPU1lrVDQ5SENnRzBiVTBIRGZHb2RyeGYyYzNDNEtIYktxVEJqNndsSjEwdlhKZU5hNUhv
+  PGPASSWORD: cGFzc3dvcmQ=
+  PGUSER: cG9zdGdyZXM=
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aidbox-api
+  namespace: aidbox
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    service: aidbox
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aidbox-metrics
+  namespace: aidbox
+  labels:
+    operated: prometheus
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8765
+  selector:
+    service: aidbox
+  type: ClusterIP
