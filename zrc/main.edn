@@ -15,7 +15,7 @@
  open-telemetry-logs-appender
  {:zen/tags #{aidbox/service}
   :engine   aidbox.log/open-telemetry-appender
-  :config   {:url #env AIDBOX_OTLP_LOG_URL}}
+  :config   {:url #env AIDBOX_OTLP_LOGS_URL}}
 
  open-telemetry-metrics-exporter
  {:zen/tags #{aidbox.telemetry.metrics/otlp-exporter}
@@ -25,4 +25,4 @@
  otel-trace-exporter
  {:zen/tags #{aidbox.telemetry.trace/exporter}
   :engine   aidbox.telemetry.trace/otlp-exporter
-  :url      #env AIDBOX_OTLP_TRACE_URL}}
+  :url      #env AIDBOX_OTLP_TRACES_URL}}
