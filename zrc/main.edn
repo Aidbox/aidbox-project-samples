@@ -3,11 +3,13 @@
           aidbox.telemetry.metrics
           aidbox.telemetry.trace
           aidbox.log
-          config}
+          config
+          aidbox.audit-record-repository}
  
  box
  {:zen/tags #{aidbox/system}
   :config   config/base-config
+  :audit {:storage "AuditEvent"}
   :services {:admin-user-seed              config/admin-user-seed
              :root-client-seed             config/root-client-seed
              :open-telemetry-logs-appender open-telemetry-logs-appender}}
