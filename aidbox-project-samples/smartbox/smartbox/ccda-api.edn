@@ -1,0 +1,16 @@
+{ns smartbox.ccda-api
+ import #{aidbox.rest
+          aidbox.rest.smart
+          aidbox.rest.v1}
+
+ root-api
+ {:zen/tags #{aidbox.rest/api}
+  "make-doc"       {:POST {:engine aidbox.rest.v1/aidbox-action
+                           :zen/desc "Search the resource based on some filter criteria. See documentation at: https://www.hl7.org/fhir/http.html#search"
+                           :action :ccda.endpoints/make-doc}
+                    :GET {:engine aidbox.rest.v1/aidbox-action
+                          :action :ccda.endpoints/make-doc}}}
+
+ 
+
+ }

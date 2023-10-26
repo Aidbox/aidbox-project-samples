@@ -578,6 +578,13 @@
   :engine   aidbox.rest.v1/aidbox-action
   :action   :smart.fhir/capability}
 
+ ccda-makedoc-op
+ {:zen/tags #{aidbox.rest/op aidbox.rest.smart/public}
+  :zen/desc "Get Patient data as C-CDA document"
+  :engine   aidbox.rest.v1/aidbox-action
+  :action   :ccda.endpoints/make-doc}
+
+ 
  style-smart-op
  {:zen/tags #{aidbox.rest/op}
   :zen/desc "EHR’s style parameters can be retrieved"

@@ -4,6 +4,7 @@
           smartbox.demo-fixtures
           smartbox.smart-api
           smartbox.bulk-api
+          smartbox.ccda-api
           smartbox.multi-tenant-bulk-api
 
           smartbox.documentation
@@ -289,7 +290,7 @@ and ({{request-method}} in ('get', 'delete'))"}}
 
   "admin" {"portal" {:GET portal-ui}}
 
-  "tenant" {[:tenant] {
+  "tenant" {[:tenant] {"ccda" {:apis #{smartbox.ccda-api/root-api}}
                        "patient-portal" {:GET {:engine   aidbox.rest.v1/aidbox-action
                                                :action   :box.rest.smart/smartbox-ui
                                                :ui-type  "patient-portal"
@@ -394,7 +395,8 @@ and ({{request-method}} in ('get', 'delete'))"}}
                                                   ;; FIXME: find proper way to propagate params
                                                   :grant-redirect ["tenant" [:request :route-params :tenant] "auth" "grant"]
                                                   :login-redirect ["tenant" [:request :route-params :tenant] "auth" "login"]}}}}
-            "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}}
+            "bulk-api" {:apis #{smartbox.multi-tenant-bulk-api/root-api}}
+            }
 
   "smart" {:GET service-base-urls-page
            :apis #{smartbox.smart-api/smart-api
